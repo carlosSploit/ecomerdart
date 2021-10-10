@@ -212,7 +212,7 @@ class analiticbody extends State<analiticview> {
                                                 xValueMapper: (Analitic data, _) => ("id : "+ data.getdatosex.getidpro.toString() + " -  Cantidad : " + data.getdatosex.getstock.toString()),
                                                 yValueMapper: (Analitic data, _) => data.getdatosex.getstock,
                                                 cornerStyle: CornerStyle.bothFlat,
-                                                dataLabelSettings: DataLabelSettings(isVisible: true),
+                                                //dataLabelSettings: DataLabelSettings(isVisible: true),
                                                 enableTooltip: true,
                                                 maximumValue: 10)
                                           ],
@@ -312,7 +312,7 @@ class analiticbody extends State<analiticview> {
                                               xValueMapper: (Analitic data, _) => ("id : "+ data.getdatosex.getidpro.toString() + " -  ganacia : " + data.getganan.toString()),
                                               yValueMapper: (Analitic data, _) => data.getganan,
                                               cornerStyle: CornerStyle.bothFlat,
-                                              dataLabelSettings: DataLabelSettings(isVisible: true),
+                                              //dataLabelSettings: DataLabelSettings(isVisible: true),
                                               //enableTooltip: true,
                                               maximumValue: 10)
                                         ],
