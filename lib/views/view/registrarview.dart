@@ -1,13 +1,14 @@
 //import 'package:ecomersbaic/Cache.dart';
 import 'dart:ui';
-import 'package:ecomersbaic/controllers/cliente.dart';
-import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'package:ecomersbaic/negocio/usuarios_negocio.dart';
-import 'package:ecomersbaic/negocio/cliente_negocio.dart';
-import 'package:ecomersbaic/views/components/mensajealert.dart';
+import '../../config/configinterface.dart';
+import '../../controllers/cliente.dart';
+import '../../controllers/datosuser.dart';
+import '../../negocio/usuarios_negocio.dart';
+import '../../negocio/cliente_negocio.dart';
+import '../../views/components/mensajealert.dart';
 import 'package:flutter/material.dart';
-import 'package:ecomersbaic/bdcache.dart';
-import 'package:ecomersbaic/main.dart';
+import '../../config/bdcache.dart';
+import '../../main.dart';
 
 // ignore: camel_case_types
 class registrarview extends StatefulWidget {
@@ -23,6 +24,7 @@ class registrarbody extends State<registrarview> {
   TextEditingController pass = TextEditingController(text: "");
   UsuarioNegocio? usres;
   ClienteNegocio? clres;
+  late configinterface config;
   // ignore: non_constant_identifier_names
   int IndexInterRegis = 0;
 
@@ -68,6 +70,7 @@ class registrarbody extends State<registrarview> {
     clres = ClienteNegocio();
     //####################################
     _context = context;
+    config = configinterface(context);
     //ScrollController _scrollController = ScrollController();
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     //inicializar();
@@ -90,7 +93,7 @@ class registrarbody extends State<registrarview> {
                           child: Text(
                             "Registrate",
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: config.getsizeaproxhight(30),
                               fontWeight: FontWeight.w800,
                               color: Colors.grey.withOpacity(0.8),
                             ),
@@ -104,6 +107,7 @@ class registrarbody extends State<registrarview> {
                             laberlrecoment[IndexInterRegis],
                             textAlign: TextAlign.center,
                             style: TextStyle(
+                              fontSize: config.getsizeaproxhight(14),
                               color: Colors.grey.withOpacity(0.8),
                             ),
                           ),
@@ -184,7 +188,7 @@ class registrarbody extends State<registrarview> {
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    height: 40,
+                    height: config.getsizeaproxhight(40),
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -324,6 +328,7 @@ class registrarbody extends State<registrarview> {
                                 child: Text(
                                   "Continuar",
                                   style: TextStyle(
+                                    fontSize: config.getsizeaproxhight(14),
                                     color: Colors.white,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -352,6 +357,7 @@ class registrarbody extends State<registrarview> {
                             child: Text(
                               "¿Ya tienes una cuenta?. Inicia Secion",
                               style: TextStyle(
+                                fontSize: config.getsizeaproxhight(14),
                                 color: Colors.grey.withOpacity(0.8),
                               ),
                             ),
@@ -406,7 +412,7 @@ class registrarbody extends State<registrarview> {
           ),
           Expanded(
             child: Container(
-              height: 60,
+              height: config.getsizeaproxhight(60),
               //color: Colors.amber,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -424,7 +430,7 @@ class registrarbody extends State<registrarview> {
                     child: Expanded(
                       child: Container(
                         child: Container(
-                          height: 40,
+                          height: config.getsizeaproxhight(40),
                           child: Row(
                             children: <Widget>[
                               Expanded(
@@ -435,7 +441,7 @@ class registrarbody extends State<registrarview> {
                                     keyboardType: (inx == 1)
                                         ? TextInputType.number
                                         : TextInputType.text,
-                                    style: TextStyle(fontSize: 15),
+                                    style: TextStyle(fontSize: config.getsizeaproxhight(15),),
                                     controller: this._listcontroler[inx],
                                     decoration: InputDecoration(
                                         border: InputBorder.none,

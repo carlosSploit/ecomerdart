@@ -1,4 +1,4 @@
-import 'package:ecomersbaic/repository/califipro_repositorio.dart';
+import '../repository/califipro_repositorio.dart';
 
 class CalifiproNegocio {
   CalifiproRepositorio respo = CalifiproRepositorio();

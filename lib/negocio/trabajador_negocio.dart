@@ -1,6 +1,6 @@
-import 'package:ecomersbaic/repository/trabajador_repositorio.dart';
+import '../repository/trabajador_repositorio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:ecomersbaic/controllers/trabajador.dart';
+import '../controllers/trabajador.dart';
 
 class TrabajadorNegocio {
   TrabajadorRepositorio respo = TrabajadorRepositorio();

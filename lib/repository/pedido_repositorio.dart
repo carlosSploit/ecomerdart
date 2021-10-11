@@ -1,7 +1,7 @@
-import 'package:ecomersbaic/repository/repository.dart';
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/controllers/Pedido.dart';
-import 'package:ecomersbaic/controllers/detalle_vent.dart';
+import '../repository/repository.dart';
+import '../config/Cache.dart';
+import '../controllers/Pedido.dart';
+import '../controllers/detalle_vent.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

@@ -1,10 +1,13 @@
 import 'dart:ui';
-import 'package:ecomersbaic/bdcache.dart';
-import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'package:ecomersbaic/main.dart';
-import 'package:ecomersbaic/views/view/mainpedidoview.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ecomersbaic/negocio/usuarios_negocio.dart';
+import '../../config/configinterface.dart';
+import '../../config/bdcache.dart';
+import '../../controllers/datosuser.dart';
+import '../../main.dart';
+import '../../views/view/mainpedidoview.dart';
+import '../../negocio/usuarios_negocio.dart';
+import '../../views/components/mensajealert.dart';
 
 // ignore: camel_case_types
 class loginView extends StatefulWidget {
@@ -19,6 +22,7 @@ class loginbody extends State<loginView> {
   String usser = "";
   String pass = "";
   UsuarioNegocio? usres;
+  late configinterface config;
 
   loginbody();
   @override
@@ -26,6 +30,7 @@ class loginbody extends State<loginView> {
     // ignore: unused_local_variable
     Size size = MediaQuery.of(context).size;
     usres = UsuarioNegocio();
+    config = configinterface(context);
     //####################################
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     //inicializar();
@@ -37,7 +42,7 @@ class loginbody extends State<loginView> {
           child: Align(
             alignment: Alignment.center,
             child: Container(
-              padding: EdgeInsets.fromLTRB(20, 25, 20, 25),
+              padding: EdgeInsets.fromLTRB(10, 25, 10, 25),
               margin: EdgeInsets.fromLTRB(50, 0, 50, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -45,8 +50,8 @@ class loginbody extends State<loginView> {
                   (!isKeyboard)
                       ? InkWell(
                           child: Container(
-                            width: 150,
-                            height: 150,
+                            width: config.getsizeaproxhight(150),
+                            height: config.getsizeaproxhight(150),
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: Image.asset("src/logo.jpg").image)),
@@ -59,13 +64,13 @@ class loginbody extends State<loginView> {
                     child: Text(
                       "Iniciar Secion",
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: config.getsizeaproxhight(30),
                         fontWeight: FontWeight.w800,
                         color: Colors.grey.withOpacity(0.8),
                       ),
                     ),
                   ),
-                  Container(
+                 if (!isKeyboard) Container(
                     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: Text(
                       "Coloca tu usuario y tu contraseña para iniciar con la secion",
@@ -77,14 +82,16 @@ class loginbody extends State<loginView> {
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    height: 40,
+                    height: config.getsizeaproxhight(40),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                           child: Container(
                             margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                             child: TextFormField(
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(fontSize: config.getsizeaproxhight(14),),
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -108,15 +115,18 @@ class loginbody extends State<loginView> {
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    height: 40,
+                    height: config.getsizeaproxhight(40),
                     child: Row(
                       children: <Widget>[
                         Expanded(
                           child: Container(
                             margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                             child: TextFormField(
-                              style: TextStyle(fontSize: 15),
-                              keyboardType: TextInputType.text,
+                              style: TextStyle(fontSize: config.getsizeaproxhight(14),),
+                              obscureText: true,
+                              enableSuggestions: false,
+                              autocorrect: false,
+
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: 'Escribe tu password',
@@ -139,7 +149,7 @@ class loginbody extends State<loginView> {
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    height: 40,
+                    height: config.getsizeaproxhight(40),
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -149,16 +159,16 @@ class loginbody extends State<loginView> {
                                 .read({"usser": usser, "pass": pass});
                             if (dat.getiduser != 0) {
                               await bd.update(dat.toJson());
-                              print("inicio secion el usuario");
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyApp()),
-                              );
+                              context,
+                              MaterialPageRoute(
+                                     builder: (context) => MyApp()),
+                               );
                               this.usser = "";
                               this.pass = "";
                             } else {
-                              print("no se a logrado iniciar secion");
+                              mensajealert().customShapeSnackBar(
+                                  context, "Error a iniciar seccion", "R");
                             }
                           },
                           child: Container(
@@ -168,6 +178,7 @@ class loginbody extends State<loginView> {
                               child: Text(
                                 "Iniciar secion",
                                 style: TextStyle(
+                                  fontSize: config.getsizeaproxhight(14),
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -192,12 +203,16 @@ class loginbody extends State<loginView> {
                     },
                     child: Container(
                       margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                      child: Text(
-                        "¿No estas registrado?. Registrate",
-                        style: TextStyle(
-                          color: Colors.grey.withOpacity(0.8),
+                      child: Expanded(
+                        child: Text(
+                          "¿No estas registrado?. Registrate",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(fontSize: config.getsizeaproxhight(14),
+                            color: Colors.grey.withOpacity(0.8),
+                          ),
                         ),
-                      ),
+                      )
                     ),
                   ),
                 ],

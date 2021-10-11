@@ -1,6 +1,7 @@
+import '../../../config/configinterface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/views/pedidosview/view/mainpedidoview.dart';
+import '../../../views/pedidosview/view/mainpedidoview.dart';
 
 // ignore: camel_case_types, must_be_immutable
 class pedidoitenview extends StatefulWidget {
@@ -20,6 +21,7 @@ class pedidoitenview extends StatefulWidget {
 
 // ignore: camel_case_types
 class pedidoitenbody extends State<pedidoitenview> {
+  late configinterface config;
   pedidoitenbody();
 
   //Liesta de iconos de los estados del sistema
@@ -43,7 +45,8 @@ class pedidoitenbody extends State<pedidoitenview> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    int heig = 80;
+    config = configinterface(context);
+    int heig = config.getsizeaproxhight(80).toInt();
     //************* Inten ***************/
     return InkWell(
       child: Container(
@@ -61,8 +64,8 @@ class pedidoitenbody extends State<pedidoitenview> {
                     child: Align(
                       alignment: Alignment.center,
                       child: Container(
-                        width: 50,
-                        height: 50,
+                        width: config.getsizeaproxhight(50),
+                        height: config.getsizeaproxhight(50),
                         child: Align(
                           alignment: Alignment.center,
                           child: icons[widget.estado - 1],
@@ -92,6 +95,7 @@ class pedidoitenbody extends State<pedidoitenview> {
                                 child: Text(
                                   "${widget.idpedido} - ${estadoName[widget.estado - 1]}",
                                   style: TextStyle(
+                                    fontSize: config.getsizeaproxhight(15),
                                     fontWeight: FontWeight.w800,
                                     color: Colors.black.withOpacity(0.8),
                                   ),
@@ -106,6 +110,7 @@ class pedidoitenbody extends State<pedidoitenview> {
                                 child: Text(
                                   "${widget.fecha}",
                                   style: TextStyle(
+                                    fontSize: config.getsizeaproxhight(15),
                                     color: Colors.grey.withOpacity(0.7),
                                   ),
                                 ),
@@ -127,7 +132,7 @@ class pedidoitenbody extends State<pedidoitenview> {
                                     child: Text(
                                       "${widget.cantp} productos",
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 15),
+                                          color: Colors.white, fontSize: config.getsizeaproxhight(15)),
                                     ),
                                   ),
                                   decoration: new BoxDecoration(
@@ -147,7 +152,7 @@ class pedidoitenbody extends State<pedidoitenview> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w800,
                                     color: Colors.black.withOpacity(0.8),
-                                    fontSize: 16,
+                                    fontSize: config.getsizeaproxhight(16),
                                   ),
                                 ),
                                 //color: Colors.amber,

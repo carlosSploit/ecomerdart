@@ -1,13 +1,15 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:ecomersbaic/views/analiticview/view/analiticview.dart';
+import '../../../views/analiticview/view/analiticview.dart';
 
 
 // ignore: camel_case_types
 class mainanaliticview extends StatelessWidget {
   // This widget is the root of your application.
-  int id_product;
+  int idproduct;
 
-  mainanaliticview(this.id_product);
+  mainanaliticview(this.idproduct);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class mainanaliticview extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: analiticview(this.id_product),
+      home: analiticview(this.idproduct),
     );
   }
 }

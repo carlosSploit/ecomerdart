@@ -1,5 +1,5 @@
-import 'package:ecomersbaic/repository/Tiptrabajador_repositorio.dart';
-import 'package:ecomersbaic/controllers/TipTrabajador.dart';
+import '../repository/Tiptrabajador_repositorio.dart';
+import '../controllers/TipTrabajador.dart';
 
 class TipTrabajoNegocio {
   TipTrabajoRepositorio respo = TipTrabajoRepositorio();

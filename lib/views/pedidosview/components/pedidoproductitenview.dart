@@ -1,5 +1,6 @@
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/negocio/carrritocon_negocio.dart';
+import '../../../config/configinterface.dart';
+import '../../../config/Cache.dart';
+import '../../../negocio/carrritocon_negocio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -39,6 +40,7 @@ class pedidoproductitenview extends StatefulWidget {
 class pedidoproductitenbody extends State<pedidoproductitenview> {
   var carr = CarritoConNegocio();
   cache memori = cache();
+  late configinterface config;
   pedidoproductitenbody();
 
   //Liesta de iconos de los estados del sistema
@@ -74,7 +76,8 @@ class pedidoproductitenbody extends State<pedidoproductitenview> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    int heig = 100;
+    config = configinterface(context);
+    int heig = config.getsizeaproxhight(100).toInt();
     print(widget.urlimg);
     //************* Inten ***************/
     return InkWell(
@@ -93,8 +96,8 @@ class pedidoproductitenbody extends State<pedidoproductitenview> {
                     child: Align(
                       alignment: Alignment.center,
                       child: Container(
-                        width: 70,
-                        height: 70,
+                        width: config.getsizeaproxhight(70),
+                        height: config.getsizeaproxhight(70),
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: Image.network("${widget.urlimg}").image,
@@ -132,7 +135,7 @@ class pedidoproductitenbody extends State<pedidoproductitenview> {
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontWeight: FontWeight.w700,
-                                          fontSize: 18,
+                                          fontSize: config.getsizeaproxhight(18),
                                           color: Color(0xff707070),
                                         ),
                                       ),
@@ -144,7 +147,7 @@ class pedidoproductitenbody extends State<pedidoproductitenview> {
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontWeight: FontWeight.w800,
-                                          fontSize: 16,
+                                          fontSize: config.getsizeaproxhight(16),
                                           color: Colors.grey.withOpacity(0.8),
                                         ),
                                       ),
@@ -162,7 +165,7 @@ class pedidoproductitenbody extends State<pedidoproductitenview> {
                                           padding: EdgeInsets.all(5),
                                           child: Icon(
                                             Icons.close,
-                                            size: 16,
+                                            size: config.getsizeaproxhight(16),
                                           )
                                           //color: Colors.blue,
                                           ),
@@ -191,7 +194,7 @@ class pedidoproductitenbody extends State<pedidoproductitenview> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w800,
                                     color: Color(0xff707070),
-                                    fontSize: 16,
+                                    fontSize: config.getsizeaproxhight(16),
                                   ),
                                 ),
                                 //color: Colors.blue,
@@ -212,14 +215,14 @@ class pedidoproductitenbody extends State<pedidoproductitenview> {
                                     (widget.tipoprod == "C")
                                         ? InkWell(
                                             child: Container(
-                                              height: 30,
-                                              width: 30,
+                                              height: config.getsizeaproxhight(30),
+                                              width: config.getsizeaproxhight(30),
                                               child: Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
                                                   "-",
                                                   style: TextStyle(
-                                                    fontSize: 16,
+                                                    fontSize: config.getsizeaproxhight(16),
                                                     color: Colors.grey
                                                         .withOpacity(0.8),
                                                   ),
@@ -254,6 +257,7 @@ class pedidoproductitenbody extends State<pedidoproductitenview> {
                                             child: Text(
                                               "${widget.cantidad}",
                                               style: TextStyle(
+                                                  fontSize: config.getsizeaproxhight(14),
                                                   color: Colors.white),
                                             ),
                                             decoration: new BoxDecoration(
@@ -266,14 +270,14 @@ class pedidoproductitenbody extends State<pedidoproductitenview> {
                                     (widget.tipoprod == "C")
                                         ? InkWell(
                                             child: Container(
-                                              height: 30,
-                                              width: 30,
+                                              height: config.getsizeaproxhight(30),
+                                              width: config.getsizeaproxhight(30),
                                               child: Align(
                                                 alignment: Alignment.center,
                                                 child: Icon(
                                                   Icons.add,
                                                   color: Colors.white,
-                                                  size: 16,
+                                                  size: config.getsizeaproxhight(16),
                                                 ),
                                               ),
                                               decoration: new BoxDecoration(

@@ -1,6 +1,6 @@
 //import 'package:ecomersbaic/repository/repository.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:ecomersbaic/Cache.dart';
+import '../config/Cache.dart';
 //import 'package:ecomersbaic/models/cliente.dart';
 //import 'package:get/get.dart';
 import 'package:path/path.Dart';

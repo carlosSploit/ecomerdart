@@ -1,13 +1,14 @@
-import 'package:ecomersbaic/controllers/cliente.dart';
-import 'package:ecomersbaic/controllers/trabajador.dart';
-import 'package:ecomersbaic/controllers/TipTrabajador.dart';
-import 'package:ecomersbaic/negocio/trabajador_negocio.dart';
-import 'package:ecomersbaic/negocio/Tiptrabajador_negocio.dart';
-import 'package:ecomersbaic/views/components/mensajealert.dart';
+import '../../config/configinterface.dart';
+import '../../controllers/cliente.dart';
+import '../../controllers/trabajador.dart';
+import '../../controllers/TipTrabajador.dart';
+import '../../negocio/trabajador_negocio.dart';
+import '../../negocio/Tiptrabajador_negocio.dart';
+import '../../views/components/mensajealert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:ecomersbaic/Cache.dart';
+import '../../config/Cache.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 //import 'package:keyboard_visibility/keyboard_visibility.dart';
@@ -34,6 +35,7 @@ class insertrabajuserview extends StatefulWidget {
   var controller;
   String path = "";
   BuildContext? context, _context;
+  late configinterface config;
 
   insertrabajuserview(this.accionrecarga);
   //lista de labels
@@ -74,7 +76,7 @@ class insertrabajuserview extends StatefulWidget {
       items.add(
         DropdownMenuItem(
           value: company,
-          child: Text(company.getnomtip),
+          child: Text(company.getnomtip, style: TextStyle(fontSize: config.getsizeaproxhight(15)),),
         ),
       );
     }
@@ -91,6 +93,7 @@ class insertrabajuserview extends StatefulWidget {
   contentserbody createState() => contentserbody();
 
   createDialog(BuildContext context) {
+    config = configinterface(context);
     // this.contextgeneral = context;
     this.context = context;
     //####################################
@@ -129,7 +132,7 @@ class insertrabajuserview extends StatefulWidget {
     return Stack(
       children: [
         Container(
-          height: 500,
+          height: config.getsizeaproxhight(500),
           //height: 400,
           width: size.width - 10,
           child: Stack(
@@ -141,27 +144,27 @@ class insertrabajuserview extends StatefulWidget {
                   (!isKeyboard)
                       ? Container(
                           //color: Colors.grey,
-                          height: 180,
+                          height: config.getsizeaproxhight(180),
                           child: Stack(
                             children: <Widget>[
                               Align(
                                 alignment: Alignment.center,
                                 child: InkWell(
                                   child: Container(
-                                    width: 140,
-                                    height: 140,
+                                    width: config.getsizeaproxhight(140),
+                                    height: config.getsizeaproxhight(140),
                                     child: Align(
                                       alignment: Alignment.bottomRight,
                                       child: Container(
-                                        width: 50,
-                                        height: 50,
+                                        width: config.getsizeaproxhight(50),
+                                        height: config.getsizeaproxhight(50),
                                         child: Align(
                                           alignment: Alignment.center,
                                           //subier una imagen al servidor
                                           child: InkWell(
                                               child: Icon(
                                                 Icons.photo_camera,
-                                                size: 25,
+                                                size: config.getsizeaproxhight(25),
                                                 color: Colors.white
                                                     .withOpacity(0.9),
                                               ),
@@ -213,7 +216,7 @@ class insertrabajuserview extends StatefulWidget {
                                     margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
                                     child: Icon(
                                       Icons.arrow_back_outlined,
-                                      size: 30,
+                                      size: config.getsizeaproxhight(30),
                                       color: Colors.grey.withOpacity(0.9),
                                     ),
                                   ),
@@ -236,7 +239,7 @@ class insertrabajuserview extends StatefulWidget {
                                 margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
                                 child: Icon(
                                   Icons.arrow_back_outlined,
-                                  size: 30,
+                                  size: config.getsizeaproxhight(30),
                                   color: Colors.grey.withOpacity(0.9),
                                 ),
                               ),
@@ -279,7 +282,7 @@ class insertrabajuserview extends StatefulWidget {
                           insertartrabajador();
                         },
                         child: Container(
-                          height: 50,
+                          height: config.getsizeaproxhight(50),
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
@@ -387,7 +390,7 @@ class insertrabajuserview extends StatefulWidget {
           ),
           Expanded(
             child: Container(
-              height: 60,
+              height: config.getsizeaproxhight(60),
               //color: Colors.amber,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -405,7 +408,7 @@ class insertrabajuserview extends StatefulWidget {
                     child: Expanded(
                       child: Container(
                         child: Container(
-                          height: 40,
+                          height: config.getsizeaproxhight(40),
                           child: Row(
                             children: <Widget>[
                               Expanded(
@@ -417,7 +420,7 @@ class insertrabajuserview extends StatefulWidget {
                                           keyboardType: (inx == 4)
                                               ? TextInputType.number
                                               : TextInputType.text,
-                                          style: TextStyle(fontSize: 15),
+                                          style: TextStyle(fontSize: config.getsizeaproxhight(15),),
                                           controller: listcontroler[inx],
                                           decoration: InputDecoration(
                                               border: InputBorder.none,

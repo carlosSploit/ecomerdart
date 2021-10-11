@@ -1,8 +1,9 @@
-import 'package:ecomersbaic/controllers/cliente.dart';
+import '../../../config/configinterface.dart';
+import '../../../controllers/cliente.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/views/usuariosview/components/usuarioitenview.dart';
-import 'package:ecomersbaic/negocio/cliente_negocio.dart';
+import '../../../views/usuariosview/components/usuarioitenview.dart';
+import '../../../negocio/cliente_negocio.dart';
 
 // ignore: camel_case_types
 class usuarioview extends StatefulWidget {
@@ -13,6 +14,7 @@ class usuarioview extends StatefulWidget {
 // ignore: camel_case_types
 class usuariobody extends State<usuarioview> {
   String _selexidestado = "C";
+  late configinterface config;
 
   void actualic(String index) {
     setState(() {});
@@ -28,6 +30,7 @@ class usuariobody extends State<usuarioview> {
     var conte = 0; //pares
     var size = MediaQuery.of(context).size;
     var pedres = ClienteNegocio();
+    config = configinterface(context);
 
     return new Column(
       //controller: _scrollController,
@@ -35,13 +38,15 @@ class usuariobody extends State<usuarioview> {
         Container(
           margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
           width: size.width,
-          height: 50,
+          height: config.getsizeaproxhight(50),
           child: Align(
             alignment: Alignment.center,
             child: Container(
               margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              height: Size.fromHeight(105.0).height,
+              height: config.getsizeaproxhight(Size.fromHeight(105.0).height),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +57,7 @@ class usuariobody extends State<usuarioview> {
                         child: InkWell(
                           child: Icon(
                             Icons.search,
-                            size: 25,
+                            size: config.getsizeaproxhight(25),
                             color: Colors.grey[600],
                           ),
                           onTap: () {
@@ -65,7 +70,12 @@ class usuariobody extends State<usuarioview> {
                           margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
                           child: TextField(
                             controller: textEditingController,
+                            style: TextStyle(
+                              fontSize: config.getsizeaproxhight(14)
+                            ),
                             decoration: InputDecoration(
+                                isDense: true,
+                                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                                 border: InputBorder.none,
                                 hintText: 'Escribe un mensaje'),
                           ),
@@ -91,7 +101,7 @@ class usuariobody extends State<usuarioview> {
           children: <Widget>[
             Expanded(
               child: Container(
-                height: 60,
+                height: config.getsizeaproxhight(60),
                 margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: ListView(
                   scrollDirection: Axis.horizontal,
@@ -131,7 +141,7 @@ class usuariobody extends State<usuarioview> {
             for (var i = 0; i < list; i++) {
               var catg = snapshot.data?[i];
               cat.add(
-                usuariositenview(catg?.getidusua, 300, catg?.getnombre,
+                usuariositenview(catg?.getidusua, config.getsizeaproxhight(300).toInt(), catg?.getnombre,
                     catg?.getfoto, _selexidestado, actualizar),
               );
             }
@@ -173,6 +183,7 @@ class usuariobody extends State<usuarioview> {
             child: Text(
               label[0].toUpperCase(),
               style: TextStyle(
+                  fontSize: config.getsizeaproxhight(15),
                   color:
                       (this._selexidestado == idexcat) ? color : Colors.white),
             ),
@@ -182,6 +193,7 @@ class usuariobody extends State<usuarioview> {
             child: Text(
               label,
               style: TextStyle(
+                fontSize: config.getsizeaproxhight(15),
                 color: (this._selexidestado == idexcat) ? Colors.white : color,
               ),
             ),

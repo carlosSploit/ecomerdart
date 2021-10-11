@@ -1,5 +1,5 @@
-import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'bdcache.dart';
+import '../../controllers/datosuser.dart';
+import 'config/bdcache.dart';
 
 Cachememori cachememori = Cachememori();
 

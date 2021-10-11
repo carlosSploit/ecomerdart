@@ -1,6 +1,6 @@
-import 'package:ecomersbaic/repository/repository.dart';
-import 'package:ecomersbaic/controllers/TipTrabajador.dart';
-import 'package:ecomersbaic/Cache.dart';
+import '../repository/repository.dart';
+import '../controllers/TipTrabajador.dart';
+import '../config/Cache.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

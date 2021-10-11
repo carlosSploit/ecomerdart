@@ -1,5 +1,5 @@
-import 'package:ecomersbaic/controllers/Categoria.dart';
-import 'package:ecomersbaic/repository/Categoria_repositorio.dart';
+import '../controllers/Categoria.dart';
+import '../repository/Categoria_repositorio.dart';
 
 class CategoriaNegocio {
   CategoriaRepositorio respo = CategoriaRepositorio();

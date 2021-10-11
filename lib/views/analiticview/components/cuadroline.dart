@@ -1,4 +1,4 @@
-import 'package:ecomersbaic/controllers/Analitic.dart';
+import '../../../controllers/Analitic.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

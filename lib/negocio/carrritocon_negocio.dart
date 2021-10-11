@@ -1,6 +1,6 @@
-import 'package:ecomersbaic/repository/carrritocon_repositorio.dart';
-import 'package:ecomersbaic/controllers/Carritocomp.dart';
-import 'package:ecomersbaic/controllers/detalle_carrito.dart';
+import '../repository/carrritocon_repositorio.dart';
+import '../controllers/Carritocomp.dart';
+import '../controllers/detalle_carrito.dart';
 
 class CarritoConNegocio {
   CarritoConRepositorio respo = CarritoConRepositorio();

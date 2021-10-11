@@ -1,13 +1,16 @@
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/controllers/ComentarioProd.dart';
-import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'package:ecomersbaic/main.dart';
-import 'package:ecomersbaic/negocio/comentpro_negocio.dart';
-import 'package:ecomersbaic/views/components/mensajealert.dart';
-import 'package:ecomersbaic/views/homeview/view/mainproductoview.dart';
+// ignore_for_file: must_be_immutable
+
+import '../../../config/configinterface.dart';
+import '../../../config/Cache.dart';
+import '../../../controllers/ComentarioProd.dart';
+import '../../../controllers/datosuser.dart';
+import '../../../main.dart';
+import '../../../negocio/comentpro_negocio.dart';
+import '../../../views/components/mensajealert.dart';
+import '../../../views/homeview/view/mainproductoview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/views/comentview/components/comentarioitenview.dart';
+import '../../../views/comentview/components/comentarioitenview.dart';
 
 // ignore: camel_case_types
 class comentview extends StatefulWidget {
@@ -25,6 +28,7 @@ class comentbody extends State<comentview> {
   TextEditingController tec = TextEditingController(text: "");
   cache memori = cache();
   BuildContext? _context;
+  late configinterface config;
   comentbody();
 
   @override
@@ -40,6 +44,7 @@ class comentbody extends State<comentview> {
   @override
   Widget build(BuildContext context) {
     _context = context;
+    config = configinterface(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
@@ -133,7 +138,7 @@ class comentbody extends State<comentview> {
               },
             ),
             Container(
-              height: 60,
+              height: config.getsizeaproxhight(60),
               child: Container(
                 decoration: BoxDecoration(
                   border: Border(
@@ -152,13 +157,13 @@ class comentbody extends State<comentview> {
                         margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
                         //height: double.maxFinite,
                         child: Container(
-                          width: 40.0,
-                          height: 40.0,
+                          width: config.getsizeaproxhight(40),
+                          height: config.getsizeaproxhight(40),
                           //image de contenido
                           child: Center(
                             child: Container(
-                                width: 37.0,
-                                height: 37.0,
+                                width: config.getsizeaproxhight(37),
+                                height: config.getsizeaproxhight(37),
                                 decoration: new BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: new Border.all(
@@ -179,6 +184,9 @@ class comentbody extends State<comentview> {
                         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: TextField(
                           controller: tec,
+                          style: TextStyle(
+                            fontSize: config.getsizeaproxhight(14)
+                          ),
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Please enter a search term'),
@@ -190,7 +198,7 @@ class comentbody extends State<comentview> {
                         margin: EdgeInsets.fromLTRB(10, 0, 20, 0),
                         child: Text(
                           "Publicar",
-                          style: TextStyle(color: Color(0xff707070)),
+                          style: TextStyle(color: Color(0xff707070),fontSize: config.getsizeaproxhight(14)),
                         ),
                       ),
                       onTap: () {

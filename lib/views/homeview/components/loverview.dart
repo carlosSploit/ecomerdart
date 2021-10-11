@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/negocio/califipro_negocio.dart';
+import '../../../negocio/califipro_negocio.dart';
 
 // ignore: camel_case_types, must_be_immutable
 class loverview extends StatefulWidget {

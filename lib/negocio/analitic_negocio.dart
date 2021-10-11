@@ -1,5 +1,5 @@
-import 'package:ecomersbaic/controllers/Analitic.dart';
-import 'package:ecomersbaic/repository/analitic_repositorio.dart';
+import '../controllers/Analitic.dart';
+import '../repository/analitic_repositorio.dart';
 
 class AnaliticNegocio {
   AnaliticRepositorio respo = AnaliticRepositorio();

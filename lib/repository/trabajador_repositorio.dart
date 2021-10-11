@@ -1,8 +1,8 @@
-import 'package:ecomersbaic/repository/repository.dart';
+import '../repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'ftp_repositorio.dart';
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/controllers/trabajador.dart';
+import '../config/Cache.dart';
+import '../controllers/trabajador.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

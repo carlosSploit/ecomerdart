@@ -1,6 +1,6 @@
-import 'package:ecomersbaic/repository/producto_repositorio.dart';
+import '../repository/producto_repositorio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:ecomersbaic/controllers/Producto.dart';
+import '../controllers/Producto.dart';
 
 class ProductoNegocio {
   ProductoRepositorio respo = ProductoRepositorio();

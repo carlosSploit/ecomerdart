@@ -1,12 +1,14 @@
-import 'package:ecomersbaic/controllers/Analitic.dart';
-import 'package:ecomersbaic/main.dart';
-import 'package:ecomersbaic/negocio/analitic_negocio.dart';
-import 'package:ecomersbaic/views/analiticview/components/cuadroline.dart';
+// ignore_for_file: must_be_immutable
+
+import '../../../config/configinterface.dart';
+import '../../../controllers/Analitic.dart';
+import '../../../main.dart';
+import '../../../negocio/analitic_negocio.dart';
+import '../../../views/analiticview/components/cuadroline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:ecomersbaic/views/analiticview/components/productanaliticview.dart';
+import '../../../views/analiticview/components/productanaliticview.dart';
 
 // ignore: camel_case_types
 class analiticview extends StatefulWidget {
@@ -21,10 +23,12 @@ class analiticview extends StatefulWidget {
 class analiticbody extends State<analiticview> {
   late TooltipBehavior _tooltipBehavior= TooltipBehavior(enable: true);
   late AnaliticNegocio anali = AnaliticNegocio();
+  late configinterface config;
   analiticbody();
 
   @override
   Widget build(BuildContext context) {
+    config = configinterface(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
@@ -48,7 +52,7 @@ class analiticbody extends State<analiticview> {
             "Analiticas",
             style: TextStyle(
               color: Color(0xff707070),
-              fontSize: 25,
+              fontSize: config.getsizeaproxhight(25),
             ),
           ),
         ),
@@ -100,7 +104,7 @@ class analiticbody extends State<analiticview> {
                                   margin: EdgeInsets.fromLTRB(0, 15, 0, 10),
                                 ),
                                 Container(
-                                  height: 200,
+                                  height: config.getsizeaproxhight(200),
                                   child: FutureBuilder<List<Analitic>>(
                                     future: anali.getlist({
                                       "tipo": 1,
@@ -168,7 +172,7 @@ class analiticbody extends State<analiticview> {
                                     alignment: Alignment.center,
                                     child: Text("Productos mas pedidos", style: TextStyle(
                                         color: Color(0xff707070),
-                                        fontSize: 20
+                                        fontSize: config.getsizeaproxhight(20),
                                     ),
                                     ),
                                   ),
@@ -183,7 +187,7 @@ class analiticbody extends State<analiticview> {
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
                                         return Container(
-                                          height: 200,
+                                          height: config.getsizeaproxhight(200),
                                           child: Align(
                                               alignment: Alignment.center,
                                               child: CircularProgressIndicator()),
@@ -201,7 +205,7 @@ class analiticbody extends State<analiticview> {
                                       list = list.reversed.toList();
                                       List<Widget> producif = [];
                                       producif.add(Container(
-                                        height: 200,
+                                        height: config.getsizeaproxhight(200),
                                         child: SfCircularChart(
                                           legend:
                                           Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
@@ -268,7 +272,7 @@ class analiticbody extends State<analiticview> {
                                     alignment: Alignment.center,
                                     child: Text("Productos con mas ganacias", style: TextStyle(
                                         color: Color(0xff707070),
-                                        fontSize: 20
+                                        fontSize: config.getsizeaproxhight(20),
                                     ),
                                     ),
                                   ),
@@ -283,7 +287,7 @@ class analiticbody extends State<analiticview> {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
                                       return Container(
-                                        height: 200,
+                                        height: config.getsizeaproxhight(200),
                                         child: Align(
                                             alignment: Alignment.center,
                                             child: CircularProgressIndicator()),
@@ -301,7 +305,7 @@ class analiticbody extends State<analiticview> {
                                     list = list.reversed.toList();
                                     List<Widget> producif = [];
                                     producif.add(Container(
-                                      height: 200,
+                                      height: config.getsizeaproxhight(200),
                                       child: SfCircularChart(
                                         legend:
                                         Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap),

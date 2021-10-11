@@ -1,7 +1,7 @@
-import 'package:ecomersbaic/Cache.dart';
+import '../../../config/configinterface.dart';
+import '../../../config/Cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/views/usuariosview/components/edituserview.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -25,6 +25,7 @@ class productanaliticview extends StatefulWidget {
 
 // ignore: camel_case_types
 class productanaliticbody extends State<productanaliticview> {
+  late configinterface config;
   productanaliticbody();
 
   //Liesta de iconos de los estados del sistema
@@ -47,8 +48,9 @@ class productanaliticbody extends State<productanaliticview> {
 
   @override
   Widget build(BuildContext context) {
+    config = configinterface(context);
     var size = MediaQuery.of(context).size;
-    int heig = 70;
+    int heig = config.getsizeaproxhight(70).toInt();
     String imageperfil = widget.urlfoto;
     imageperfil = (imageperfil == "")
         ? "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg"
@@ -71,8 +73,8 @@ class productanaliticbody extends State<productanaliticview> {
                     child: Align(
                       alignment: Alignment.center,
                       child: Container(
-                        width: 50,
-                        height: 50,
+                        width: config.getsizeaproxhight(50),
+                        height: config.getsizeaproxhight(50),
                         decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(25),
@@ -101,6 +103,7 @@ class productanaliticbody extends State<productanaliticview> {
                                 child: Text(
                                   "${widget.idusuario}",
                                   style: TextStyle(
+                                    fontSize: config.getsizeaproxhight(14),
                                     fontWeight: FontWeight.w800,
                                     color: Colors.grey.withOpacity(0.8),
                                   ),
@@ -123,7 +126,8 @@ class productanaliticbody extends State<productanaliticview> {
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                       style: TextStyle(
-                                          color: Colors.black, fontSize: 15),
+                                          fontSize: config.getsizeaproxhight(14),
+                                          color: Colors.black),
                                     ),
                                   ),
                                   // decoration: new BoxDecoration(
@@ -149,7 +153,8 @@ class productanaliticbody extends State<productanaliticview> {
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                       style: TextStyle(
-                                          color: Colors.black, fontSize: 15),
+                                          fontSize: config.getsizeaproxhight(14),
+                                          color: Colors.black),
                                     ),
                                   ),
                                 ),
@@ -175,7 +180,11 @@ class productanaliticbody extends State<productanaliticview> {
                             Expanded(
                               child: Container(
                                 padding: EdgeInsets.all(5),
-                                child: Text("S/.${widget.ganacia}"),
+                                child: Text("S/.${widget.ganacia}", style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: config.getsizeaproxhight(15),
+                                ),
+                                ),
                                 //color: Colors.amber,
                               ),
                             ),

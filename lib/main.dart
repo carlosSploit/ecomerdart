@@ -1,8 +1,8 @@
-import 'package:ecomersbaic/controllers/datosuser.dart';
+import '../../controllers/datosuser.dart';
 import 'package:flutter/material.dart';
-import 'package:ecomersbaic/views/view/insideview.dart';
-import 'package:ecomersbaic/views/view/loginview.dart';
-import 'Cache.dart';
+import '../../views/view/insideview.dart';
+import '../../views/view/loginview.dart';
+import 'config/Cache.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,6 +31,7 @@ class Myappbody extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
     return new FutureBuilder<Datosuser>(
       future: _datoscontroller, // envia parametros
       builder: (context, snapshot) {

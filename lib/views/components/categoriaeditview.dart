@@ -1,6 +1,7 @@
-import 'package:ecomersbaic/controllers/Categoria.dart';
-import 'package:ecomersbaic/negocio/Categoria_negocio.dart';
-import 'package:ecomersbaic/views/components/mensajealert.dart';
+import '../../config/configinterface.dart';
+import '../../controllers/Categoria.dart';
+import '../../negocio/Categoria_negocio.dart';
+import '../../views/components/mensajealert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -23,7 +24,7 @@ class categoriaeditview extends StatefulWidget {
   String path = "";
   BuildContext? _context;
   bool stadevalue = false; //detecta el estado de la casilla
-
+  late configinterface config;
   categoriaeditview(this.accionrecarga);
 
   // tipo de trabajador
@@ -37,7 +38,7 @@ class categoriaeditview extends StatefulWidget {
       items.add(
         DropdownMenuItem(
           value: company,
-          child: Text(company.getname),
+          child: Text(company.getname, style: TextStyle(fontSize: config.getsizeaproxhight(14)),),
         ),
       );
     }
@@ -54,6 +55,7 @@ class categoriaeditview extends StatefulWidget {
   contentserbody createState() => contentserbody();
 
   createDialog(BuildContext context) {
+    config = configinterface(context);
     var size = MediaQuery.of(context).size;
     //pedres = ProductoRepositorio();
     restiptrab = CategoriaNegocio();
@@ -73,473 +75,492 @@ class categoriaeditview extends StatefulWidget {
               ),
               contentPadding: EdgeInsets.all(0),
               content: Container(
-                child: Container(
-                  height: 169,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: size.width,
-                      height: 169,
+                child: Stack(
+                  children: [
+                    Container(
+                      height: config.getsizeaproxhight(169),
                       child: Align(
-                        alignment: Alignment.center,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      margin: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                                      child: Text(
-                                        "Editar categoria", // titulo cambiante, teniendo en cuenta el eddit
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ),
-                                    flex: 8,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      width: 15,
-                                      margin: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                                      child: Align(
-                                          alignment: Alignment.center,
-                                          child: InkWell(
-                                            child: Icon(
-                                              Icons.close,
-                                              color:
-                                                  Colors.white.withOpacity(0.8),
-                                            ),
-                                            onTap: () {
-                                              limpiardatos();
-                                              Navigator.pop(context);
-                                              state(() {});
-                                            },
-                                          )),
-                                    ),
-                                    flex: 2,
-                                  )
-                                ],
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.0),
-                                      topRight: Radius.circular(20.0))),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        //color: Colors.amber,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          width: size.width,
+                          height: config.getsizeaproxhight(169),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                 height: config.getsizeaproxhight(34) + config.getsizeaproxhight(10) + config.getsizeaproxhight(10),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(15, config.getsizeaproxhight(10), 15, config.getsizeaproxhight(10)),
+                                  child: Container(
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            //color: Colors.amber,
+                                            child: Column(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              MainAxisAlignment.start,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                              CrossAxisAlignment.start,
                                               children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    child: Container(
-                                                      height: 40,
-                                                      child: Row(
-                                                        children: <Widget>[
-                                                          Expanded(
-                                                            child: Container(
-                                                              margin: EdgeInsets
-                                                                  .fromLTRB(10,
+                                                Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Container(
+                                                        child: Container(
+                                                          height: config.getsizeaproxhight(40),
+                                                          child: Row(
+                                                            children: <Widget>[
+                                                              Expanded(
+                                                                child: Container(
+                                                                  margin: EdgeInsets
+                                                                      .fromLTRB(10,
                                                                       0, 10, 0),
-                                                              child: FutureBuilder<
-                                                                  List<
-                                                                      Categoria>>(
-                                                                future:
+                                                                  child: FutureBuilder<
+                                                                      List<
+                                                                          Categoria>>(
+                                                                    future:
                                                                     restiptrab
                                                                         .getlist(
-                                                                            {}),
-                                                                builder: (context,
-                                                                    snapshot) {
-                                                                  //validadores del estado------------------------
-                                                                  if (snapshot
+                                                                        {}),
+                                                                    builder: (context,
+                                                                        snapshot) {
+                                                                      //validadores del estado------------------------
+                                                                      if (snapshot
                                                                           .connectionState ==
-                                                                      ConnectionState
-                                                                          .waiting) {
-                                                                    return Align(
-                                                                        alignment:
+                                                                          ConnectionState
+                                                                              .waiting) {
+                                                                        return Align(
+                                                                            alignment:
                                                                             Alignment
                                                                                 .center,
-                                                                        child:
+                                                                            child:
                                                                             CircularProgressIndicator());
-                                                                  }
-                                                                  if (snapshot
-                                                                      .hasError) {
-                                                                    return Center(
-                                                                      child: Text(
-                                                                          "Error al cargar las categorias"),
-                                                                    );
-                                                                  }
-                                                                  //--------------------------------------------------
-                                                                  var list = snapshot
+                                                                      }
+                                                                      if (snapshot
+                                                                          .hasError) {
+                                                                        return Center(
+                                                                          child: Text(
+                                                                              "Error al cargar las categorias"),
+                                                                        );
+                                                                      }
+                                                                      //--------------------------------------------------
+                                                                      var list = snapshot
                                                                           .data
                                                                           ?.length ??
-                                                                      0;
-                                                                  //###################################################
-                                                                  int index = 0;
-                                                                  List<Categoria>
-                                                                      cat = [];
-                                                                  for (var i =
                                                                           0;
+                                                                      //###################################################
+                                                                      int index = 0;
+                                                                      List<Categoria>
+                                                                      cat = [];
+                                                                      for (var i =
+                                                                      0;
                                                                       i < list;
                                                                       i++) {
-                                                                    var prod =
+                                                                        var prod =
                                                                         snapshot
                                                                             .data?[i];
 
-                                                                    ///inicializar el contador
-                                                                    if (_tipocat
+                                                                        ///inicializar el contador
+                                                                        if (_tipocat
                                                                             .getidcar !=
-                                                                        0) {
-                                                                      if (_tipocat
+                                                                            0) {
+                                                                          if (_tipocat
                                                                               .getidcar ==
-                                                                          prod?.getidcar) {
-                                                                        index =
-                                                                            i;
-                                                                        this.tipotrab =
+                                                                              prod?.getidcar) {
+                                                                            index =
+                                                                                i;
+                                                                            this.tipotrab =
                                                                             prod
-                                                                                as Categoria;
-                                                                      }
-                                                                    } else {
-                                                                      index = 0;
-                                                                    }
+                                                                            as Categoria;
+                                                                          }
+                                                                        } else {
+                                                                          index = 0;
+                                                                        }
 
-                                                                    // -----------------------------
-                                                                    cat.add(Categoria
-                                                                        .fromJson({
-                                                                      "id_categ":
+                                                                        // -----------------------------
+                                                                        cat.add(Categoria
+                                                                            .fromJson({
+                                                                          "id_categ":
                                                                           prod?.getidcar,
-                                                                      "nom_categ":
+                                                                          "nom_categ":
                                                                           prod?.getname
-                                                                    }));
-                                                                  }
+                                                                        }));
+                                                                      }
 
-                                                                  // print(
-                                                                  //     "${_tipotrab.getidtrab} - ${_tipotrab.getnomtip} -> comprobante - result");
+                                                                      // print(
+                                                                      //     "${_tipotrab.getidtrab} - ${_tipotrab.getnomtip} -> comprobante - result");
 
-                                                                  this.tipotrab =
+                                                                      this.tipotrab =
                                                                       buildDropdownMenuItems(cat)[index]
-                                                                              .value
-                                                                          as Categoria;
+                                                                          .value
+                                                                      as Categoria;
 
-                                                                  // print(
-                                                                  //     "${tipotrab.getidtrab} - ${tipotrab.getnomtip} -> comprobante");
+                                                                      // print(
+                                                                      //     "${tipotrab.getidtrab} - ${tipotrab.getnomtip} -> comprobante");
 
-                                                                  memortiRecar =
-                                                                      cat;
+                                                                      memortiRecar =
+                                                                          cat;
 
-                                                                  return DropdownButton(
-                                                                    value: this
-                                                                        .tipotrab,
-                                                                    items:
+                                                                      return DropdownButton(
+                                                                        value: this
+                                                                            .tipotrab,
+                                                                        items:
                                                                         buildDropdownMenuItems(
                                                                             cat),
-                                                                    isExpanded:
+                                                                        isExpanded:
                                                                         true,
-                                                                    isDense:
+                                                                        isDense:
                                                                         true,
-                                                                    onChanged:
-                                                                        (value) {
-                                                                      Categoria
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          Categoria
                                                                           aux =
                                                                           value
-                                                                              as Categoria;
-                                                                      // this.tipotrab =
-                                                                      //     aux;
-                                                                      listcontroler
+                                                                          as Categoria;
+                                                                          // this.tipotrab =
+                                                                          //     aux;
+                                                                          listcontroler
                                                                               .text =
-                                                                          aux.getname;
-                                                                      toquenedit1 =
+                                                                              aux.getname;
+                                                                          toquenedit1 =
                                                                           false;
-                                                                      _tipocat =
-                                                                          aux;
-                                                                      stadevalue =
+                                                                          _tipocat =
+                                                                              aux;
+                                                                          stadevalue =
                                                                           false;
-                                                                      state(
-                                                                          () {});
+                                                                          state(
+                                                                                  () {});
+                                                                        },
+                                                                      );
                                                                     },
-                                                                  );
-                                                                },
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            ),
+                                                            ],
                                                           ),
-                                                        ],
-                                                      ),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
+                                                          decoration: BoxDecoration(
+                                                            borderRadius:
                                                             BorderRadius
                                                                 .circular(25.0),
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                          color: Color(
+                                                            color: Colors.white,
+                                                            border: Border.all(
+                                                              color: Color(
                                                                   0xff707070)
-                                                              .withOpacity(0.4),
+                                                                  .withOpacity(0.4),
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
+                                                      flex: 8,
                                                     ),
-                                                  ),
-                                                  flex: 8,
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
+                                                Row(
+                                                  mainAxisAlignment:
                                                   MainAxisAlignment.center,
-                                              crossAxisAlignment:
+                                                  crossAxisAlignment:
                                                   CrossAxisAlignment.center,
-                                              children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        0, 10, 0, 10),
-                                                    child: Container(
-                                                      height: 40,
-                                                      child: Row(
-                                                        children: <Widget>[
-                                                          Expanded(
-                                                            child: Container(
-                                                              margin: EdgeInsets
-                                                                  .fromLTRB(10,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Container(
+                                                        margin: EdgeInsets.fromLTRB(
+                                                            0, config.getsizeaproxhight(10), 0, 0),
+                                                        child: Container(
+                                                          height: config.getsizeaproxhight(40),
+                                                          child: Row(
+                                                            children: <Widget>[
+                                                              Expanded(
+                                                                child: Container(
+                                                                  margin: EdgeInsets
+                                                                      .fromLTRB(10,
                                                                       0, 0, 0),
-                                                              child: TextField(
-                                                                keyboardType:
+                                                                  child: TextField(
+                                                                    keyboardType:
                                                                     TextInputType
                                                                         .text,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        15),
-                                                                controller:
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                        config.getsizeaproxhight(14)),
+                                                                    controller:
                                                                     listcontroler,
-                                                                decoration: InputDecoration(
-                                                                    border:
+                                                                    decoration: InputDecoration(
+                                                                        border:
                                                                         InputBorder
                                                                             .none,
-                                                                    hintText:
+                                                                        hintText:
                                                                         'Escribe un mensaje'),
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            ),
+                                                            ],
                                                           ),
-                                                        ],
-                                                      ),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
+                                                          decoration: BoxDecoration(
+                                                            borderRadius:
                                                             BorderRadius
                                                                 .circular(25.0),
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                          color: (stadevalue)
-                                                              ? Colors.red
-                                                              : Color(0xff707070)
+                                                            color: Colors.white,
+                                                            border: Border.all(
+                                                              color: (stadevalue)
+                                                                  ? Colors.red
+                                                                  : Color(0xff707070)
                                                                   .withOpacity(
-                                                                      0.4),
+                                                                  0.4),
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
+                                                      flex: 8,
                                                     ),
-                                                  ),
-                                                  flex: 8,
-                                                ),
-                                                (toquenedit1)
-                                                    ? Expanded(
-                                                        child: InkWell(
-                                                          child: Container(
-                                                            margin: EdgeInsets
-                                                                .fromLTRB(
-                                                                    2, 0, 2, 0),
-                                                            height: 40,
-                                                            width: 40,
-                                                            child: Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Icon(
-                                                                Icons.send,
-                                                                color: Colors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                        0.8),
-                                                              ),
+                                                    (toquenedit1)
+                                                        ? Expanded(
+                                                      child: InkWell(
+                                                        child: Container(
+                                                          margin: EdgeInsets
+                                                              .fromLTRB(
+                                                              2, 0, 2, 0),
+                                                          height: config.getsizeaproxhight(40),
+                                                          width: config.getsizeaproxhight(40),
+                                                          child: Align(
+                                                            alignment:
+                                                            Alignment
+                                                                .center,
+                                                            child: Icon(
+                                                              Icons.send,
+                                                              size: config.getsizeaproxhight(24),
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                  0.8),
                                                             ),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    shape: BoxShape
-                                                                        .circle),
                                                           ),
-                                                          onTap: () {
-                                                            insercat();
-                                                          },
+                                                          decoration:
+                                                          BoxDecoration(
+                                                              color: Colors
+                                                                  .grey,
+                                                              shape: BoxShape
+                                                                  .circle),
                                                         ),
-                                                        flex: 2,
-                                                      )
-                                                    : Container(),
-                                                !(toquenedit1) // boton de retroceder
-                                                    ? Expanded(
-                                                        child: InkWell(
-                                                          child: Container(
-                                                            margin: EdgeInsets
-                                                                .fromLTRB(
-                                                                    2, 0, 2, 0),
-                                                            height: 40,
-                                                            width: 40,
-                                                            child: Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Icon(
-                                                                Icons
-                                                                    .arrow_back,
-                                                                color: Colors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                        0.8),
-                                                              ),
+                                                        onTap: () {
+                                                          insercat();
+                                                        },
+                                                      ),
+                                                      flex: 2,
+                                                    )
+                                                        : Container(),
+                                                    !(toquenedit1) // boton de retroceder
+                                                        ? Expanded(
+                                                      child: InkWell(
+                                                        child: Container(
+                                                          margin: EdgeInsets
+                                                              .fromLTRB(
+                                                              2, 0, 2, 0),
+                                                          height: config.getsizeaproxhight(40),
+                                                          width: config.getsizeaproxhight(40),
+                                                          child: Align(
+                                                            alignment:
+                                                            Alignment
+                                                                .center,
+                                                            child: Icon(
+                                                              Icons
+                                                                  .arrow_back,
+                                                              size: config.getsizeaproxhight(24),
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                  0.8),
                                                             ),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    shape: BoxShape
-                                                                        .circle),
                                                           ),
-                                                          onTap: () {
-                                                            listcontroler.text =
-                                                                "";
-                                                            limpiardatos();
-                                                            stadevalue = false;
-                                                            state(() {
-                                                              toquenedit1 =
-                                                                  true;
-                                                            });
-                                                          },
+                                                          decoration:
+                                                          BoxDecoration(
+                                                              color: Colors
+                                                                  .grey,
+                                                              shape: BoxShape
+                                                                  .circle),
                                                         ),
-                                                        flex: 2,
-                                                      )
-                                                    : Container(),
-                                                !(toquenedit1)
-                                                    ? Expanded(
-                                                        child: InkWell(
-                                                          child: Container(
-                                                            margin: EdgeInsets
-                                                                .fromLTRB(
-                                                                    2, 0, 2, 0),
-                                                            height: 40,
-                                                            width: 40,
-                                                            child: Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Icon(
-                                                                Icons
-                                                                    .delete_outline,
-                                                                color: Colors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                        0.8),
-                                                              ),
+                                                        onTap: () {
+                                                          listcontroler.text =
+                                                          "";
+                                                          limpiardatos();
+                                                          stadevalue = false;
+                                                          state(() {
+                                                            toquenedit1 =
+                                                            true;
+                                                          });
+                                                        },
+                                                      ),
+                                                      flex: 2,
+                                                    )
+                                                        : Container(),
+                                                    !(toquenedit1)
+                                                        ? Expanded(
+                                                      child: InkWell(
+                                                        child: Container(
+                                                          margin: EdgeInsets
+                                                              .fromLTRB(
+                                                              2, 0, 2, 0),
+                                                          height: config.getsizeaproxhight(40),
+                                                          width: config.getsizeaproxhight(40),
+                                                          child: Align(
+                                                            alignment:
+                                                            Alignment
+                                                                .center,
+                                                            child: Icon(
+                                                              Icons
+                                                                  .delete_outline,
+                                                              size: config.getsizeaproxhight(24),
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                  0.8),
                                                             ),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    shape: BoxShape
-                                                                        .circle),
                                                           ),
-                                                          onTap: () {
-                                                            if (_tipocat
-                                                                    .getidcar !=
-                                                                0) {
-                                                              deletcat();
-                                                            } else {
-                                                              print(
-                                                                  "Error al eliminar");
-                                                            }
-                                                            state(() {});
-                                                          },
+                                                          decoration:
+                                                          BoxDecoration(
+                                                              color: Colors
+                                                                  .grey,
+                                                              shape: BoxShape
+                                                                  .circle),
                                                         ),
-                                                        flex: 2,
-                                                      )
-                                                    : Container(),
-                                                !(toquenedit1)
-                                                    ? Expanded(
-                                                        child: InkWell(
-                                                          child: Container(
-                                                            margin: EdgeInsets
-                                                                .fromLTRB(
-                                                                    2, 0, 2, 0),
-                                                            height: 40,
-                                                            width: 40,
-                                                            child: Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Icon(
-                                                                Icons.edit,
-                                                                color: Colors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                        0.8),
-                                                              ),
+                                                        onTap: () {
+                                                          if (_tipocat
+                                                              .getidcar !=
+                                                              0) {
+                                                            deletcat();
+                                                          } else {
+                                                            print(
+                                                                "Error al eliminar");
+                                                          }
+                                                          state(() {});
+                                                        },
+                                                      ),
+                                                      flex: 2,
+                                                    )
+                                                        : Container(),
+                                                    !(toquenedit1)
+                                                        ? Expanded(
+                                                      child: InkWell(
+                                                        child: Container(
+                                                          margin: EdgeInsets
+                                                              .fromLTRB(
+                                                              2, 0, 2, 0),
+                                                          height: config.getsizeaproxhight(40),
+                                                          width: config.getsizeaproxhight(40),
+                                                          child: Align(
+                                                            alignment:
+                                                            Alignment
+                                                                .center,
+                                                            child: Icon(
+                                                              Icons.edit,
+                                                              size: config.getsizeaproxhight(24),
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                  0.8),
                                                             ),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    shape: BoxShape
-                                                                        .circle),
                                                           ),
-                                                          onTap: () {
-                                                            actucat();
-                                                          },
+                                                          decoration:
+                                                          BoxDecoration(
+                                                              color: Colors
+                                                                  .grey,
+                                                              shape: BoxShape
+                                                                  .circle),
                                                         ),
-                                                        flex: 2,
-                                                      )
-                                                    : Container(),
+                                                        onTap: () {
+                                                          actucat();
+                                                        },
+                                                      ),
+                                                      flex: 2,
+                                                    )
+                                                        : Container(),
+                                                  ],
+                                                )
                                               ],
-                                            )
-                                          ],
+                                            ),
+                                          ),
+                                          flex: 6,
                                         ),
-                                      ),
-                                      flex: 6,
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              //color: Colors.white,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(20.0))),
                         ),
                       ),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          //color: Colors.white,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(20.0))),
                     ),
-                  ),
-                ),
+                    Container(
+                      height: config.getsizeaproxhight(169),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child:Container(
+                          height: config.getsizeaproxhight(34)+config.getsizeaproxhight(10)+config.getsizeaproxhight(10),
+                          padding: EdgeInsets.fromLTRB(0, config.getsizeaproxhight(10), 0, config.getsizeaproxhight(10)),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  child: Text(
+                                    "Editar categoria", // titulo cambiante, teniendo en cuenta el eddit
+                                    style: TextStyle(
+                                        fontSize: config.getsizeaproxhight(14),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                                flex: 8,
+                              ),
+                              Expanded(
+                                child: Container(
+                                  width: 15,
+                                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: InkWell(
+                                        child: Icon(
+                                          Icons.close,
+                                          size: config.getsizeaproxhight(24),
+                                          color:
+                                          Colors.white.withOpacity(0.8),
+                                        ),
+                                        onTap: () {
+                                          limpiardatos();
+                                          Navigator.pop(context);
+                                          state(() {});
+                                        },
+                                      )),
+                                ),
+                                flex: 2,
+                              )
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20.0),
+                                  topRight: Radius.circular(20.0))),
+                        ),
+                      ),
+                    )
+                  ],
+                )
               ),
             );
           },

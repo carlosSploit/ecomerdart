@@ -7,10 +7,6 @@ class mensajealert extends StatefulWidget {
   @override
   contentserbody createState() => contentserbody();
 
-  // void _displaySnackBar(
-  //     @required BuildContext context, @required SnackBar snackBar) {
-  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  // }
   void customShapeSnackBar(BuildContext context, String mensaje, String tipo) {
     contentserbody().customShapeSnackBar(context, mensaje, tipo);
   }
@@ -37,7 +33,7 @@ class contentserbody extends State<mensajealert>
         child: Align(
           alignment: Alignment.center,
           child: Icon(
-            Icons.ac_unit,
+            (tipo == "T") ? Icons.check_circle_outlined : Icons.error_outline_outlined,
             color: Colors.white,
           ),
         ),

@@ -1,12 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:ecomersbaic/views/comentview/view/comentview.dart';
+import '../../../views/comentview/view/comentview.dart';
 
 // ignore: camel_case_types
 class maincomentview extends StatelessWidget {
   // This widget is the root of your application.
-  int id_product;
+  int idproduct;
 
-  maincomentview(this.id_product);
+  maincomentview(this.idproduct);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class maincomentview extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: comentview(this.id_product),
+      home: comentview(this.idproduct),
     );
   }
 }

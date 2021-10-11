@@ -1,15 +1,16 @@
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/controllers/Producto.dart';
-import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'package:ecomersbaic/views/comentview/view/maincomentview.dart';
-import 'package:ecomersbaic/views/homeview/components/loverview.dart';
+import '../../../config/configinterface.dart';
+import '../../../config/Cache.dart';
+import '../../../controllers/Producto.dart';
+import '../../../controllers/datosuser.dart';
+import '../../../views/comentview/view/maincomentview.dart';
+import '../../../views/homeview/components/loverview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/negocio/producto_negocio.dart';
-import 'package:ecomersbaic/negocio/carrritocon_negocio.dart';
-import 'package:ecomersbaic/main.dart';
-import 'package:ecomersbaic/views/components/mensajealert.dart';
+import '../../../negocio/producto_negocio.dart';
+import '../../../negocio/carrritocon_negocio.dart';
+import '../../../main.dart';
+import '../../../views/components/mensajealert.dart';
 
 // ignore: camel_case_types, must_be_immutable
 class productointerfview extends StatefulWidget {
@@ -33,6 +34,7 @@ class productointerfbody extends State<productointerfview> {
   Datosuser controller = Datosuser();
   var tipuser = "";
   cache control = cache();
+  late configinterface config;
 
   Future<Producto> update() {
     return pedres.read({
@@ -62,7 +64,7 @@ class productointerfbody extends State<productointerfview> {
     //####################################
     //inicializamos la cache
     //####################################
-
+    config = configinterface(context);
     var size = MediaQuery.of(context).size;
 
     //print("${controller.gettipoes} - ${widget.tipointe}");
@@ -138,17 +140,17 @@ class productointerfbody extends State<productointerfview> {
             alignment: Alignment.bottomCenter,
             children: [
               Container(
-                height: size.height - 90,
+                height: size.height - config.getsizeaproxhight(90),
                 decoration: new BoxDecoration(
                   color: Colors.blue,
                 ),
               ),
               Container(
-                height: size.height - 90,
+                height: size.height - config.getsizeaproxhight(90),
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Container(
-                    height: size.height - (size.height - 400) + 10,
+                    height: size.height - (size.height - config.getsizeaproxhight(400)) + config.getsizeaproxhight(10),
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Container(
@@ -163,7 +165,7 @@ class productointerfbody extends State<productointerfview> {
                             },
                             child: Icon(
                               Icons.arrow_back,
-                              size: 30,
+                              size: config.getsizeaproxhight(30),
                               color: Colors.grey.withOpacity(0.7),
                             ),
                           )),
@@ -172,7 +174,7 @@ class productointerfbody extends State<productointerfview> {
                       color: Colors.blue,
                       //borderRadius: BorderRadius.circular(15),
                       image: new DecorationImage(
-                        scale: size.height - 400,
+                        scale: size.height - config.getsizeaproxhight(400),
                         fit: BoxFit.cover,
                         image: new Image.network(list.getfoto.replaceAll(
                                 "localhost:9000", control.getdomain.toString()))
@@ -183,11 +185,11 @@ class productointerfbody extends State<productointerfview> {
                 ),
               ),
               Container(
-                height: size.height - 90,
+                height: size.height - config.getsizeaproxhight(90),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    height: size.height - 400,
+                    height: (size.height/2)-config.getsizeaproxhight(100),
                     child: Column(
                       children: [
                         Row(
@@ -198,7 +200,7 @@ class productointerfbody extends State<productointerfview> {
                                 child: Text(
                                   "${list.getname}",
                                   style: TextStyle(
-                                      fontSize: 25,
+                                      fontSize: config.getsizeaproxhight(25),
                                       fontWeight: FontWeight.w700),
                                 ),
                               ),
@@ -217,7 +219,7 @@ class productointerfbody extends State<productointerfview> {
                                           EdgeInsets.fromLTRB(30, 10, 30, 0),
                                       child: Text(
                                         "${list.getdesc}",
-                                        style: TextStyle(fontSize: 18),
+                                        style: TextStyle(fontSize: config.getsizeaproxhight(18)),
                                       ),
                                     ),
                                   )
@@ -237,7 +239,7 @@ class productointerfbody extends State<productointerfview> {
                                       Container(
                                         margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
                                         child: loverview(
-                                            35,
+                                            config.getsizeaproxhight(35).toInt(),
                                             controller.getidclient,
                                             list.getidpro,
                                             list.getlove,
@@ -245,7 +247,7 @@ class productointerfbody extends State<productointerfview> {
                                       ),
                                       Text(
                                         "${list.getlcalif}",
-                                        style: TextStyle(fontSize: 18),
+                                        style: TextStyle(fontSize: config.getsizeaproxhight(18)),
                                       ),
                                       Container(
                                         margin:
@@ -287,7 +289,7 @@ class productointerfbody extends State<productointerfview> {
                                             ),
                                             Text(
                                               "${list.stock}",
-                                              style: TextStyle(fontSize: 18),
+                                              style: TextStyle(fontSize: config.getsizeaproxhight(18)),
                                             ),
                                           ],
                                         ),
@@ -299,14 +301,14 @@ class productointerfbody extends State<productointerfview> {
                                           children: [
                                             InkWell(
                                               child: Container(
-                                                height: 30,
-                                                width: 30,
+                                                height: config.getsizeaproxhight(30),
+                                                width: config.getsizeaproxhight(30),
                                                 child: Align(
                                                   alignment: Alignment.center,
                                                   child: Text(
                                                     "-",
                                                     style: TextStyle(
-                                                      fontSize: 16,
+                                                      fontSize: config.getsizeaproxhight(16),
                                                       color: Colors.grey
                                                           .withOpacity(0.8),
                                                     ),
@@ -333,20 +335,21 @@ class productointerfbody extends State<productointerfview> {
                                               child: Text(
                                                 "${widget.cantidad}",
                                                 style: TextStyle(
+                                                  fontSize: config.getsizeaproxhight(14),
                                                   color: Colors.white,
                                                 ),
                                               ),
                                             ),
                                             InkWell(
                                               child: Container(
-                                                height: 30,
-                                                width: 30,
+                                                height: config.getsizeaproxhight(30),
+                                                width: config.getsizeaproxhight(30),
                                                 child: Align(
                                                   alignment: Alignment.center,
                                                   child: Icon(
                                                     Icons.add,
                                                     color: Colors.white,
-                                                    size: 16,
+                                                    size: config.getsizeaproxhight(16),
                                                   ),
                                                 ),
                                                 decoration: new BoxDecoration(
@@ -389,7 +392,7 @@ class productointerfbody extends State<productointerfview> {
             ],
           ),
           Container(
-            height: 90,
+            height: config.getsizeaproxhight(90),
             child: Row(
               children: [
                 Expanded(
@@ -400,7 +403,7 @@ class productointerfbody extends State<productointerfview> {
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
                           color: Colors.white,
-                          fontSize: 25,
+                          fontSize: config.getsizeaproxhight(25),
                         ),
                       ),
                     ),
@@ -412,13 +415,13 @@ class productointerfbody extends State<productointerfview> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Container(
-                          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                          padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
                           child: Text(
-                            "Añadir al Carrito",
+                            "Añadir a Cesta",
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               color: Color(0xff707070),
-                              fontSize: 20,
+                              fontSize: config.getsizeaproxhight(20),
                             ),
                           ),
                           decoration: BoxDecoration(

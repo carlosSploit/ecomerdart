@@ -1,10 +1,11 @@
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/controllers/Pedido.dart';
-import 'package:ecomersbaic/controllers/datosuser.dart';
+import '../../../config/configinterface.dart';
+import '../../../config/Cache.dart';
+import '../../../controllers/Pedido.dart';
+import '../../../controllers/datosuser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/views/pedidosview/components/pedidoitenview.dart';
-import 'package:ecomersbaic/negocio/pedido_negocio.dart';
+import '../../../views/pedidosview/components/pedidoitenview.dart';
+import '../../../negocio/pedido_negocio.dart';
 //import 'package:whatsappfrond/homeview/components/messegeview.dart';
 
 // ignore: camel_case_types
@@ -17,6 +18,7 @@ class pedidoview extends StatefulWidget {
 class pedidobody extends State<pedidoview> {
   int _selexidestado = 1;
   Datosuser? controller;
+  late configinterface config;
 
   void actualic(int index) {
     setState(() {});
@@ -34,6 +36,7 @@ class pedidobody extends State<pedidoview> {
     var pedres = PedidoNegocio();
     // ignore: non_constant_identifier_names
     var Controler = cache();
+    config = configinterface(context);
 
     return FutureBuilder<Datosuser>(
         future: Controler.extracvar(),
@@ -62,13 +65,15 @@ class pedidobody extends State<pedidoview> {
               Container(
                 margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 width: size.width,
-                height: 50,
+                height: config.getsizeaproxhight(50),
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
                     margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    height: Size.fromHeight(105.0).height,
+                    height: config.getsizeaproxhight(Size.fromHeight(105.0).height),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +84,7 @@ class pedidobody extends State<pedidoview> {
                               child: InkWell(
                                 child: Icon(
                                   Icons.search,
-                                  size: 25,
+                                  size:  config.getsizeaproxhight(25),
                                   color: Colors.grey[600],
                                 ),
                                 onTap: () {
@@ -92,7 +97,12 @@ class pedidobody extends State<pedidoview> {
                                 margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
                                 child: TextField(
                                   controller: textEditingController,
+                                  style: TextStyle(
+                                    fontSize: config.getsizeaproxhight(15),
+                                  ),
                                   decoration: InputDecoration(
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                                       border: InputBorder.none,
                                       hintText: 'Escribe un mensaje'),
                                 ),
@@ -118,7 +128,7 @@ class pedidobody extends State<pedidoview> {
                 children: <Widget>[
                   Expanded(
                     child: Container(
-                      height: 60,
+                      height: config.getsizeaproxhight(60),
                       margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                       child: ListView(
                         scrollDirection: Axis.horizontal,
@@ -203,7 +213,7 @@ class pedidobody extends State<pedidoview> {
                 (this._selexidestado == idexcat) ? Colors.white : color,
             child: Text(
               label[0].toUpperCase(),
-              style: TextStyle(
+              style: TextStyle(fontSize: config.getsizeaproxhight(15),
                   color:
                       (this._selexidestado == idexcat) ? color : Colors.white),
             ),
@@ -213,6 +223,7 @@ class pedidobody extends State<pedidoview> {
             child: Text(
               label,
               style: TextStyle(
+                fontSize: config.getsizeaproxhight(15),
                 color: (this._selexidestado == idexcat) ? Colors.white : color,
               ),
             ),

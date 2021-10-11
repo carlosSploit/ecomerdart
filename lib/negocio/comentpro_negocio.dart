@@ -1,5 +1,5 @@
-import 'package:ecomersbaic/controllers/ComentarioProd.dart';
-import 'package:ecomersbaic/repository/comentpro_repositorio.dart';
+import '../controllers/ComentarioProd.dart';
+import '../repository/comentpro_repositorio.dart';
 
 class ComentarioProdNegocio {
   ComentarioProdRepositorio respo = ComentarioProdRepositorio();

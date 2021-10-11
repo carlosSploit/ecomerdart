@@ -1,6 +1,6 @@
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/controllers/ComentarioProd.dart';
-import 'package:ecomersbaic/repository/repository.dart';
+import '../config/Cache.dart';
+import '../controllers/ComentarioProd.dart';
+import '../repository/repository.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

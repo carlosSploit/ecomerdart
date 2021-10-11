@@ -1,6 +1,6 @@
-import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'package:ecomersbaic/repository/usuarios_repositorio.dart';
-import 'package:ecomersbaic/controllers/trabajador.dart';
+import '../controllers/datosuser.dart';
+import '../repository/usuarios_repositorio.dart';
+import '../controllers/trabajador.dart';
 
 class UsuarioNegocio {
   UsuarioRepositorio respo = UsuarioRepositorio();

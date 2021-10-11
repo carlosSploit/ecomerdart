@@ -1,10 +1,11 @@
-import 'package:ecomersbaic/controllers/Categoria.dart';
-import 'package:ecomersbaic/controllers/Producto.dart';
-import 'package:ecomersbaic/controllers/cliente.dart';
-import 'package:ecomersbaic/controllers/trabajador.dart';
-import 'package:ecomersbaic/negocio/Categoria_negocio.dart';
-import 'package:ecomersbaic/negocio/producto_negocio.dart';
-import 'package:ecomersbaic/views/components/mensajealert.dart';
+import '../../config/configinterface.dart';
+import '../../controllers/Categoria.dart';
+import '../../controllers/Producto.dart';
+import '../../controllers/cliente.dart';
+import '../../controllers/trabajador.dart';
+import '../../negocio/Categoria_negocio.dart';
+import '../../negocio/producto_negocio.dart';
+import '../../views/components/mensajealert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,7 +20,7 @@ class inserproductoview extends StatefulWidget {
   bool toquenedit1 = false;
   //bool toquenedit2 = false;
   ValueChanged<int> accionrecarga;
-
+  late configinterface config;
   // memoria cache de los itens de cliente y trabajador
   Cliente clientecacha = Cliente.fromJson({});
   Trabajador trabajocahca = Trabajador.fromJson({});
@@ -78,7 +79,7 @@ class inserproductoview extends StatefulWidget {
       items.add(
         DropdownMenuItem(
           value: company,
-          child: Text(company.getname),
+          child: Text(company.getname, style: TextStyle(fontSize: config.getsizeaproxhight(14)),),
         ),
       );
     }
@@ -96,6 +97,7 @@ class inserproductoview extends StatefulWidget {
 
   createDialog(BuildContext context) {
     // this.contextgeneral = context;
+    config = configinterface(context);
     this.context = context;
     var size = MediaQuery.of(context).size;
     pedres = ProductoNegocio();
@@ -131,7 +133,7 @@ class inserproductoview extends StatefulWidget {
     return Stack(
       children: [
         Container(
-          height: 500,
+          height: config.getsizeaproxhight(500),
           //height: 400,
           width: size.width - 10,
           child: Stack(
@@ -143,27 +145,27 @@ class inserproductoview extends StatefulWidget {
                   (!isKeyboard)
                       ? Container(
                           //color: Colors.grey,
-                          height: 180,
+                          height: config.getsizeaproxhight(180),
                           child: Stack(
                             children: <Widget>[
                               Align(
                                 alignment: Alignment.center,
                                 child: InkWell(
                                   child: Container(
-                                    width: 140,
-                                    height: 140,
+                                    width: config.getsizeaproxhight(140),
+                                    height: config.getsizeaproxhight(140),
                                     child: Align(
                                       alignment: Alignment.bottomRight,
                                       child: Container(
-                                        width: 50,
-                                        height: 50,
+                                        width: config.getsizeaproxhight(50),
+                                        height: config.getsizeaproxhight(50),
                                         child: Align(
                                           alignment: Alignment.center,
                                           //subier una imagen al servidor
                                           child: InkWell(
                                               child: Icon(
                                                 Icons.photo_camera,
-                                                size: 25,
+                                                size: config.getsizeaproxhight(25),
                                                 color: Colors.white
                                                     .withOpacity(0.9),
                                               ),
@@ -214,7 +216,7 @@ class inserproductoview extends StatefulWidget {
                                     margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
                                     child: Icon(
                                       Icons.arrow_back_outlined,
-                                      size: 30,
+                                      size: config.getsizeaproxhight(30),
                                       color: Colors.grey.withOpacity(0.9),
                                     ),
                                   ),
@@ -237,7 +239,7 @@ class inserproductoview extends StatefulWidget {
                                 margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
                                 child: Icon(
                                   Icons.arrow_back_outlined,
-                                  size: 30,
+                                  size: config.getsizeaproxhight(30),
                                   color: Colors.grey.withOpacity(0.9),
                                 ),
                               ),
@@ -281,7 +283,7 @@ class inserproductoview extends StatefulWidget {
                           insertartrabajador();
                         },
                         child: Container(
-                          height: 50,
+                          height: config.getsizeaproxhight(50),
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
@@ -392,6 +394,7 @@ class inserproductoview extends StatefulWidget {
                 alignment: Alignment.center,
                 child: Icon(
                   icon,
+                  size: config.getsizeaproxhight(24),
                   color: Colors.grey.withOpacity(0.8),
                 ),
               ),
@@ -400,7 +403,7 @@ class inserproductoview extends StatefulWidget {
           ),
           Expanded(
             child: Container(
-              height: 60,
+              height: config.getsizeaproxhight(60),
               //color: Colors.amber,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -411,6 +414,7 @@ class inserproductoview extends StatefulWidget {
                       child: Text(
                         "$label",
                         style: TextStyle(
+                            fontSize: config.getsizeaproxhight(14),
                             color: Colors.grey[800],
                             fontWeight: FontWeight.w700),
                       )),
@@ -418,7 +422,7 @@ class inserproductoview extends StatefulWidget {
                     child: Expanded(
                       child: Container(
                         child: Container(
-                          height: 40,
+                          height: config.getsizeaproxhight(40),
                           child: Row(
                             children: <Widget>[
                               Expanded(
@@ -430,7 +434,7 @@ class inserproductoview extends StatefulWidget {
                                           keyboardType: (inx == 2 || inx > 3)
                                               ? TextInputType.number
                                               : TextInputType.text,
-                                          style: TextStyle(fontSize: 15),
+                                          style: TextStyle(fontSize: config.getsizeaproxhight(15),),
                                           controller: listcontroler[inx],
                                           decoration: InputDecoration(
                                               border: InputBorder.none,

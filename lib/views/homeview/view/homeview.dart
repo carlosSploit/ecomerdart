@@ -1,13 +1,14 @@
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/controllers/Categoria.dart';
-import 'package:ecomersbaic/controllers/Producto.dart';
-import 'package:ecomersbaic/controllers/datosuser.dart';
+import '../../../config/configinterface.dart';
+import '../../../config/Cache.dart';
+import '../../../controllers/Categoria.dart';
+import '../../../controllers/Producto.dart';
+import '../../../controllers/datosuser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:ecomersbaic/views/homeview/components/productview.dart';
-import 'package:ecomersbaic/negocio/Categoria_negocio.dart';
-import 'package:ecomersbaic/negocio/producto_negocio.dart';
+import '../../../views/homeview/components/productview.dart';
+import '../../../negocio/Categoria_negocio.dart';
+import '../../../negocio/producto_negocio.dart';
 
 // ignore: camel_case_types
 class homeview extends StatefulWidget {
@@ -19,6 +20,7 @@ class homeview extends StatefulWidget {
 class homebody extends State<homeview> {
   int _selexidcateg = 0;
   Datosuser? controller;
+  late configinterface config;
 
   void actualic(int index) {
     setState(() {});
@@ -37,6 +39,7 @@ class homebody extends State<homeview> {
     var catres = CategoriaNegocio();
     var prores = ProductoNegocio();
     var control = cache();
+    config = configinterface(context);
     //####################################
 
     return FutureBuilder<Datosuser>(
@@ -65,24 +68,26 @@ class homebody extends State<homeview> {
               Container(
                 margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                 width: size.width,
-                height: 50,
+                height: config.getsizeaproxhight(50),
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
                     margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    height: Size.fromHeight(105.0).height,
+                    height: config.getsizeaproxhight(Size.fromHeight(105.0).height),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Container(
-                              margin: EdgeInsets.fromLTRB(10, 0, 15, 0),
+                              margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: InkWell(
                                 child: Icon(
                                   Icons.search,
-                                  size: 25,
+                                  size: config.getsizeaproxhight(25),
                                   color: Colors.grey[600],
                                 ),
                                 onTap: () {
@@ -92,12 +97,17 @@ class homebody extends State<homeview> {
                             ),
                             Expanded(
                               child: Container(
-                                margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
                                 child: TextField(
+                                  style: TextStyle(
+                                    fontSize: config.getsizeaproxhight(15),
+                                  ),
                                   controller: textEditingController,
                                   decoration: InputDecoration(
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                                       border: InputBorder.none,
-                                      hintText: 'Escribe un mensaje'),
+                                      hintText: 'Escribe el producto a buscar'),
                                 ),
                               ),
                             ),
@@ -137,7 +147,7 @@ class homebody extends State<homeview> {
                                   "Categorias",
                                   style: TextStyle(
                                     color: Color(0xff707070),
-                                    fontSize: 25,
+                                    fontSize: config.getsizeaproxhight(25)
                                   ),
                                 ),
                               ),
@@ -180,7 +190,7 @@ class homebody extends State<homeview> {
                                         catg?.getname, Color(0xff707070)));
                                   }
                                   return Container(
-                                    height: 60,
+                                    height: config.getsizeaproxhight(60),
                                     margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
                                     child: ListView(
                                       scrollDirection: Axis.horizontal,
@@ -230,7 +240,7 @@ class homebody extends State<homeview> {
                     print("${prod?.getlcalif}");
                     cat.add(publicaitenview(
                         prod?.getlove,
-                        300,
+                        config.getsizeaproxhight(300).toInt(),
                         prod?.getname,
                         prod?.getfoto.replaceAll(
                                 "localhost:9000", control.getdomain.toString())
@@ -248,9 +258,9 @@ class homebody extends State<homeview> {
 
                   for (var i = 0; i < cat.length; i++) {
                     if (i % 2 == 0) {
-                      conte += 300 + 10;
+                      conte += config.getsizeaproxhight(300).toInt() + 10;
                     } else {
-                      conte2 += 300 + 10;
+                      conte2 += config.getsizeaproxhight(300).toInt() + 10;
                     }
                   }
 
@@ -275,7 +285,7 @@ class homebody extends State<homeview> {
                                 //######### texto de informacion del cantidad del producto
                                 return Container(
                                   width: 200,
-                                  height: 70,
+                                  height: config.getsizeaproxhight(70),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -284,14 +294,15 @@ class homebody extends State<homeview> {
                                         "Productos",
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
-                                          fontSize: 30,
+                                          fontSize: config.getsizeaproxhight(30),
                                         ),
                                       ),
                                       Text(
                                         "${cat.length} resultados",
-                                        overflow: TextOverflow.clip,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
                                         style: TextStyle(
-                                          fontSize: 30,
+                                          fontSize: config.getsizeaproxhight(30),
                                         ),
                                       ),
                                     ],
@@ -342,6 +353,7 @@ class homebody extends State<homeview> {
             child: Text(
               label[0].toUpperCase(),
               style: TextStyle(
+                  fontSize: config.getsizeaproxhight(15),
                   color:
                       (this._selexidcateg == idexcat) ? color : Colors.white),
             ),
@@ -351,6 +363,7 @@ class homebody extends State<homeview> {
             child: Text(
               label,
               style: TextStyle(
+                fontSize: config.getsizeaproxhight(15),
                 color: (this._selexidcateg == idexcat) ? Colors.white : color,
               ),
             ),

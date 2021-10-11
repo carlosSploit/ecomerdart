@@ -1,11 +1,12 @@
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'package:ecomersbaic/views/comentview/view/maincomentview.dart';
-import 'package:ecomersbaic/views/homeview/components/producteditview.dart';
+import '../../../config/configinterface.dart';
+import '../../../config/Cache.dart';
+import '../../../controllers/datosuser.dart';
+import '../../../views/comentview/view/maincomentview.dart';
+import '../../../views/homeview/components/producteditview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/views/homeview/components/loverview.dart';
-import 'package:ecomersbaic/views/homeview/view/mainproductoview.dart';
+import '../../../views/homeview/components/loverview.dart';
+import '../../../views/homeview/view/mainproductoview.dart';
 
 // ignore: camel_case_types, must_be_immutable
 class publicaitenview extends StatefulWidget {
@@ -43,11 +44,13 @@ class publicaitenview extends StatefulWidget {
 
 // ignore: camel_case_types
 class publicaitenbody extends State<publicaitenview> {
+  late configinterface config;
   publicaitenbody();
 
   @override
   Widget build(BuildContext context) {
     //************* Inten ***************/
+    config = configinterface(context);
     var control = cache();
     return FutureBuilder<Datosuser>(
         future: control.extracvar(),
@@ -88,31 +91,31 @@ class publicaitenbody extends State<publicaitenview> {
                               child: Align(
                                 alignment: Alignment.bottomLeft,
                                 child: Container(
-                                  height: 90,
+                                  height: config.getsizeaproxhight(90),
                                   decoration: new BoxDecoration(
                                     borderRadius: BorderRadius.circular(15),
                                     color: Colors.white.withOpacity(0.8),
                                   ),
                                   child: Container(
                                     margin: EdgeInsets.fromLTRB(10, 10, 5, 5),
-                                    height: 70,
+                                    height: config.getsizeaproxhight(70),
                                     //color: Colors.blue,
                                     child: Column(
                                       children: [
                                         Row(
                                           children: [
-                                            Text(
+                                            Expanded(child: Text(
                                               (widget.nombre.length > 20)
                                                   ? widget.nombre
-                                                      .substring(0, 20)
+                                                  .substring(0, 20)
                                                   : widget.nombre,
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: TextStyle(
-                                                fontSize: 16,
+                                                fontSize: config.getsizeaproxhight(16),
                                                 fontWeight: FontWeight.w800,
                                               ),
-                                            ),
+                                            ),)
                                           ],
                                         ),
                                         Row(
@@ -122,6 +125,9 @@ class publicaitenbody extends State<publicaitenview> {
                                                 widget.descripccion,
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
+                                                style: TextStyle(
+                                                  fontSize: config.getsizeaproxhight(15),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -142,7 +148,10 @@ class publicaitenbody extends State<publicaitenview> {
                                                                 0, 0, 5, 0),
                                                         child: InkWell(
                                                           child: Icon(Icons
-                                                              .chat_bubble_rounded,color: Color(0xff707070).withOpacity(0.5),),
+                                                              .chat_bubble_rounded,
+                                                            size: config.getsizeaproxhight(24),
+                                                            color: Color(0xff707070).withOpacity(0.5),
+                                                          ),
                                                           onTap: () {
                                                             Navigator.push(
                                                               context,
@@ -172,7 +181,7 @@ class publicaitenbody extends State<publicaitenview> {
                                                         ? TextAlign.right
                                                         : TextAlign.left,
                                                     style: TextStyle(
-                                                      fontSize: 18,
+                                                      fontSize: config.getsizeaproxhight(18),
                                                       fontWeight:
                                                           FontWeight.w800,
                                                     ),
@@ -191,11 +200,12 @@ class publicaitenbody extends State<publicaitenview> {
                                                           0, 0, 8, 0),
                                                       child: Icon(
                                                           Icons.inventory_2,
+                                                      size: config.getsizeaproxhight(24),
                                                       color: Color(0xff707070).withOpacity(0.5),),
                                                     ),
                                                     Text(
                                                       "${widget.stock}",
-                                                      style: TextStyle(fontSize: 18),
+                                                      style: TextStyle(fontSize: config.getsizeaproxhight(18),),
                                                     ),
                                                   ],
                                                 ),
@@ -218,7 +228,7 @@ class publicaitenbody extends State<publicaitenview> {
                               child: Align(
                                 alignment: Alignment.topRight,
                                 child: Container(
-                                  height: 50,
+                                  height: config.getsizeaproxhight(50),
                                   margin:
                                   EdgeInsets.fromLTRB(0, 5, 0, 0),
                                   child: Row(
@@ -243,7 +253,7 @@ class publicaitenbody extends State<publicaitenview> {
                                                         .toString()
                                                         .length *
                                                         25.0),
-                                                height: 35.0,
+                                                height: config.getsizeaproxhight(35),
                                                 child: Align(
                                                     alignment:
                                                     Alignment
@@ -268,7 +278,7 @@ class publicaitenbody extends State<publicaitenview> {
                                                                 .favorite,
                                                             color:
                                                             Colors.white,
-                                                            size: 35.0 *
+                                                            size: config.getsizeaproxhight(35) *
                                                                 0.51,
                                                           ),
                                                         ),
@@ -282,7 +292,7 @@ class publicaitenbody extends State<publicaitenview> {
                                                           Text(
                                                             "${widget.califica}",
                                                             style:
-                                                            TextStyle(color: Colors.white),
+                                                            TextStyle(color: Colors.white,fontSize: config.getsizeaproxhight(15),),
                                                           ),
                                                         )
                                                       ],
@@ -308,7 +318,7 @@ class publicaitenbody extends State<publicaitenview> {
                                       (widget.controller?.gettiouse ==
                                           "C")
                                           ? loverview(
-                                        35,
+                                        config.getsizeaproxhight(35).toInt(),
                                         widget.controller
                                             ?.getidclient as int,
                                         widget.idproducto,
@@ -332,7 +342,7 @@ class publicaitenbody extends State<publicaitenview> {
                                             EdgeInsets.fromLTRB(0, 0, 0, 20),
                                         child: Icon(
                                           Icons.production_quantity_limits,
-                                          size: 60,
+                                          size: config.getsizeaproxhight(60),
                                           color: Colors.white,
                                         ),
                                       ),

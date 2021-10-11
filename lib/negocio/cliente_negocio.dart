@@ -1,5 +1,5 @@
-import 'package:ecomersbaic/repository/cliente_repositorio.dart';
-import 'package:ecomersbaic/controllers/cliente.dart';
+import '../repository/cliente_repositorio.dart';
+import '../controllers/cliente.dart';
 import 'package:flutter/cupertino.dart';
 
 class ClienteNegocio {

@@ -1,7 +1,8 @@
-import 'package:ecomersbaic/Cache.dart';
+import '../../../config/configinterface.dart';
+import '../../../config/Cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/views/usuariosview/components/edituserview.dart';
+import '../../../views/usuariosview/components/edituserview.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -15,6 +16,7 @@ class usuariositenview extends StatefulWidget {
   ValueChanged<int> actulist = (a) {};
   cache control = cache();
 
+
   usuariositenview(this.idusuario, this.higth, this.nombre, this.urlfoto,
       this.tip, this.actulist);
 
@@ -24,6 +26,7 @@ class usuariositenview extends StatefulWidget {
 
 // ignore: camel_case_types
 class usuariositenbody extends State<usuariositenview> {
+  late configinterface config;
   usuariositenbody();
 
   //Liesta de iconos de los estados del sistema
@@ -47,12 +50,14 @@ class usuariositenbody extends State<usuariositenview> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    int heig = 80;
+    config = configinterface(context);
+    int heig = config.getsizeaproxhight(80).toInt();
     String imageperfil = widget.urlfoto;
     imageperfil = (imageperfil == "")
         ? "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg"
         : imageperfil.replaceAll(
             "localhost:9000", widget.control.getdomain.toString());
+    config = configinterface(context);
     //************* Inten ***************/
     return InkWell(
       child: Container(
@@ -70,8 +75,8 @@ class usuariositenbody extends State<usuariositenview> {
                     child: Align(
                       alignment: Alignment.center,
                       child: Container(
-                        width: 50,
-                        height: 50,
+                        width: config.getsizeaproxhight(50),
+                        height: config.getsizeaproxhight(50),
                         decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(25),
@@ -100,6 +105,7 @@ class usuariositenbody extends State<usuariositenview> {
                                 child: Text(
                                   "${widget.idusuario}",
                                   style: TextStyle(
+                                    fontSize: config.getsizeaproxhight(14),
                                     fontWeight: FontWeight.w800,
                                     color: Colors.grey.withOpacity(0.8),
                                   ),
@@ -120,7 +126,8 @@ class usuariositenbody extends State<usuariositenview> {
                                     child: Text(
                                       "${widget.nombre}",
                                       style: TextStyle(
-                                          color: Colors.black, fontSize: 15),
+                                          fontSize: config.getsizeaproxhight(15),
+                                          color: Colors.black),
                                     ),
                                   ),
                                   // decoration: new BoxDecoration(
@@ -153,7 +160,7 @@ class usuariositenbody extends State<usuariositenview> {
                                 padding: EdgeInsets.all(5),
                                 child: Icon(
                                   Icons.keyboard_arrow_right,
-                                  size: 25,
+                                  size: config.getsizeaproxhight(25),
                                   color: Colors.black.withOpacity(0.8),
                                 ),
                                 //color: Colors.amber,

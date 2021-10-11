@@ -1,17 +1,19 @@
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/controllers/Carritocomp.dart';
-import 'package:ecomersbaic/controllers/Pedido.dart';
-import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'package:ecomersbaic/controllers/detalle_carrito.dart';
-import 'package:ecomersbaic/controllers/detalle_vent.dart';
-import 'package:ecomersbaic/views/components/mensajealert.dart';
+import '../../../config/configinterface.dart';
+
+import '../../../config/Cache.dart';
+import '../../../controllers/Carritocomp.dart';
+import '../../../controllers/Pedido.dart';
+import '../../../controllers/datosuser.dart';
+import '../../../controllers/detalle_carrito.dart';
+import '../../../controllers/detalle_vent.dart';
+import '../../../views/components/mensajealert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/negocio/pedido_negocio.dart';
-import 'package:ecomersbaic/views/pedidosview/components/pedidoproductitenview.dart';
-import 'package:ecomersbaic/main.dart';
-import 'package:ecomersbaic/negocio/carrritocon_negocio.dart';
+import '../../../negocio/pedido_negocio.dart';
+import '../../../views/pedidosview/components/pedidoproductitenview.dart';
+import '../../../main.dart';
+import '../../../negocio/carrritocon_negocio.dart';
 
 // ignore: camel_case_types, must_be_immutable
 class pedidointerfview extends StatefulWidget {
@@ -38,6 +40,7 @@ class pedidointerfbody extends State<pedidointerfview> {
   Pedido pedi = Pedido.fromJson({});
   Carritocomp carrico = Carritocomp.fromJson({});
   BuildContext? _context;
+  late configinterface config;
 
   //########### creacion del col de llamado del datepicker
   void callDatePicker() async {
@@ -82,6 +85,7 @@ class pedidointerfbody extends State<pedidointerfview> {
     //####################################
     _context = context;
     var size = MediaQuery.of(context).size;
+    config = configinterface(context);
 
     return FutureBuilder<Datosuser>(
       future: control.extracvar(), // envia parametros
@@ -119,7 +123,7 @@ class pedidointerfbody extends State<pedidointerfview> {
               child: Container(
                 child: Icon(
                   Icons.arrow_back_outlined,
-                  size: 30,
+                  size: config.getsizeaproxhight(30),
                   color: Colors.grey.withOpacity(0.9),
                 ),
               ),
@@ -139,7 +143,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                       ? "Carrito de Compras"
                       : "Pedido - ${widget.idpedido}",
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: config.getsizeaproxhight(25),
                     color: Color(0xff707070),
                   ),
                 ),
@@ -262,10 +266,11 @@ class pedidointerfbody extends State<pedidointerfview> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 50,
-                height: 50,
+                width: config.getsizeaproxhight(50),
+                height: config.getsizeaproxhight(50),
                 child: Icon(
                   icons[estade - 1].icon,
+                  size: config.getsizeaproxhight(24),
                   color: (this._selexidestado >= estade) ? Colors.white : color,
                 ),
                 margin: EdgeInsets.all(5),
@@ -280,6 +285,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                 child: Text(
                   label,
                   style: TextStyle(
+                    fontSize: config.getsizeaproxhight(14),
                     fontWeight: FontWeight.w700,
                     color: (this._selexidestado >= estade)
                         ? Colors.green
@@ -375,7 +381,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           color: Colors.white,
                                           margin:
                                               EdgeInsets.fromLTRB(0, 5, 0, 10),
-                                          height: 100,
+                                          height: config.getsizeaproxhight(100),
                                           width: size.width,
                                           child: Align(
                                             alignment: Alignment.center,
@@ -392,7 +398,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                                     Icons
                                                         .production_quantity_limits,
                                                     color: Colors.grey[600],
-                                                    size: 50,
+                                                    size: config.getsizeaproxhight(50),
                                                   ),
                                                 ),
                                                 Container(
@@ -400,7 +406,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                                     "No hay productos en cesta",
                                                     style: TextStyle(
                                                       color: Color(0xff707070),
-                                                      fontSize: 15,
+                                                      fontSize: config.getsizeaproxhight(15),
                                                     ),
                                                   ),
                                                 )
@@ -435,7 +441,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                   for (var i = 0; i < list; i++) {
                                     var catg = snapshot.data?[i];
                                     cat.add(pedidoproductitenview(
-                                        300,
+                                        config.getsizeaproxhight(300).toInt(),
                                         catg?.getproduc.getidpro,
                                         widget.idcarrito,
                                         catg?.getcant,
@@ -463,7 +469,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           color: Colors.white,
                                           margin:
                                               EdgeInsets.fromLTRB(0, 5, 0, 10),
-                                          height: 100,
+                                          height: config.getsizeaproxhight(100),
                                           width: size.width,
                                           child: Align(
                                             alignment: Alignment.center,
@@ -480,7 +486,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                                     Icons
                                                         .production_quantity_limits,
                                                     color: Colors.grey[600],
-                                                    size: 50,
+                                                    size: config.getsizeaproxhight(50),
                                                   ),
                                                 ),
                                                 Container(
@@ -488,7 +494,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                                     "No hay productos en cesta",
                                                     style: TextStyle(
                                                       color: Color(0xff707070),
-                                                      fontSize: 15,
+                                                      fontSize: config.getsizeaproxhight(15),
                                                     ),
                                                   ),
                                                 )
@@ -535,7 +541,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                               : "${_seletdate.year}-${(_seletdate.month < 10) ? ("0" + _seletdate.month.toString()) : _seletdate.month}-${(_seletdate.day < 10) ? ("0" + _seletdate.day.toString()) : _seletdate.day}",
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 20,
+                                            fontSize: config.getsizeaproxhight(20),
                                           ),
                                         ),
                                       ),
@@ -557,7 +563,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                               "fecha de envio",
                                               style: TextStyle(
                                                 color: Color(0xff707070),
-                                                fontSize: 20,
+                                                fontSize: config.getsizeaproxhight(20),
                                               ),
                                             ),
                                             decoration: BoxDecoration(
@@ -603,7 +609,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.white,
-                                            fontSize: 20,
+                                            fontSize: config.getsizeaproxhight(20),
                                           ),
                                         ),
                                       ),
@@ -637,7 +643,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     "Cliente",
                                     style: TextStyle(
                                       color: Color(0xff707070),
-                                      fontSize: 23,
+                                      fontSize: config.getsizeaproxhight(23),
                                     ),
                                   ),
                                 ),
@@ -659,7 +665,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           "Nombre: ",
                                           style: TextStyle(
                                             color: Color(0xff707070),
-                                            fontSize: 18,
+                                            fontSize: config.getsizeaproxhight(18),
                                           ),
                                         ),
                                       ),
@@ -676,7 +682,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: 16,
+                                            fontSize: config.getsizeaproxhight(16),
                                           ),
                                         ),
                                       ),
@@ -697,7 +703,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     "Direccion: ",
                                     style: TextStyle(
                                       color: Color(0xff707070),
-                                      fontSize: 18,
+                                      fontSize: config.getsizeaproxhight(18),
                                     ),
                                   ),
                                 ),
@@ -713,7 +719,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 16,
+                                      fontSize: config.getsizeaproxhight(16),
                                     ),
                                   ),
                                 ),
@@ -733,7 +739,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     "Direccion Alterna: ",
                                     style: TextStyle(
                                       color: Color(0xff707070),
-                                      fontSize: 18,
+                                      fontSize: config.getsizeaproxhight(18),
                                     ),
                                   ),
                                 ),
@@ -749,7 +755,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 16,
+                                      fontSize: config.getsizeaproxhight(16),
                                     ),
                                   ),
                                 ),
@@ -790,7 +796,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     "Informacion de Pedido",
                                     style: TextStyle(
                                       color: Color(0xff707070),
-                                      fontSize: 23,
+                                      fontSize: config.getsizeaproxhight(23),
                                     ),
                                   ),
                                 ),
@@ -812,7 +818,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           "Fecha limite entrega: ",
                                           style: TextStyle(
                                             color: Color(0xff707070),
-                                            fontSize: 18,
+                                            fontSize:  config.getsizeaproxhight(18),
                                           ),
                                         ),
                                       ),
@@ -828,7 +834,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           "${(tipuser != "C") ? list.getfechent : ""}",
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: 16,
+                                            fontSize: config.getsizeaproxhight(16),
                                           ),
                                         ),
                                       ),
@@ -852,7 +858,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           "Lugar de envio: ",
                                           style: TextStyle(
                                             color: Color(0xff707070),
-                                            fontSize: 18,
+                                            fontSize: config.getsizeaproxhight(18),
                                           ),
                                         ),
                                       ),
@@ -869,7 +875,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           "${(tipuser != "C") ? list.getvent.getlugar : "Piura/Peru"}",
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: 16,
+                                            fontSize: config.getsizeaproxhight(16),
                                           ),
                                         ),
                                       ),
@@ -890,7 +896,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     "Cantidad de Productos: ",
                                     style: TextStyle(
                                       color: Color(0xff707070),
-                                      fontSize: 18,
+                                      fontSize: config.getsizeaproxhight(18),
                                     ),
                                   ),
                                 ),
@@ -906,7 +912,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     "${(tipuser != "C") ? list.getvent.getcant : ccp.getcantiproduct}",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 16,
+                                      fontSize: config.getsizeaproxhight(16),
                                     ),
                                   ),
                                 ),
@@ -927,7 +933,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     "Subtotal: ",
                                     style: TextStyle(
                                       color: Color(0xff707070),
-                                      fontSize: 18,
+                                      fontSize: config.getsizeaproxhight(18),
                                     ),
                                   ),
                                 ),
@@ -942,7 +948,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     "S/.${(tipuser != "C") ? list.getvent.getmontoT : ccp.getmontotal}",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 16,
+                                      fontSize: config.getsizeaproxhight(16),
                                     ),
                                   ),
                                 ),
@@ -962,7 +968,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     "Monto de Envio: ",
                                     style: TextStyle(
                                       color: Color(0xff707070),
-                                      fontSize: 18,
+                                      fontSize: config.getsizeaproxhight(18),
                                     ),
                                   ),
                                 ),
@@ -977,7 +983,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                     "S/.${(tipuser != "C") ? list.getvent.getmontoV : ccp.getmontot}",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 16,
+                                      fontSize: config.getsizeaproxhight(16),
                                     ),
                                   ),
                                 ),
@@ -1005,7 +1011,7 @@ class pedidointerfbody extends State<pedidointerfview> {
             ),
           ),
           Container(
-            height: 90,
+            height: config.getsizeaproxhight(90),
             child: (widget.tipointe == "C")
                 ? Row(
                     children: [
@@ -1017,7 +1023,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w800,
                                 color: Colors.white,
-                                fontSize: 25,
+                                fontSize: config.getsizeaproxhight(25),
                               ),
                             ),
                           ),
@@ -1035,7 +1041,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w800,
                                     color: Color(0xff707070),
-                                    fontSize: 20,
+                                    fontSize: config.getsizeaproxhight(20),
                                   ),
                                 ),
                                 decoration: BoxDecoration(

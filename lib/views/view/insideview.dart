@@ -1,19 +1,20 @@
-import 'package:ecomersbaic/Cache.dart';
-import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'package:ecomersbaic/main.dart';
+import '../../config/configinterface.dart';
+import '../../config/Cache.dart';
+import '../../controllers/datosuser.dart';
+import '../../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ecomersbaic/views/homeview/view/homeview.dart';
-import 'package:ecomersbaic/views/pedidosview/view/pedidoview.dart';
-import 'package:ecomersbaic/views/usuariosview/view/usuarioview.dart';
-import 'package:ecomersbaic/views/usuariosview/components/edituserview.dart';
-import 'package:ecomersbaic/views/pedidosview/view/mainpedidoview.dart';
-import 'package:ecomersbaic/views/components/categoriaeditview.dart';
-import 'package:ecomersbaic/views/components/insertrabajuserview.dart';
-import 'package:ecomersbaic/views/components/inserproductoview.dart';
-import 'package:ecomersbaic/views/components/tiptrabajoeditview.dart';
-import 'package:ecomersbaic/bdcache.dart';
-import 'package:ecomersbaic/views/analiticview/view/mainanaliticview.dart';
+import '../../views/homeview/view/homeview.dart';
+import '../../views/pedidosview/view/pedidoview.dart';
+import '../../views/usuariosview/view/usuarioview.dart';
+import '../../views/usuariosview/components/edituserview.dart';
+import '../../views/pedidosview/view/mainpedidoview.dart';
+import '../../views/components/categoriaeditview.dart';
+import '../../views/components/insertrabajuserview.dart';
+import '../../views/components/inserproductoview.dart';
+import '../../views/components/tiptrabajoeditview.dart';
+import '../../config/bdcache.dart';
+import '../../views/analiticview/view/mainanaliticview.dart';
 
 // ignore: must_be_immutable, camel_case_types
 class insideView extends StatefulWidget {
@@ -35,6 +36,8 @@ class insidebody extends State<insideView> {
   Datosuser controller = Datosuser();
   cache controler = cache();
   Future<Datosuser>? memoriadatos;
+  //variable para tener un control de los colores o de los tamaños
+  late configinterface config;
 
   static List<Widget> _widgetOptions = <Widget>[
     homeview(),
@@ -95,6 +98,7 @@ class insidebody extends State<insideView> {
   @override
   Widget build(BuildContext context) {
     ScrollController _scrollController = ScrollController();
+    config = configinterface(context);
     //inicializar();
     return FutureBuilder<Datosuser>(
         future: this.memoriadatos, // envia parametros
@@ -377,7 +381,7 @@ class insidebody extends State<insideView> {
                       : titlesinterfaceCliente[_selectedIndex],
                   style: TextStyle(
                     color: Color(0xff707070),
-                    fontSize: 25,
+                    fontSize: config.getsizeaproxhight(25),
                   ),
                 ),
               ),
@@ -386,8 +390,8 @@ class insidebody extends State<insideView> {
                       IconButton(
                         icon: const Icon(
                           Icons.shopping_cart,
+                          size:  25,
                           color: Color(0xff707070),
-                          size: 25,
                         ),
                         onPressed: () {
                           Navigator.push(
@@ -434,8 +438,8 @@ class insidebody extends State<insideView> {
             ),
             floatingActionButton: (this.star)
                 ? Container(
-                    padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    height: 60,
+                    padding: EdgeInsets.fromLTRB(config.getsizeaproxhight(5), 0, config.getsizeaproxhight(5), 0),
+                    height: config.getsizeaproxhight(60),
                     child: BottomNavigationBar(
                       items: (controller.gettiouse != "C")
                           ? <BottomNavigationBarItem>[
@@ -443,46 +447,46 @@ class insidebody extends State<insideView> {
                               BottomNavigationBarItem(
                                   icon: Icon(
                                     Icons.home,
-                                    size: 25,
+                                    size: config.getsizeaproxhight(25),
                                   ),
                                   label: "EL",
                                   activeIcon: Icon(
                                     Icons.home,
-                                    size: 25,
+                                    size: config.getsizeaproxhight(25),
                                   ),
                                   backgroundColor: Colors.transparent),
                               //listar pedidos
                               BottomNavigationBarItem(
                                   icon: Icon(
                                     Icons.inventory_2,
-                                    size: 25,
+                                    size: config.getsizeaproxhight(25),
                                   ),
                                   label: "EL",
                                   activeIcon: Icon(
                                     Icons.inventory_2,
-                                    size: 25,
+                                    size: config.getsizeaproxhight(25),
                                   ),
                                   backgroundColor: Colors.transparent),
                               //listar usuarios
                               BottomNavigationBarItem(
                                   icon: Icon(
                                     Icons.person,
-                                    size: 30,
+                                    size: config.getsizeaproxhight(25),
                                   ),
                                   label: "EL",
                                   activeIcon: Icon(
                                     Icons.person,
-                                    size: 30,
+                                    size: config.getsizeaproxhight(25),
                                   ),
                                   backgroundColor: Colors.transparent),
                               //indormacion del perfil
                               BottomNavigationBarItem(
                                 icon: Container(
-                                  width: 30,
-                                  height: 30,
+                                  width: config.getsizeaproxhight(25),
+                                  height: config.getsizeaproxhight(25),
                                   decoration: BoxDecoration(
                                       color: Colors.black,
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(config.getsizeaproxhight(20)),
                                       image: DecorationImage(
                                           image: Image.network(
                                                   "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg")
@@ -490,11 +494,11 @@ class insidebody extends State<insideView> {
                                 ),
                                 label: "EL",
                                 activeIcon: Container(
-                                  width: 30,
-                                  height: 30,
+                                  width: config.getsizeaproxhight(30),
+                                  height: config.getsizeaproxhight(30),
                                   decoration: BoxDecoration(
                                     color: Colors.black,
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(config.getsizeaproxhight(20)),
                                     image: DecorationImage(
                                         image: Image.network(
                                                 "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg")
@@ -509,31 +513,31 @@ class insidebody extends State<insideView> {
                               BottomNavigationBarItem(
                                   icon: Icon(
                                     Icons.home,
-                                    size: 25,
+                                    size: config.getsizeaproxhight(25),
                                   ),
                                   label: "EL",
                                   activeIcon: Icon(
                                     Icons.home,
-                                    size: 25,
+                                    size: config.getsizeaproxhight(25),
                                   ),
                                   backgroundColor: Colors.transparent),
                               //listar pedidos
                               BottomNavigationBarItem(
                                   icon: Icon(
                                     Icons.inventory_2,
-                                    size: 25,
+                                    size: config.getsizeaproxhight(25),
                                   ),
                                   label: "EL",
                                   activeIcon: Icon(
                                     Icons.inventory_2,
-                                    size: 25,
+                                    size: config.getsizeaproxhight(25),
                                   ),
                                   backgroundColor: Colors.transparent),
                               //indormacion del perfil
                               BottomNavigationBarItem(
                                 icon: Container(
-                                  width: 30,
-                                  height: 30,
+                                  width: config.getsizeaproxhight(25),
+                                  height: config.getsizeaproxhight(25),
                                   decoration: BoxDecoration(
                                       color: Colors.black,
                                       borderRadius: BorderRadius.circular(20),
@@ -544,8 +548,8 @@ class insidebody extends State<insideView> {
                                 ),
                                 label: "EL",
                                 activeIcon: Container(
-                                  width: 30,
-                                  height: 30,
+                                  width: config.getsizeaproxhight(30),
+                                  height: config.getsizeaproxhight(30),
                                   decoration: BoxDecoration(
                                     color: Colors.black,
                                     borderRadius: BorderRadius.circular(20),
@@ -568,7 +572,7 @@ class insidebody extends State<insideView> {
                       selectedItemColor: Color(0xff707070),
                       onTap: _onItemTapped,
                     ),
-                    margin: EdgeInsets.fromLTRB(50, 0, 50, 30),
+                    margin: EdgeInsets.fromLTRB(50, 0, 50, config.getsizeaproxhight(30)),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       color: Colors.white,

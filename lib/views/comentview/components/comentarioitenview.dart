@@ -1,3 +1,4 @@
+import '../../../config/configinterface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'imageperfilus.dart';
@@ -9,6 +10,7 @@ class comentarioitenview extends StatefulWidget {
   String mensag = "";
   String fecha = "";
   String urlimg = "";
+
   comentarioitenview(
       this.band, this.nombrusuario, this.mensag, this.fecha, this.urlimg);
 
@@ -19,11 +21,12 @@ class comentarioitenview extends StatefulWidget {
 // ignore: camel_case_types
 class comentarioitenbody extends State<comentarioitenview> {
   //int _Aindeximg = 0;
-
+  late configinterface config;
   comentarioitenbody(); //key para el carrosal
 
   @override
   Widget build(BuildContext context) {
+    config = configinterface(context);
     //************* Inten ***************/
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -42,7 +45,7 @@ class comentarioitenbody extends State<comentarioitenview> {
                   child: Stack(
                     children: <Widget>[
                       imageperfilus(
-                          40, true, Alignment.topLeft, 3, widget.urlimg),
+                          config.getsizeaproxhight(40).toInt(), true, Alignment.topLeft, 3, widget.urlimg),
                       //---------------- lovers---------------------
                       //------------------------------------------
                     ],
@@ -74,12 +77,14 @@ class comentarioitenbody extends State<comentarioitenview> {
                               // Note: Styles for TextSpans must be explicitly defined.
                               // Child text spans will inherit styles from parent
                               style: TextStyle(
+                                  fontSize: config.getsizeaproxhight(14),
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),
                               children: <TextSpan>[
                                 new TextSpan(
                                     text: ' ${widget.mensag}',
                                     style: TextStyle(
+                                        fontSize: config.getsizeaproxhight(14),
                                         fontWeight: FontWeight.normal)),
                               ],
                             ),
@@ -92,7 +97,9 @@ class comentarioitenbody extends State<comentarioitenview> {
                               margin: EdgeInsets.fromLTRB(0, 3, 10, 3),
                               child: Text(
                                 "${widget.fecha}",
-                                style: TextStyle(color: Colors.grey),
+                                style: TextStyle(
+                                    fontSize: config.getsizeaproxhight(14),
+                                    color: Colors.grey),
                               ),
                             ),
                           ],

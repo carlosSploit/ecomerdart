@@ -18,7 +18,7 @@ class Name {
     // Here's the problem
     // Sometimes dominantColor returns null
     // With black and white background colors in my tests
-    if (dominantColor == null) print('Dominant Color null');
+    //if (dominantColor == null) print('Dominant Color null');
 
     return dominantColor;
   }

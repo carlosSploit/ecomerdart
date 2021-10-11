@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:ecomersbaic/Cache.dart';
+import '../config/Cache.dart';
 
 class CalifiproRepositorio {
   String dataUrl = cache().getdataurl;
