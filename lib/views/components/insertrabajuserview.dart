@@ -1,3 +1,6 @@
+import 'package:ecomersbaic/controllers/datosuser.dart';
+import 'package:ecomersbaic/negocio/usuarios_negocio.dart';
+
 import '../../config/configinterface.dart';
 import '../../controllers/cliente.dart';
 import '../../controllers/trabajador.dart';
@@ -11,9 +14,12 @@ import 'package:get/get.dart';
 import '../../config/Cache.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-//import 'package:keyboard_visibility/keyboard_visibility.dart';
 
+//import 'package:keyboard_visibility/keyboard_visibility.dart';
+// memoria que nos ayudara en el apartado de tipo de tranakjador
 TipTrabajador _tipotrab = TipTrabajador(0, "");
+//memoria que nos ayudara en el apartado de pasword
+bool band = true;
 
 // ignore: camel_case_types, must_be_immutable
 class insertrabajuserview extends StatefulWidget {
@@ -76,7 +82,10 @@ class insertrabajuserview extends StatefulWidget {
       items.add(
         DropdownMenuItem(
           value: company,
-          child: Text(company.getnomtip, style: TextStyle(fontSize: config.getsizeaproxhight(15)),),
+          child: Text(
+            company.getnomtip,
+            style: TextStyle(fontSize: config.getsizeaproxhight(15)),
+          ),
         ),
       );
     }
@@ -164,7 +173,8 @@ class insertrabajuserview extends StatefulWidget {
                                           child: InkWell(
                                               child: Icon(
                                                 Icons.photo_camera,
-                                                size: config.getsizeaproxhight(25),
+                                                size: config
+                                                    .getsizeaproxhight(25),
                                                 color: Colors.white
                                                     .withOpacity(0.9),
                                               ),
@@ -233,6 +243,7 @@ class insertrabajuserview extends StatefulWidget {
                                 _tipotrab = TipTrabajador(0, "");
                                 limpestade();
                                 limpliesa();
+                                band = true;
                                 Navigator.pop(context);
                               },
                               child: Container(
@@ -256,18 +267,22 @@ class insertrabajuserview extends StatefulWidget {
                           child: Container(
                             child: Column(
                               children: <Widget>[
+                                //  nombre
                                 iteninfo(context, Icons.person,
-                                    this.list[0].toString(), "", 0),
+                                    this.list[0].toString(), "", 0, 100, "T"),
+                                //  ususario
                                 iteninfo(context, Icons.person,
-                                    this.list[1].toString(), "", 1),
+                                    this.list[1].toString(), "", 1, 100, "T"),
+                                //  password
                                 iteninfo(context, Icons.person,
-                                    this.list[2].toString(), "", 2),
+                                    this.list[2].toString(), "", 2, 8, "P"),
+                                // tipo de trabajador
                                 iteninfo(context, Icons.person,
-                                    this.list[3].toString(), "", 3),
+                                    this.list[3].toString(), "", 3, 0, ""),
                                 iteninfo(context, Icons.person,
-                                    this.list[4].toString(), "", 4),
+                                    this.list[4].toString(), "", 4, 100, "N"),
                                 iteninfo(context, Icons.person,
-                                    this.list[5].toString(), "", 5)
+                                    this.list[5].toString(), "", 5, 100, "T")
                               ],
                             ),
                           ),
@@ -318,31 +333,46 @@ class insertrabajuserview extends StatefulWidget {
   }
 
   void insertartrabajador() async {
-    Trabajador tbj = Trabajador.fromJson({
-      "nombre": listcontroler[0].text,
-      "usser": listcontroler[1].text,
-      "pass": listcontroler[2].text,
-      "id_tiptrabajador": _tipotrab.getidtrab,
-      "celular": int.parse(
-          (listcontroler[4].text == "") ? "0" : listcontroler[4].text),
-      "correo": listcontroler[5].text,
-      "foto": this.path
-    });
-    //print(controller.getidusser);
-    List<Object> stado = await pedres!.insert(tbj, accionrecarga);
-    switch ((stado[0] as int)) {
-      case 200:
-        mensajealert().customShapeSnackBar(this._context as BuildContext,
-            "Se a insertado el trabajador correctamente", "T");
-        limpliesa();
-        state(() {});
-        break;
-      default:
-        validar((stado[1] as List<bool>));
-        state(() {
+    // comprueba si el suaurio existe
+    UsuarioNegocio usres = UsuarioNegocio();
+    Datosuser dat = await usres
+        .read({"usser": listcontroler[1].text, "pass": listcontroler[2].text});
+    // si existen manda un error
+    if (dat.getiduser != 0) {
+      mensajealert().customShapeSnackBar(
+          this._context as BuildContext,
+          "El usuario ya presenta una cuenta. Porfavor ingresar otro usuario",
+          "R");
+    } else {
+      // sino existe, sigue con el siguiente paso
+      // mensajealert().customShapeSnackBar(this._context as BuildContext,
+      //     "Este trabajador no existe asi que puedes continuar", "T");
+      Trabajador tbj = Trabajador.fromJson({
+        "nombre": listcontroler[0].text,
+        "usser": listcontroler[1].text,
+        "pass": listcontroler[2].text,
+        "id_tiptrabajador": _tipotrab.getidtrab,
+        "celular": int.parse(
+            (listcontroler[4].text == "") ? "0" : listcontroler[4].text),
+        "correo": listcontroler[5].text,
+        "foto": this.path
+      });
+      //print(controller.getidusser);
+      List<Object> stado = await pedres!.insert(tbj, accionrecarga);
+      switch ((stado[0] as int)) {
+        case 200:
           mensajealert().customShapeSnackBar(this._context as BuildContext,
-              "Parece que hay una advertencia", "R");
-        });
+              "Se a insertado el trabajador correctamente", "T");
+          limpliesa();
+          state(() {});
+          break;
+        default:
+          validar((stado[1] as List<bool>));
+          state(() {
+            mensajealert().customShapeSnackBar(this._context as BuildContext,
+                "Parece que hay una advertencia", "R");
+          });
+      }
     }
   }
 
@@ -368,8 +398,8 @@ class insertrabajuserview extends StatefulWidget {
     }
   }
 
-  Widget iteninfo(
-      BuildContext context, IconData icon, String label, var info, int inx) {
+  Widget iteninfo(BuildContext context, IconData icon, String label, var info,
+      int inx, int lentchart, String tipo) {
     return Container(
       margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
       child: Row(
@@ -415,16 +445,71 @@ class insertrabajuserview extends StatefulWidget {
                                 child: Container(
                                   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                                   child: (inx != 3)
+                                      // ? TextField(
+                                      //     //focusNode: _focus[inx],
+                                      //     keyboardType: (inx == 4)
+                                      //         ? TextInputType.number
+                                      //         : TextInputType.text,
+                                      //     style: TextStyle(
+                                      //       fontSize:
+                                      //           config.getsizeaproxhight(15),
+                                      //     ),
+                                      //     controller: listcontroler[inx],
+                                      //     decoration: InputDecoration(
+                                      //         border: InputBorder.none,
+                                      //         hintText: 'Escribe un mensaje'),
+                                      //   )
                                       ? TextField(
                                           //focusNode: _focus[inx],
-                                          keyboardType: (inx == 4)
+                                          // tipo de texto a ingresar
+                                          keyboardType: (tipo == "N")
                                               ? TextInputType.number
-                                              : TextInputType.text,
-                                          style: TextStyle(fontSize: config.getsizeaproxhight(15),),
+                                              : (tipo == "T")
+                                                  ? TextInputType.text
+                                                  : (tipo == "C")
+                                                      ? TextInputType
+                                                          .emailAddress
+                                                      : (tipo == "P")
+                                                          ? TextInputType
+                                                              .visiblePassword
+                                                          : TextInputType.text,
+                                          style: TextStyle(
+                                            fontSize:
+                                                config.getsizeaproxhight(15),
+                                          ),
+                                          onChanged: (String newVal) {
+                                            if (newVal.length <= lentchart) {
+                                              //textcontrol.text = newVal;
+                                              print(
+                                                  "${newVal} - text propuest");
+                                            } else {
+                                              listcontroler[inx].text =
+                                                  newVal.substring(
+                                                      0, newVal.length - 1);
+                                            }
+                                          },
                                           controller: listcontroler[inx],
+                                          obscureText:
+                                              (tipo == "P") ? band : false,
                                           decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: 'Escribe un mensaje'),
+                                            counterText: "",
+                                            border: InputBorder.none,
+                                            hintText: 'Escribe $label',
+                                            suffixIcon: (tipo == "P")
+                                                ? IconButton(
+                                                    onPressed: () {
+                                                      state(() {
+                                                        band = !band;
+                                                      });
+                                                    },
+                                                    icon: Icon((band)
+                                                        ? Icons.visibility
+                                                        : Icons.visibility_off),
+                                                  )
+                                                : Container(
+                                                    width: 1,
+                                                  ),
+                                          ),
                                         )
                                       : FutureBuilder<List<TipTrabajador>>(
                                           future: restiptrab.getlist(

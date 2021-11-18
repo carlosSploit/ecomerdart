@@ -70,16 +70,17 @@ class loginbody extends State<loginView> {
                       ),
                     ),
                   ),
-                 if (!isKeyboard) Container(
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    child: Text(
-                      "Coloca tu usuario y tu contraseña para iniciar con la secion",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.grey.withOpacity(0.8),
+                  if (!isKeyboard)
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      child: Text(
+                        "Coloca tu usuario y tu contraseña para iniciar con la secion",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.grey.withOpacity(0.8),
+                        ),
                       ),
                     ),
-                  ),
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                     height: config.getsizeaproxhight(40),
@@ -91,7 +92,9 @@ class loginbody extends State<loginView> {
                           child: Container(
                             margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                             child: TextFormField(
-                              style: TextStyle(fontSize: config.getsizeaproxhight(14),),
+                              style: TextStyle(
+                                fontSize: config.getsizeaproxhight(14),
+                              ),
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -122,11 +125,12 @@ class loginbody extends State<loginView> {
                           child: Container(
                             margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                             child: TextFormField(
-                              style: TextStyle(fontSize: config.getsizeaproxhight(14),),
+                              style: TextStyle(
+                                fontSize: config.getsizeaproxhight(14),
+                              ),
                               obscureText: true,
                               enableSuggestions: false,
                               autocorrect: false,
-
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: 'Escribe tu password',
@@ -159,11 +163,13 @@ class loginbody extends State<loginView> {
                                 .read({"usser": usser, "pass": pass});
                             if (dat.getiduser != 0) {
                               await bd.update(dat.toJson());
+                              List<Datosuser> lista = await bd.list();
                               Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                     builder: (context) => MyApp()),
-                               );
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        MyApp(lista[0].getidinterface)),
+                              );
                               this.usser = "";
                               this.pass = "";
                             } else {
@@ -202,18 +208,18 @@ class loginbody extends State<loginView> {
                       );
                     },
                     child: Container(
-                      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                      child: Expanded(
-                        child: Text(
-                          "¿No estas registrado?. Registrate",
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: TextStyle(fontSize: config.getsizeaproxhight(14),
-                            color: Colors.grey.withOpacity(0.8),
+                        margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: Expanded(
+                          child: Text(
+                            "¿No estas registrado?. Registrate",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: config.getsizeaproxhight(14),
+                              color: Colors.grey.withOpacity(0.8),
+                            ),
                           ),
-                        ),
-                      )
-                    ),
+                        )),
                   ),
                 ],
               ),

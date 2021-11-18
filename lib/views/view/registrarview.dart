@@ -1,5 +1,6 @@
 //import 'package:ecomersbaic/Cache.dart';
 import 'dart:ui';
+import 'package:flutter/services.dart';
 import '../../config/configinterface.dart';
 import '../../controllers/cliente.dart';
 import '../../controllers/datosuser.dart';
@@ -9,9 +10,11 @@ import '../../views/components/mensajealert.dart';
 import 'package:flutter/material.dart';
 import '../../config/bdcache.dart';
 import '../../main.dart';
+import '../components/texfielddefault.dart';
 
 // ignore: camel_case_types
 class registrarview extends StatefulWidget {
+  bool band = true;
   registrarview();
 
   @override
@@ -139,12 +142,30 @@ class registrarbody extends State<registrarview> {
                                   Expanded(
                                     child: Column(
                                       children: [
-                                        iteninfo(context, Icons.person,
-                                            this.list[0].toString(), "", 0),
-                                        iteninfo(context, Icons.person,
-                                            this.list[1].toString(), "", 1),
-                                        iteninfo(context, Icons.person,
-                                            this.list[2].toString(), "", 2)
+                                        iteninfo(
+                                            context,
+                                            false,
+                                            Icons.person,
+                                            this.list[0].toString(),
+                                            10000,
+                                            "T",
+                                            this._listcontroler[0]),
+                                        iteninfo(
+                                            context,
+                                            false,
+                                            Icons.person,
+                                            this.list[1].toString(),
+                                            9,
+                                            "N",
+                                            this._listcontroler[1]),
+                                        iteninfo(
+                                            context,
+                                            false,
+                                            Icons.person,
+                                            this.list[2].toString(),
+                                            10000,
+                                            "T",
+                                            this._listcontroler[2])
                                       ],
                                     ),
                                   )
@@ -157,10 +178,22 @@ class registrarbody extends State<registrarview> {
                                   Expanded(
                                     child: Column(
                                       children: [
-                                        iteninfo(context, Icons.person,
-                                            this.list[3].toString(), "", 3),
-                                        iteninfo(context, Icons.person,
-                                            this.list[4].toString(), "", 4),
+                                        iteninfo(
+                                            context,
+                                            false,
+                                            Icons.person,
+                                            this.list[3].toString(),
+                                            10000,
+                                            "T",
+                                            this._listcontroler[3]),
+                                        iteninfo(
+                                            context,
+                                            false,
+                                            Icons.person,
+                                            this.list[4].toString(),
+                                            10000,
+                                            "P",
+                                            this._listcontroler[4]),
                                       ],
                                     ),
                                   )
@@ -173,10 +206,22 @@ class registrarbody extends State<registrarview> {
                                   Expanded(
                                     child: Column(
                                       children: [
-                                        iteninfo(context, Icons.person,
-                                            this.list[5].toString(), "", 5),
-                                        iteninfo(context, Icons.person,
-                                            this.list[6].toString(), "", 6),
+                                        iteninfo(
+                                            context,
+                                            false,
+                                            Icons.person,
+                                            this.list[5].toString(),
+                                            10000,
+                                            "T",
+                                            this._listcontroler[5]),
+                                        iteninfo(
+                                            context,
+                                            false,
+                                            Icons.person,
+                                            this.list[6].toString(),
+                                            10000,
+                                            "T",
+                                            this._listcontroler[6]),
                                       ],
                                     ),
                                   )
@@ -190,48 +235,78 @@ class registrarbody extends State<registrarview> {
                     margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
                     height: config.getsizeaproxhight(40),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Expanded(
-                          child: InkWell(
-                            onTap: () async {
-                              if (IndexInterRegis > 0) {
-                                IndexInterRegis--;
-                                setState(() {});
-                              }
-                            },
-                            child: Container(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Atras",
-                                  style: TextStyle(
-                                    color: Color(0xff707070),
-                                    fontWeight: FontWeight.w700,
+                        (IndexInterRegis != 0)
+                            ? Expanded(
+                                child: InkWell(
+                                  onTap: () async {
+                                    if (IndexInterRegis > 0) {
+                                      IndexInterRegis--;
+                                      setState(() {});
+                                    }
+                                  },
+                                  child: Container(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Atras",
+                                        style: TextStyle(
+                                          color: Color(0xff707070),
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      color: Colors.white,
+                                      border: Border.all(
+                                        color: Color(
+                                            0xff707070), //                   <--- border color
+                                        width: 1.0,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25.0),
-                                color: Colors.white,
-                                border: Border.all(
-                                  color: Color(
-                                      0xff707070), //                   <--- border color
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                              )
+                            : Container(),
                         Expanded(
                           child: InkWell(
                             onTap: () async {
                               bool test = true;
+                              // mensaje de error
+                              String mensaje =
+                                  "Evitar que las casillas esten vacias";
+                              // antes de insertar los datos;
                               if (IndexInterRegis < 2) {
+                                test = true;
+                                // inicializar variable pes
                                 for (var i = validecontes[IndexInterRegis][0];
                                     i < validecontes[IndexInterRegis][1] + 1;
                                     i++) {
-                                  if (this._listcontroler[i].text == "") {
-                                    test = false;
+                                  // si i es igual a dos o que i es igual al correo
+                                  if (i == 2) {
+                                    if (this._listcontroler[i].text == "") {
+                                      test = false;
+                                    } else if ((this
+                                                ._listcontroler[i]
+                                                .text
+                                                .indexOf("@") ==
+                                            -1 &&
+                                        this
+                                                ._listcontroler[i]
+                                                .text
+                                                .indexOf(".con") ==
+                                            -1)) {
+                                      test = false;
+                                      mensaje =
+                                          "Presenta un correo mal escrito";
+                                    }
+                                  } else {
+                                    if (this._listcontroler[i].text == "") {
+                                      test = false;
+                                    }
                                   }
                                 }
                                 if (test) {
@@ -254,10 +329,14 @@ class registrarbody extends State<registrarview> {
                                     IndexInterRegis++;
                                   }
                                 } else {
-                                  print("Evitar que las casillas esten vacias");
+                                  mensajealert().customShapeSnackBar(
+                                      this._context as BuildContext,
+                                      "${mensaje}",
+                                      "R");
                                 }
                                 setState(() {});
                               } else {
+                                test = true;
                                 // cuando este en la pocicion de insertar
                                 for (var i = validecontes[IndexInterRegis][0];
                                     i < validecontes[IndexInterRegis][1] + 1;
@@ -305,10 +384,12 @@ class registrarbody extends State<registrarview> {
                                     if (dat.getiduser != 0) {
                                       await bd.update(dat.toJson());
                                       print("inicio secion el usuario");
+                                      List<Datosuser> lista = await bd.list();
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => MyApp()),
+                                            builder: (context) =>
+                                                MyApp(lista[0].getidinterface)),
                                       );
                                     } else {
                                       print("no se a logrado iniciar secion");
@@ -316,7 +397,10 @@ class registrarbody extends State<registrarview> {
                                     print("insetado correctamente");
                                   }
                                 } else {
-                                  print("Evitar que las casillas esten vacias");
+                                  mensajealert().customShapeSnackBar(
+                                      this._context as BuildContext,
+                                      "Parece que las casillas estan vacias",
+                                      "R");
                                 }
                                 setState(() {});
                               }
@@ -349,7 +433,7 @@ class registrarbody extends State<registrarview> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => MyApp()),
+                              MaterialPageRoute(builder: (context) => MyApp(0)),
                             );
                           },
                           child: Container(
@@ -391,25 +475,32 @@ class registrarbody extends State<registrarview> {
   }
 
   Widget iteninfo(
-      BuildContext context, IconData icon, String label, var info, int inx) {
+      BuildContext context,
+      bool valicon,
+      IconData icon,
+      String label,
+      int lengthcarac,
+      String tipo,
+      TextEditingController textcontrol) {
     return Container(
       margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
       child: Row(
         children: [
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-              //color: Colors.black,
-              child: Align(
-                alignment: Alignment.center,
-                child: Icon(
-                  icon,
-                  color: Colors.grey.withOpacity(0.8),
+          if (valicon)
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                //color: Colors.black,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Icon(
+                    icon,
+                    color: Colors.grey.withOpacity(0.8),
+                  ),
                 ),
               ),
+              flex: 1,
             ),
-            flex: 1,
-          ),
           Expanded(
             child: Container(
               height: config.getsizeaproxhight(60),
@@ -438,14 +529,51 @@ class registrarbody extends State<registrarview> {
                                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                   child: TextField(
                                     //focusNode: _focus[inx],
-                                    keyboardType: (inx == 1)
+                                    // tipo de texto a ingresar
+                                    keyboardType: (tipo == "N")
                                         ? TextInputType.number
-                                        : TextInputType.text,
-                                    style: TextStyle(fontSize: config.getsizeaproxhight(15),),
-                                    controller: this._listcontroler[inx],
+                                        : (tipo == "T")
+                                            ? TextInputType.text
+                                            : (tipo == "C")
+                                                ? TextInputType.emailAddress
+                                                : (tipo == "P")
+                                                    ? TextInputType
+                                                        .visiblePassword
+                                                    : TextInputType.text,
+                                    style: TextStyle(
+                                      fontSize: config.getsizeaproxhight(15),
+                                    ),
+                                    onChanged: (String newVal) {
+                                      if (newVal.length <= lengthcarac) {
+                                        //textcontrol.text = newVal;
+                                        print("${newVal} - text propuest");
+                                      } else {
+                                        textcontrol.text = newVal.substring(
+                                            0, newVal.length - 1);
+                                      }
+                                    },
+                                    controller: textcontrol,
+                                    obscureText:
+                                        (tipo == "P") ? widget.band : false,
                                     decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Escribe un mensaje'),
+                                      counterText: "",
+                                      border: InputBorder.none,
+                                      hintText: 'Escribe $label',
+                                      suffixIcon: (tipo == "P")
+                                          ? IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  widget.band = !widget.band;
+                                                });
+                                              },
+                                              icon: Icon((widget.band)
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off),
+                                            )
+                                          : Container(
+                                              width: 1,
+                                            ),
+                                    ),
                                   ),
                                 ),
                               ),

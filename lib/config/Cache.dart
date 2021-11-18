@@ -28,12 +28,6 @@ class cache extends GetxController {
     await _extracvar();
   }
 
-  // @override
-  // void onReady() async {
-  //   super.onReady();
-  //   await _extracvar();
-  // }
-
   _extracvar() async {
     //SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -45,19 +39,21 @@ class cache extends GetxController {
         "idclient": lista[0].getidclient,
         "idtrabajador": lista[0].getidtrabajador,
         "idcarrito": lista[0].getidcarrito,
+        "idinterface": lista[0].getidinterface,
         "iduser": lista[0].getiduser,
         "tipouse": lista[0].gettiouse
       });
       print("resultado - - - - - - ${this.datosuser.iduser}");
     } else {
       // cargando nuevos datos a la bd
-      int result = await bd.insert({
+      int result = await bd.insert(Datosuser.fromJson({
         "idclient": 0,
         "idtrabajador": 0,
         "idcarrito": 0,
+        "idinterface": 0,
         "iduser": 0,
         "tipouse": ""
-      });
+      }));
       print("$result -> resultado de la consulta de insercion");
 
       List<Datosuser> lista = await bd.list();
@@ -66,6 +62,7 @@ class cache extends GetxController {
           "idclient": lista[0].getidclient,
           "idtrabajador": lista[0].getidtrabajador,
           "idcarrito": lista[0].getidcarrito,
+          "idinterface": lista[0].getidinterface,
           "iduser": lista[0].getiduser,
           "tipouse": lista[0].gettiouse
         });

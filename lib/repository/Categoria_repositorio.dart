@@ -39,7 +39,7 @@ class CategoriaRepositorio implements Repository<Categoria> {
 
   Future<int> deletcategoria(Map<String, dynamic> jsonAtri) async {
     //-----------------------------------------------------------------
-    var url = Uri.parse('$dataUrl/compr/${jsonAtri['idcateg']}');
+    var url = Uri.parse('$dataUrl/categoria/${jsonAtri['idcateg']}');
     var respose = await http.delete(url, headers: {"Authorization": "$apikey"});
     print('status code:${respose.statusCode} -> eliminarprod');
     return respose.statusCode;

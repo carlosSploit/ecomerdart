@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:ecomersbaic/config/bdcache.dart';
+
 import '../../../config/configinterface.dart';
 import '../../../config/Cache.dart';
 import '../../../controllers/ComentarioProd.dart';
@@ -53,19 +55,22 @@ class comentbody extends State<comentview> {
             Icons.arrow_back_sharp,
             color: Colors.black,
           ),
-          onTap: () async{
+          onTap: () async {
             Datosuser dat = await memori.extracvar();
-            if(dat.gettiouse == "C"){
+            if (dat.gettiouse == "C") {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => mainproductoview(widget.idproducto)),
               );
-            }else{
+            } else {
+              // estraer memoria cache
+              List<Datosuser> lista = await bd.list();
+              // redireccionar con la memoria
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MyApp()),
+                    builder: (context) => MyApp(lista[0].getidinterface)),
               );
             }
           },
@@ -184,9 +189,8 @@ class comentbody extends State<comentview> {
                         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: TextField(
                           controller: tec,
-                          style: TextStyle(
-                            fontSize: config.getsizeaproxhight(14)
-                          ),
+                          style:
+                              TextStyle(fontSize: config.getsizeaproxhight(14)),
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Please enter a search term'),
@@ -198,7 +202,9 @@ class comentbody extends State<comentview> {
                         margin: EdgeInsets.fromLTRB(10, 0, 20, 0),
                         child: Text(
                           "Publicar",
-                          style: TextStyle(color: Color(0xff707070),fontSize: config.getsizeaproxhight(14)),
+                          style: TextStyle(
+                              color: Color(0xff707070),
+                              fontSize: config.getsizeaproxhight(14)),
                         ),
                       ),
                       onTap: () {

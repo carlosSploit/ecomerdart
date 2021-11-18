@@ -1,3 +1,5 @@
+import 'package:ecomersbaic/config/bdcache.dart';
+
 import '../../../config/configinterface.dart';
 import '../../../config/Cache.dart';
 import '../../../controllers/Producto.dart';
@@ -150,17 +152,23 @@ class productointerfbody extends State<productointerfview> {
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Container(
-                    height: size.height - (size.height - config.getsizeaproxhight(400)) + config.getsizeaproxhight(10),
+                    height: size.height -
+                        (size.height - config.getsizeaproxhight(400)) +
+                        config.getsizeaproxhight(10),
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Container(
                           margin: EdgeInsets.fromLTRB(20, 40, 0, 0),
                           child: InkWell(
-                            onTap: () {
+                            onTap: () async {
+                              // estraer memoria cache
+                              List<Datosuser> lista = await bd.list();
+                              // redireccionar con la memoria
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MyApp()),
+                                    builder: (context) =>
+                                        MyApp(lista[0].getidinterface)),
                               );
                             },
                             child: Icon(
@@ -189,7 +197,7 @@ class productointerfbody extends State<productointerfview> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    height: (size.height/2)-config.getsizeaproxhight(100),
+                    height: (size.height / 2) - config.getsizeaproxhight(100),
                     child: Column(
                       children: [
                         Row(
@@ -219,7 +227,9 @@ class productointerfbody extends State<productointerfview> {
                                           EdgeInsets.fromLTRB(30, 10, 30, 0),
                                       child: Text(
                                         "${list.getdesc}",
-                                        style: TextStyle(fontSize: config.getsizeaproxhight(18)),
+                                        style: TextStyle(
+                                            fontSize:
+                                                config.getsizeaproxhight(18)),
                                       ),
                                     ),
                                   )
@@ -239,7 +249,9 @@ class productointerfbody extends State<productointerfview> {
                                       Container(
                                         margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
                                         child: loverview(
-                                            config.getsizeaproxhight(35).toInt(),
+                                            config
+                                                .getsizeaproxhight(35)
+                                                .toInt(),
                                             controller.getidclient,
                                             list.getidpro,
                                             list.getlove,
@@ -247,7 +259,9 @@ class productointerfbody extends State<productointerfview> {
                                       ),
                                       Text(
                                         "${list.getlcalif}",
-                                        style: TextStyle(fontSize: config.getsizeaproxhight(18)),
+                                        style: TextStyle(
+                                            fontSize:
+                                                config.getsizeaproxhight(18)),
                                       ),
                                       Container(
                                         margin:
@@ -289,7 +303,9 @@ class productointerfbody extends State<productointerfview> {
                                             ),
                                             Text(
                                               "${list.stock}",
-                                              style: TextStyle(fontSize: config.getsizeaproxhight(18)),
+                                              style: TextStyle(
+                                                  fontSize: config
+                                                      .getsizeaproxhight(18)),
                                             ),
                                           ],
                                         ),
@@ -301,14 +317,18 @@ class productointerfbody extends State<productointerfview> {
                                           children: [
                                             InkWell(
                                               child: Container(
-                                                height: config.getsizeaproxhight(30),
-                                                width: config.getsizeaproxhight(30),
+                                                height: config
+                                                    .getsizeaproxhight(30),
+                                                width: config
+                                                    .getsizeaproxhight(30),
                                                 child: Align(
                                                   alignment: Alignment.center,
                                                   child: Text(
                                                     "-",
                                                     style: TextStyle(
-                                                      fontSize: config.getsizeaproxhight(16),
+                                                      fontSize: config
+                                                          .getsizeaproxhight(
+                                                              16),
                                                       color: Colors.grey
                                                           .withOpacity(0.8),
                                                     ),
@@ -335,21 +355,25 @@ class productointerfbody extends State<productointerfview> {
                                               child: Text(
                                                 "${widget.cantidad}",
                                                 style: TextStyle(
-                                                  fontSize: config.getsizeaproxhight(14),
+                                                  fontSize: config
+                                                      .getsizeaproxhight(14),
                                                   color: Colors.white,
                                                 ),
                                               ),
                                             ),
                                             InkWell(
                                               child: Container(
-                                                height: config.getsizeaproxhight(30),
-                                                width: config.getsizeaproxhight(30),
+                                                height: config
+                                                    .getsizeaproxhight(30),
+                                                width: config
+                                                    .getsizeaproxhight(30),
                                                 child: Align(
                                                   alignment: Alignment.center,
                                                   child: Icon(
                                                     Icons.add,
                                                     color: Colors.white,
-                                                    size: config.getsizeaproxhight(16),
+                                                    size: config
+                                                        .getsizeaproxhight(16),
                                                   ),
                                                 ),
                                                 decoration: new BoxDecoration(

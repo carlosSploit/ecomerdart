@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../../config/configinterface.dart';
 import '../../config/Cache.dart';
 import '../../controllers/datosuser.dart';
@@ -19,9 +21,10 @@ import '../../views/analiticview/view/mainanaliticview.dart';
 // ignore: must_be_immutable, camel_case_types
 class insideView extends StatefulWidget {
   Widget memoriwi = Container();
+  int _selectedIndex = 0;
   Future<Datosuser> datoscontroller;
 
-  insideView(this.datoscontroller);
+  insideView(this.datoscontroller, this._selectedIndex);
 
   @override
   insidebody createState() => insidebody();
@@ -69,7 +72,16 @@ class insidebody extends State<insideView> {
     setState(() {});
   }
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index) async {
+    if ((_widgetOptions.length - 1) != index) {
+      print("${index} - interface index");
+      int i = await bd.updateinterface({'idinterface': index});
+      print("${i} - estado actuali");
+      List<Datosuser> lista = await bd.list();
+      print("${lista[0].getiduser} - id usuario inicio");
+      print("${lista[0].getidinterface} - interface actual de inicio");
+    }
+
     setState(() {
       if (this.controller.gettiouse != "C") {
         if ((_widgetOptions.length - 1) == index) {
@@ -91,6 +103,7 @@ class insidebody extends State<insideView> {
 
   @override
   void initState() {
+    this._selectedIndex = widget._selectedIndex;
     this.memoriadatos = widget.datoscontroller;
     super.initState();
   }
@@ -253,7 +266,8 @@ class insidebody extends State<insideView> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => mainanaliticview(0)),
+                                            builder: (context) =>
+                                                mainanaliticview(0)),
                                       );
                                     },
                                     child: Container(
@@ -272,7 +286,7 @@ class insidebody extends State<insideView> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MyApp()),
+                                    builder: (context) => MyApp(0)),
                               );
                             },
                             child: Container(
@@ -293,7 +307,9 @@ class insidebody extends State<insideView> {
                             ),
                           ),
                           PopupMenuItem(
-                            onTap: () {},
+                            onTap: () {
+                              SystemNavigator.pop();
+                            },
                             child: Container(
                               child: Row(
                                 children: [
@@ -325,11 +341,11 @@ class insidebody extends State<insideView> {
                             onTap: () async {
                               Datosuser dat = Datosuser.fromJson({});
                               await bd.update(dat.toJson());
-                              print("CERRANDO SECION");
+                              print("CERRANDO SECION-----------");
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MyApp()),
+                                    builder: (context) => MyApp(0)),
                               );
                             },
                             child: Container(
@@ -350,7 +366,9 @@ class insidebody extends State<insideView> {
                             ),
                           ),
                           PopupMenuItem(
-                            onTap: () {},
+                            onTap: () {
+                              SystemNavigator.pop();
+                            },
                             child: Container(
                               child: Row(
                                 children: [
@@ -390,7 +408,7 @@ class insidebody extends State<insideView> {
                       IconButton(
                         icon: const Icon(
                           Icons.shopping_cart,
-                          size:  25,
+                          size: 25,
                           color: Color(0xff707070),
                         ),
                         onPressed: () {
@@ -426,9 +444,11 @@ class insidebody extends State<insideView> {
                   },
                   child: new ListView(
                     controller: _scrollController,
-                    children: [(controller.gettiouse != "C")
-                        ? _widgetOptions[_selectedIndex]
-                        : widgetOptionsCliente[_selectedIndex],],
+                    children: [
+                      (controller.gettiouse != "C")
+                          ? _widgetOptions[_selectedIndex]
+                          : widgetOptionsCliente[_selectedIndex],
+                    ],
                   ),
                 ),
                 decoration: BoxDecoration(
@@ -438,7 +458,8 @@ class insidebody extends State<insideView> {
             ),
             floatingActionButton: (this.star)
                 ? Container(
-                    padding: EdgeInsets.fromLTRB(config.getsizeaproxhight(5), 0, config.getsizeaproxhight(5), 0),
+                    padding: EdgeInsets.fromLTRB(config.getsizeaproxhight(5), 0,
+                        config.getsizeaproxhight(5), 0),
                     height: config.getsizeaproxhight(60),
                     child: BottomNavigationBar(
                       items: (controller.gettiouse != "C")
@@ -486,7 +507,8 @@ class insidebody extends State<insideView> {
                                   height: config.getsizeaproxhight(25),
                                   decoration: BoxDecoration(
                                       color: Colors.black,
-                                      borderRadius: BorderRadius.circular(config.getsizeaproxhight(20)),
+                                      borderRadius: BorderRadius.circular(
+                                          config.getsizeaproxhight(20)),
                                       image: DecorationImage(
                                           image: Image.network(
                                                   "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg")
@@ -498,7 +520,8 @@ class insidebody extends State<insideView> {
                                   height: config.getsizeaproxhight(30),
                                   decoration: BoxDecoration(
                                     color: Colors.black,
-                                    borderRadius: BorderRadius.circular(config.getsizeaproxhight(20)),
+                                    borderRadius: BorderRadius.circular(
+                                        config.getsizeaproxhight(20)),
                                     image: DecorationImage(
                                         image: Image.network(
                                                 "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg")
@@ -572,7 +595,8 @@ class insidebody extends State<insideView> {
                       selectedItemColor: Color(0xff707070),
                       onTap: _onItemTapped,
                     ),
-                    margin: EdgeInsets.fromLTRB(50, 0, 50, config.getsizeaproxhight(30)),
+                    margin: EdgeInsets.fromLTRB(
+                        50, 0, 50, config.getsizeaproxhight(30)),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                       color: Colors.white,

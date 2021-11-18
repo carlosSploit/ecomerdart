@@ -4,15 +4,16 @@ import '../../views/view/insideview.dart';
 import '../../views/view/loginview.dart';
 import 'config/Cache.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  runApp(MyApp(0));
 }
 
 // ignore: must_be_immutable
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
-  //cache c = cache();
-  MyApp();
+  // sirve para el index, para poder inizializar el indice del conetendor
+  int _selectedIndex = 0;
+  //---------------------------------------------------------------------
+  MyApp(this._selectedIndex);
 
   @override
   Myappbody createState() => Myappbody();
@@ -31,7 +32,6 @@ class Myappbody extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     return new FutureBuilder<Datosuser>(
       future: _datoscontroller, // envia parametros
       builder: (context, snapshot) {
@@ -65,8 +65,10 @@ class Myappbody extends State<MyApp> {
             ),
             home: (list.getiduser == 0)
                 ? loginView()
-                : insideView(_datoscontroller!.catchError((controller) =>
-                    (_datoscontroller = controller.extracvar()))));
+                : insideView(
+                    _datoscontroller!.catchError((controller) =>
+                        (_datoscontroller = controller.extracvar())),
+                    widget._selectedIndex));
       },
     );
   }

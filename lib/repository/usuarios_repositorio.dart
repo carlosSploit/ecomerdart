@@ -37,4 +37,12 @@ class UsuarioRepositorio implements Repository<Trabajador> {
     }
     return todolist;
   }
+
+  Future<int> delect(Map<String, dynamic> jsonAtri) async {
+    Datosuser todolist = Datosuser.fromJson({});
+    var url = Uri.parse('$dataUrl/usse/${jsonAtri['idusser']}');
+    var respose = await http.delete(url, headers: {"Authorization": "$apikey"});
+    print('status code:${respose.statusCode} -> usuario delect');
+    return respose.statusCode;
+  }
 }

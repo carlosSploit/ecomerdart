@@ -1,3 +1,9 @@
+import 'package:ecomersbaic/config/bdcache.dart';
+import 'package:ecomersbaic/controllers/datosuser.dart';
+import 'package:ecomersbaic/controllers/usuario.dart';
+import 'package:ecomersbaic/main.dart';
+import 'package:ecomersbaic/negocio/usuarios_negocio.dart';
+
 import '../../../config/configinterface.dart';
 import '../../../config/Cache.dart';
 import '../../../controllers/cliente.dart';
@@ -13,13 +19,15 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 TipTrabajador _tipotrab = TipTrabajador(0, "");
+bool stadimage = true; // comprueba si sea insetado a actualizado una imagem
+String path = ""; // capruta el patch de la imagen insertada
 
 // ignore: camel_case_types, must_be_immutable
 class contentserview extends StatefulWidget {
   bool toquenedit1 = false;
   bool toquenedit2 = false;
   ValueChanged<int> accionrecarga;
-
+  cache controller = cache();
   // memoria cache de los itens de cliente y trabajador
   Cliente clientecacha = Cliente.fromJson({});
   Trabajador trabajocahca = Trabajador.fromJson({});
@@ -30,7 +38,6 @@ class contentserview extends StatefulWidget {
   int idedittext = -1;
   int idusuario = 0;
   String tipo = "";
-  var controller;
   String path = "";
   String pathmemori = "";
   // tipo de trabajador
@@ -179,7 +186,7 @@ class contentserview extends StatefulWidget {
     return Stack(
       children: [
         Container(
-          height: config.getsizeaproxhight(500),
+          height: config.getsizeaproxhightsize(500, size),
           //height: 400,
           width: size.width - 10,
           child: Stack(
@@ -190,32 +197,34 @@ class contentserview extends StatefulWidget {
                   // Imagen de perfil del usuario
                   Container(
                     //color: Colors.grey,
-                    height: config.getsizeaproxhight(180),
+                    height: config.getsizeaproxhightsize(180, size),
                     child: Stack(
                       children: <Widget>[
                         Align(
                           alignment: Alignment.center,
                           child: InkWell(
                             child: Container(
-                              width: config.getsizeaproxhight(140),
-                              height: config.getsizeaproxhight(140),
+                              width: config.getsizeaproxhightsize(140, size),
+                              height: config.getsizeaproxhightsize(140, size),
                               child: Align(
                                 alignment: Alignment.bottomRight,
                                 child: Container(
-                                  width: config.getsizeaproxhight(50),
-                                  height: config.getsizeaproxhight(50),
+                                  width: config.getsizeaproxhightsize(50, size),
+                                  height:
+                                      config.getsizeaproxhightsize(50, size),
                                   child: Align(
                                     alignment: Alignment.center,
                                     //subier una imagen al servidor
                                     child: InkWell(
                                       child: Icon(
-                                        (this.path == "")
+                                        (stadimage)
                                             ? Icons.photo_camera
                                             : Icons.send,
-                                        size: config.getsizeaproxhight(25),
+                                        size: config.getsizeaproxhightsize(
+                                            25, size),
                                         color: Colors.white.withOpacity(0.9),
                                       ),
-                                      onTap: (this.path == "")
+                                      onTap: (stadimage)
                                           ? () async {
                                               final ImagePicker _picker =
                                                   ImagePicker();
@@ -226,6 +235,7 @@ class contentserview extends StatefulWidget {
                                               try {
                                                 this.path = image!.path;
                                                 this.pathmemori = this.path;
+                                                stadimage = false;
                                               } catch (e) {
                                                 print("$e -> messeg error");
                                               }
@@ -266,13 +276,14 @@ class contentserview extends StatefulWidget {
                             child: InkWell(
                               onTap: () {
                                 _tipotrab = TipTrabajador(0, "");
+                                stadimage = true;
                                 Navigator.pop(context);
                               },
                               child: Container(
                                 margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
                                 child: Icon(
                                   Icons.arrow_back_outlined,
-                                  size: config.getsizeaproxhight(30),
+                                  size: config.getsizeaproxhightsize(30, size),
                                   color: Colors.grey.withOpacity(0.9),
                                 ),
                               ),
@@ -341,27 +352,93 @@ class contentserview extends StatefulWidget {
                   ),
                   Stack(
                     children: [
-                      Container(
-                        height: config.getsizeaproxhight(50),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Eliminar producto",
-                            style: TextStyle(
-                                fontSize: config.getsizeaproxhight(14),
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
+                      InkWell(
+                        onTap: () {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                contentPadding: EdgeInsets.all(0),
+                                title: const Text(
+                                  'Eliminar Usuario',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Color(0xff707070)),
+                                ),
+                                content: Container(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                          top: 25,
+                                          bottom: 25,
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        child: const Text(
+                                            'Estas seguro que deseas eliminar'),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                          right: 15,
+                                        ),
+                                        color: Colors.grey.withOpacity(0.8),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  context, 'Cancel'),
+                                              child: const Text(
+                                                'Cancel',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context, 'OK');
+                                                eliminarusuario();
+                                              },
+                                              child: const Text(
+                                                'OK',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                          );
+                        },
+                        child: Container(
+                          height: config.getsizeaproxhightsize(50, size),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Eliminar Usuario",
+                              style: TextStyle(
+                                  fontSize:
+                                      config.getsizeaproxhightsize(14, size),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.8),
+                            //color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(15.0),
+                              bottomRight: Radius.circular(15.0),
+                            ),
                           ),
                         ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.8),
-                          //color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(15.0),
-                            bottomRight: Radius.circular(15.0),
-                          ),
-                        ),
-                      ),
+                      )
                     ],
                   )
                 ],
@@ -375,12 +452,12 @@ class contentserview extends StatefulWidget {
         ),
         (this.idedittext != -1)
             ? Container(
-                height: config.getsizeaproxhight(50),
+                height: config.getsizeaproxhightsize(500, size),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     width: size.width,
-                    height: config.getsizeaproxhight(80),
+                    height: config.getsizeaproxhightsize(80, size),
                     child: Align(
                       alignment: Alignment.center,
                       child: Column(
@@ -413,7 +490,9 @@ class contentserview extends StatefulWidget {
                                                         .list[this.idedittext]
                                                         .toString(), // titulo cambiante, teniendo en cuenta el eddit
                                                     style: TextStyle(
-                                                        fontSize: config.getsizeaproxhight(14),
+                                                        fontSize: config
+                                                            .getsizeaproxhightsize(
+                                                                14, size),
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.w700),
@@ -432,7 +511,9 @@ class contentserview extends StatefulWidget {
                                                       child: InkWell(
                                                         child: Icon(
                                                           Icons.close,
-                                                          size: config.getsizeaproxhight(24),
+                                                          size: config
+                                                              .getsizeaproxhightsize(
+                                                                  24, size),
                                                           color: Colors.white
                                                               .withOpacity(0.8),
                                                         ),
@@ -461,7 +542,9 @@ class contentserview extends StatefulWidget {
                                               Expanded(
                                                 child: Container(
                                                   child: Container(
-                                                    height: config.getsizeaproxhight(40),
+                                                    height: config
+                                                        .getsizeaproxhightsize(
+                                                            40, size),
                                                     child: Row(
                                                       children: <Widget>[
                                                         Expanded(
@@ -620,14 +703,20 @@ class contentserview extends StatefulWidget {
                                               Expanded(
                                                 child: InkWell(
                                                   child: Container(
-                                                    height: config.getsizeaproxhight(40),
-                                                    width: config.getsizeaproxhight(40),
+                                                    height: config
+                                                        .getsizeaproxhightsize(
+                                                            40, size),
+                                                    width: config
+                                                        .getsizeaproxhightsize(
+                                                            40, size),
                                                     child: Align(
                                                       alignment:
                                                           Alignment.center,
                                                       child: Icon(
                                                         Icons.send,
-                                                        size: config.getsizeaproxhight(24),
+                                                        size: config
+                                                            .getsizeaproxhightsize(
+                                                                24, size),
                                                         color: Colors.grey
                                                             .withOpacity(0.8),
                                                       ),
@@ -670,7 +759,7 @@ class contentserview extends StatefulWidget {
                 ),
               )
             : Container(
-                height: config.getsizeaproxhight(500),
+                height: config.getsizeaproxhightsize(500, size),
               ),
       ],
     );
@@ -695,7 +784,10 @@ class contentserview extends StatefulWidget {
             "Se a edito el cliente correctamente", "T");
         this.pathmemori = this.path;
         this.path = "";
-        listcontroler[this.idedittext] = "";
+        stadimage = true;
+        if (this.idedittext != -1) {
+          listcontroler[this.idedittext] = "";
+        }
         this.idedittext = -1;
         state(() {});
         break;
@@ -728,7 +820,10 @@ class contentserview extends StatefulWidget {
             "Se a edito el Trabajador correctamente", "T");
         this.pathmemori = this.path;
         this.path = "";
-        listcontroler[this.idedittext] = "";
+        stadimage = true;
+        if (this.idedittext != -1) {
+          listcontroler[this.idedittext] = "";
+        }
         this.idedittext = -1;
         state(() {});
         break;
@@ -738,6 +833,34 @@ class contentserview extends StatefulWidget {
           mensajealert().customShapeSnackBar(this._context as BuildContext,
               "Parece que hay una advertencia", "R");
         });
+    }
+  }
+
+  void eliminarusuario() async {
+    Datosuser datuse = await controller.extracvar();
+    UsuarioNegocio uss = UsuarioNegocio();
+    print("user : ${this.idusuario}  -     userelimin : ${datuse.getiduser}");
+    if (this.idusuario == datuse.getiduser) {
+      // eliminar el usuario
+      await uss.delect({"idusser": this.idusuario});
+      //-----------------------------------------------
+      Datosuser dat = Datosuser.fromJson({});
+      await bd.update(dat.toJson());
+      print("CERRANDO SECION-----------");
+      Navigator.push(
+        _context as BuildContext,
+        MaterialPageRoute(builder: (context) => MyApp(0)),
+      );
+      print(
+          "Este usuario cliente a iniziado secion, se eliminara y se cerrara la secion");
+    } else {
+      // eliminar el usuario
+      await uss.delect({"idusser": this.idusuario});
+      //-----------------------------------------------
+      accionrecarga(0);
+      mensajealert().customShapeSnackBar(this._context as BuildContext,
+          "Se a eliminado el usuario correctamente", "T");
+      print("Este usuario cliente no a iniziado secion, solo se actualizara");
     }
   }
 
@@ -760,8 +883,8 @@ class contentserview extends StatefulWidget {
                 alignment: Alignment.center,
                 child: Icon(
                   icon,
-
-                  size: config.getsizeaproxhight(24),
+                  size: config.getsizeaproxhightsize(
+                      24, MediaQuery.of(_context as BuildContext).size),
                   color: Colors.grey.withOpacity(0.8),
                 ),
               ),
@@ -779,8 +902,10 @@ class contentserview extends StatefulWidget {
                       child: Text(
                     "$label",
                     style: TextStyle(
-                        fontSize: config.getsizeaproxhight(14),
-                        color: Colors.grey[800], fontWeight: FontWeight.w700),
+                        fontSize: config.getsizeaproxhightsize(
+                            14, MediaQuery.of(_context as BuildContext).size),
+                        color: Colors.grey[800],
+                        fontWeight: FontWeight.w700),
                   )),
                   Container(
                       child: Text(
@@ -788,7 +913,8 @@ class contentserview extends StatefulWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        fontSize: config.getsizeaproxhight(14),
+                        fontSize: config.getsizeaproxhightsize(
+                            14, MediaQuery.of(_context as BuildContext).size),
                         color: Colors.grey.withOpacity(0.8)),
                   )),
                 ],
@@ -803,7 +929,8 @@ class contentserview extends StatefulWidget {
                   child: InkWell(
                     child: Icon(
                       Icons.edit,
-                      size: config.getsizeaproxhight(24),
+                      size: config.getsizeaproxhightsize(
+                          24, MediaQuery.of(_context as BuildContext).size),
                       color: Colors.grey.withOpacity(0.8),
                     ),
                     onTap: () {

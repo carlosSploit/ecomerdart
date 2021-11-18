@@ -8,11 +8,13 @@ class Venta {
   String lugar = "desconocido";
   String fecha = "";
   int cantidadp = 0;
+  double montoigv = 0.0;
   Cliente clie = Cliente();
 
   int get getidvent => this.idventa;
   double get getmontoc => this.montoC;
   double get getmontoT => this.montoT;
+  double get getmontoigv => montoigv;
   String get getlugar => this.lugar;
   get getmontoV => this.montV;
   String get getfech => this.fecha;
@@ -36,6 +38,7 @@ class Venta {
     fecha = (json.containsKey("fecha"))
         ? json['fecha'].toString().split("T")[0]
         : "";
+    montoigv = (json.containsKey("montoigv")) ? json['montoigv'] * 1.0 : 0.0;
     cantidadp = (json.containsKey("cantidadp")) ? json['cantidadp'] : 0;
     lugar = (json.containsKey("lugar")) ? json['lugar'] : "";
     // insercion concatenada para clientes

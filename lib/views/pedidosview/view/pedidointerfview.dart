@@ -1,5 +1,6 @@
-import '../../../config/configinterface.dart';
+import 'package:ecomersbaic/config/bdcache.dart';
 
+import '../../../config/configinterface.dart';
 import '../../../config/Cache.dart';
 import '../../../controllers/Carritocomp.dart';
 import '../../../controllers/Pedido.dart';
@@ -127,10 +128,13 @@ class pedidointerfbody extends State<pedidointerfview> {
                   color: Colors.grey.withOpacity(0.9),
                 ),
               ),
-              onTap: () {
+              onTap: () async {
+                List<Datosuser> lista = await bd.list();
+                print("${lista[0].getidinterface} - interface user");
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyApp()),
+                  MaterialPageRoute(
+                      builder: (context) => MyApp(lista[0].getidinterface)),
                 );
               },
             ),
@@ -302,7 +306,7 @@ class pedidointerfbody extends State<pedidointerfview> {
 
   // cart de cada categoria, el cual actualizara el estado
   Widget _contenedorpedidocard(
-      Size size, Pedido list, Carritocomp ccp, String tipuser) {
+      Size size, Pedido list, Carritocomp ccp, String tipointerf) {
     //var df = DateFormat('');
     //print("${controller.getidcarrit}");
     return Container(
@@ -326,7 +330,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                       children: [
                         // datos numero 1
                         // detaller de un pedido realizado
-                        (tipuser != "C")
+                        (tipointerf != "C")
                             ? FutureBuilder<List<Dettallv>>(
                                 future: pedres.listdet({
                                   "id_pedido": widget.idpedido,
@@ -398,7 +402,8 @@ class pedidointerfbody extends State<pedidointerfview> {
                                                     Icons
                                                         .production_quantity_limits,
                                                     color: Colors.grey[600],
-                                                    size: config.getsizeaproxhight(50),
+                                                    size: config
+                                                        .getsizeaproxhight(50),
                                                   ),
                                                 ),
                                                 Container(
@@ -406,7 +411,9 @@ class pedidointerfbody extends State<pedidointerfview> {
                                                     "No hay productos en cesta",
                                                     style: TextStyle(
                                                       color: Color(0xff707070),
-                                                      fontSize: config.getsizeaproxhight(15),
+                                                      fontSize: config
+                                                          .getsizeaproxhight(
+                                                              15),
                                                     ),
                                                   ),
                                                 )
@@ -486,7 +493,8 @@ class pedidointerfbody extends State<pedidointerfview> {
                                                     Icons
                                                         .production_quantity_limits,
                                                     color: Colors.grey[600],
-                                                    size: config.getsizeaproxhight(50),
+                                                    size: config
+                                                        .getsizeaproxhight(50),
                                                   ),
                                                 ),
                                                 Container(
@@ -494,7 +502,9 @@ class pedidointerfbody extends State<pedidointerfview> {
                                                     "No hay productos en cesta",
                                                     style: TextStyle(
                                                       color: Color(0xff707070),
-                                                      fontSize: config.getsizeaproxhight(15),
+                                                      fontSize: config
+                                                          .getsizeaproxhight(
+                                                              15),
                                                     ),
                                                   ),
                                                 )
@@ -541,7 +551,8 @@ class pedidointerfbody extends State<pedidointerfview> {
                                               : "${_seletdate.year}-${(_seletdate.month < 10) ? ("0" + _seletdate.month.toString()) : _seletdate.month}-${(_seletdate.day < 10) ? ("0" + _seletdate.day.toString()) : _seletdate.day}",
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: config.getsizeaproxhight(20),
+                                            fontSize:
+                                                config.getsizeaproxhight(20),
                                           ),
                                         ),
                                       ),
@@ -563,7 +574,8 @@ class pedidointerfbody extends State<pedidointerfview> {
                                               "fecha de envio",
                                               style: TextStyle(
                                                 color: Color(0xff707070),
-                                                fontSize: config.getsizeaproxhight(20),
+                                                fontSize: config
+                                                    .getsizeaproxhight(20),
                                               ),
                                             ),
                                             decoration: BoxDecoration(
@@ -605,11 +617,12 @@ class pedidointerfbody extends State<pedidointerfview> {
                                       alignment: Alignment.center,
                                       child: Container(
                                         child: Text(
-                                          "Monto: S/ ${(list.getvent.getmontoV + list.getvent.getmontoT)}",
+                                          "Monto: S/ ${(list.getvent.getmontoV + list.getvent.getmontoT + list.getvent.getmontoigv)}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.white,
-                                            fontSize: config.getsizeaproxhight(20),
+                                            fontSize:
+                                                config.getsizeaproxhight(20),
                                           ),
                                         ),
                                       ),
@@ -652,7 +665,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                           ],
                         ),
                         // datos numero 1 - Falta validadr que el tipo de usuario que esta viendo esto, un trabajador o cliente
-                        (tipuser != "C" && this.tipuser == "T")
+                        (tipointerf != "C" && this.tipuser == "T")
                             ? Row(
                                 children: [
                                   Expanded(
@@ -665,7 +678,8 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           "Nombre: ",
                                           style: TextStyle(
                                             color: Color(0xff707070),
-                                            fontSize: config.getsizeaproxhight(18),
+                                            fontSize:
+                                                config.getsizeaproxhight(18),
                                           ),
                                         ),
                                       ),
@@ -682,7 +696,8 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: config.getsizeaproxhight(16),
+                                            fontSize:
+                                                config.getsizeaproxhight(16),
                                           ),
                                         ),
                                       ),
@@ -715,7 +730,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                 child: Container(
                                   margin: EdgeInsets.fromLTRB(0, 0, 15, 5),
                                   child: Text(
-                                    "${(tipuser != "C") ? list.getvent.getclien.getdirecc : ccp.getclien.getdirecc}",
+                                    "${(tipointerf != "C") ? list.getvent.getclien.getdirecc : ccp.getclien.getdirecc}",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Colors.black,
@@ -751,7 +766,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                 child: Container(
                                   margin: EdgeInsets.fromLTRB(0, 0, 15, 5),
                                   child: Text(
-                                    "${(tipuser != "C") ? list.getvent.getclien.gedirec_a : ccp.getclien.gedirec_a}",
+                                    "${(tipointerf != "C") ? list.getvent.getclien.gedirec_a : ccp.getclien.gedirec_a}",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Colors.black,
@@ -818,7 +833,8 @@ class pedidointerfbody extends State<pedidointerfview> {
                                           "Fecha limite entrega: ",
                                           style: TextStyle(
                                             color: Color(0xff707070),
-                                            fontSize:  config.getsizeaproxhight(18),
+                                            fontSize:
+                                                config.getsizeaproxhight(18),
                                           ),
                                         ),
                                       ),
@@ -831,10 +847,11 @@ class pedidointerfbody extends State<pedidointerfview> {
                                         margin:
                                             EdgeInsets.fromLTRB(0, 0, 15, 5),
                                         child: Text(
-                                          "${(tipuser != "C") ? list.getfechent : ""}",
+                                          "${(tipointerf != "C") ? list.getfechent : ""}",
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: config.getsizeaproxhight(16),
+                                            fontSize:
+                                                config.getsizeaproxhight(16),
                                           ),
                                         ),
                                       ),
@@ -844,46 +861,42 @@ class pedidointerfbody extends State<pedidointerfview> {
                               )
                             : Container(),
                         //#######################################################
-                        (tipuser != "C")
-                            ? Row(
-                                children: [
-                                  Expanded(
-                                    flex: 5,
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Container(
-                                        margin:
-                                            EdgeInsets.fromLTRB(15, 0, 0, 5),
-                                        child: Text(
-                                          "Lugar de envio: ",
-                                          style: TextStyle(
-                                            color: Color(0xff707070),
-                                            fontSize: config.getsizeaproxhight(18),
-                                          ),
-                                        ),
-                                      ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                                  child: Text(
+                                    "Lugar de envio: ",
+                                    style: TextStyle(
+                                      color: Color(0xff707070),
+                                      fontSize: config.getsizeaproxhight(18),
                                     ),
                                   ),
-                                  Expanded(
-                                    flex: 5,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Container(
-                                        margin:
-                                            EdgeInsets.fromLTRB(0, 0, 15, 5),
-                                        child: Text(
-                                          "${(tipuser != "C") ? list.getvent.getlugar : "Piura/Peru"}",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: config.getsizeaproxhight(16),
-                                          ),
-                                        ),
-                                      ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(0, 0, 15, 5),
+                                  child: Text(
+                                    "${(tipointerf == "C") ? ccp.getdestino : ((tipointerf != "C") ? list.getvent.getlugar : "Piura/Peru")}",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: config.getsizeaproxhight(16),
                                     ),
                                   ),
-                                ],
-                              )
-                            : Container(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         Row(
                           children: [
                             Expanded(
@@ -909,7 +922,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                 child: Container(
                                   margin: EdgeInsets.fromLTRB(0, 0, 15, 5),
                                   child: Text(
-                                    "${(tipuser != "C") ? list.getvent.getcant : ccp.getcantiproduct}",
+                                    "${(tipointerf != "C") ? list.getvent.getcant : ccp.getcantiproduct}",
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: config.getsizeaproxhight(16),
@@ -945,7 +958,42 @@ class pedidointerfbody extends State<pedidointerfview> {
                                 child: Container(
                                   margin: EdgeInsets.fromLTRB(0, 0, 15, 5),
                                   child: Text(
-                                    "S/.${(tipuser != "C") ? list.getvent.getmontoT : ccp.getmontotal}",
+                                    "S/.${(tipointerf != "C") ? list.getvent.getmontoT : ccp.getmontotal}",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: config.getsizeaproxhight(16),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        // datos numero 1
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(15, 0, 0, 5),
+                                  child: Text(
+                                    "Monto igv : ",
+                                    style: TextStyle(
+                                      color: Color(0xff707070),
+                                      fontSize: config.getsizeaproxhight(18),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(0, 0, 15, 5),
+                                  child: Text(
+                                    "S/.${(tipointerf != "C") ? list.getvent.getmontoigv : ccp.getmontoigv}",
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: config.getsizeaproxhight(16),
@@ -980,7 +1028,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                                 child: Container(
                                   margin: EdgeInsets.fromLTRB(0, 0, 15, 5),
                                   child: Text(
-                                    "S/.${(tipuser != "C") ? list.getvent.getmontoV : ccp.getmontot}",
+                                    "S/.${(tipointerf != "C") ? list.getvent.getmontoV : ccp.getmontot}",
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: config.getsizeaproxhight(16),
@@ -1019,7 +1067,7 @@ class pedidointerfbody extends State<pedidointerfview> {
                         child: Align(
                           child: Container(
                             child: Text(
-                              "S/ ${(tipuser != "C") ? list.getvent.getmontoc : (ccp.getmontot + ccp.getmontotal)}",
+                              "S/ ${(tipointerf != "C") ? list.getvent.getmontoc : (ccp.getmontot + ccp.getmontotal)}",
                               style: TextStyle(
                                 fontWeight: FontWeight.w800,
                                 color: Colors.white,

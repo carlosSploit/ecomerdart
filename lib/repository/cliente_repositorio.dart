@@ -38,6 +38,8 @@ class ClienteRepositorio implements Repository<Cliente> {
   }
 
   Future<int> insert(Cliente trap, ValueChanged<int> accionres) async {
+    print(
+        "direccion: ${trap.getdirecc} - direccion_alterna : ${trap.gedirec_a}");
     Map data = {
       'usser': trap.getusser,
       'pass': trap.getpass,

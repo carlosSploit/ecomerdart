@@ -106,4 +106,8 @@ class ProductoNegocio {
       ];
     }
   }
+
+  Future<int> delect(Map<String, dynamic> jsonAtri) async {
+    return await respo.delect(jsonAtri);
+  }
 }

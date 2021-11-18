@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../config/configinterface.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:another_flushbar/flushbar.dart' show Flushbar, FlushbarPosition;
 
@@ -15,6 +16,7 @@ class mensajealert extends StatefulWidget {
 // ignore: camel_case_types
 class contentserbody extends State<mensajealert>
     with SingleTickerProviderStateMixin {
+  configinterface? config;
   contentserbody();
 
   @override
@@ -25,15 +27,18 @@ class contentserbody extends State<mensajealert>
   }
 
   void customShapeSnackBar(BuildContext context, String mensaje, String tipo) {
+    config = configinterface(context);
     Flushbar(
-      maxWidth: (mensaje.length * 8.0) + 30,
+      maxWidth: (mensaje.length * 8.0) + config!.getsizeaproxwigth(30),
       icon: Container(
-        height: 30,
-        width: 30,
+        height: config!.getsizeaproxhight(30),
+        width: config!.getsizeaproxwigth(30),
         child: Align(
           alignment: Alignment.center,
           child: Icon(
-            (tipo == "T") ? Icons.check_circle_outlined : Icons.error_outline_outlined,
+            (tipo == "T")
+                ? Icons.check_circle_outlined
+                : Icons.error_outline_outlined,
             color: Colors.white,
           ),
         ),
@@ -49,7 +54,7 @@ class contentserbody extends State<mensajealert>
               child: Text(
                 "$mensaje",
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: config!.getsizeaproxhight(15),
                   color: (tipo == "T") ? Colors.green : Colors.red,
                 ),
               ),

@@ -79,7 +79,10 @@ class inserproductoview extends StatefulWidget {
       items.add(
         DropdownMenuItem(
           value: company,
-          child: Text(company.getname, style: TextStyle(fontSize: config.getsizeaproxhight(14)),),
+          child: Text(
+            company.getname,
+            style: TextStyle(fontSize: config.getsizeaproxhight(14)),
+          ),
         ),
       );
     }
@@ -165,7 +168,8 @@ class inserproductoview extends StatefulWidget {
                                           child: InkWell(
                                               child: Icon(
                                                 Icons.photo_camera,
-                                                size: config.getsizeaproxhight(25),
+                                                size: config
+                                                    .getsizeaproxhight(25),
                                                 color: Colors.white
                                                     .withOpacity(0.9),
                                               ),
@@ -434,11 +438,15 @@ class inserproductoview extends StatefulWidget {
                                           keyboardType: (inx == 2 || inx > 3)
                                               ? TextInputType.number
                                               : TextInputType.text,
-                                          style: TextStyle(fontSize: config.getsizeaproxhight(15),),
+                                          style: TextStyle(
+                                            fontSize:
+                                                config.getsizeaproxhight(15),
+                                          ),
                                           controller: listcontroler[inx],
                                           decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: 'Escribe un mensaje'),
+                                            border: InputBorder.none,
+                                            hintText: 'Escribe un mensaje',
+                                          ),
                                         )
                                       : FutureBuilder<List<Categoria>>(
                                           future: restiptrab!.getlist({}),

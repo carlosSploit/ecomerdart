@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:ecomersbaic/config/bdcache.dart';
+import 'package:ecomersbaic/controllers/datosuser.dart';
+
 import '../../../config/configinterface.dart';
 import '../../../controllers/Analitic.dart';
 import '../../../main.dart';
@@ -21,7 +24,7 @@ class analiticview extends StatefulWidget {
 
 // ignore: camel_case_types
 class analiticbody extends State<analiticview> {
-  late TooltipBehavior _tooltipBehavior= TooltipBehavior(enable: true);
+  late TooltipBehavior _tooltipBehavior = TooltipBehavior(enable: true);
   late AnaliticNegocio anali = AnaliticNegocio();
   late configinterface config;
   analiticbody();
@@ -37,11 +40,14 @@ class analiticbody extends State<analiticview> {
             Icons.arrow_back_sharp,
             color: Color(0xff707070).withOpacity(0.6),
           ),
-          onTap: () async{
+          onTap: () async {
+            // estraer memoria cache
+            List<Datosuser> lista = await bd.list();
+            // redireccionar con la memoria
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => MyApp()),
+                  builder: (context) => MyApp(lista[0].getidinterface)),
             );
           },
         ),
@@ -57,10 +63,10 @@ class analiticbody extends State<analiticview> {
           ),
         ),
       ),
-      body:Container(
-        color: Colors.white,
-        child: Expanded(
-          child: ListView(
+      body: Container(
+          color: Colors.white,
+          child: Expanded(
+              child: ListView(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,17 +76,16 @@ class analiticbody extends State<analiticview> {
                   Container(
                     margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset:
-                            Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Row(
                       children: [
@@ -95,10 +100,11 @@ class analiticbody extends State<analiticview> {
                                 Container(
                                   child: Align(
                                     alignment: Alignment.center,
-                                    child: Text("Ganancias del dia", style: TextStyle(
-                                        color: Color(0xff707070),
-                                      fontSize: 20
-                                      ),
+                                    child: Text(
+                                      "Ganancias del dia",
+                                      style: TextStyle(
+                                          color: Color(0xff707070),
+                                          fontSize: 20),
                                     ),
                                   ),
                                   margin: EdgeInsets.fromLTRB(0, 15, 0, 10),
@@ -119,14 +125,15 @@ class analiticbody extends State<analiticview> {
                                       }
                                       if (snapshot.hasError) {
                                         return Center(
-                                          child: Text(
-                                              "Error: ${snapshot.error} "),
+                                          child:
+                                              Text("Error: ${snapshot.error} "),
                                         );
                                       }
                                       //------------------------------------------------
                                       //capturar las categorias
-                                      var list = snapshot.data as List<Analitic>;
-                                      for(Analitic e in  list ){
+                                      var list =
+                                          snapshot.data as List<Analitic>;
+                                      for (Analitic e in list) {
                                         print("${e.getganan} - ${e.getfecha}");
                                       }
                                       // inicializar las categorias
@@ -145,17 +152,16 @@ class analiticbody extends State<analiticview> {
                   Container(
                     margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset:
-                            Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Row(
                       children: [
@@ -170,70 +176,92 @@ class analiticbody extends State<analiticview> {
                                 Container(
                                   child: Align(
                                     alignment: Alignment.center,
-                                    child: Text("Productos mas pedidos", style: TextStyle(
+                                    child: Text(
+                                      "Productos mas pedidos",
+                                      style: TextStyle(
                                         color: Color(0xff707070),
                                         fontSize: config.getsizeaproxhight(20),
-                                    ),
+                                      ),
                                     ),
                                   ),
                                   margin: EdgeInsets.fromLTRB(0, 15, 0, 10),
                                 ),
-                                  FutureBuilder<List<Analitic>>(
-                                    future: anali.getlist({
-                                      "tipo": 3,
-                                    }),
-                                    builder: (context, snapshot) {
-                                      //validadores del estado------------------------
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return Container(
-                                          height: config.getsizeaproxhight(200),
-                                          child: Align(
-                                              alignment: Alignment.center,
-                                              child: CircularProgressIndicator()),
-                                        );
-                                      }
-                                      if (snapshot.hasError) {
-                                        return Center(
-                                          child: Text(
-                                              "Error: ${snapshot.error} "),
-                                        );
-                                      }
-                                      //------------------------------------------------
-                                      //capturar las categorias
-                                      var list = snapshot.data as List<Analitic>;
-                                      list = list.reversed.toList();
-                                      List<Widget> producif = [];
-                                      producif.add(Container(
+                                FutureBuilder<List<Analitic>>(
+                                  future: anali.getlist({
+                                    "tipo": 3,
+                                  }),
+                                  builder: (context, snapshot) {
+                                    //validadores del estado------------------------
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Container(
+                                        height: config.getsizeaproxhight(200),
+                                        child: Align(
+                                            alignment: Alignment.center,
+                                            child: CircularProgressIndicator()),
+                                      );
+                                    }
+                                    if (snapshot.hasError) {
+                                      return Center(
+                                        child:
+                                            Text("Error: ${snapshot.error} "),
+                                      );
+                                    }
+                                    //------------------------------------------------
+                                    //capturar las categorias
+                                    var list = snapshot.data as List<Analitic>;
+                                    list = list.reversed.toList();
+                                    List<Widget> producif = [];
+                                    producif.add(
+                                      Container(
                                         height: config.getsizeaproxhight(200),
                                         child: SfCircularChart(
-                                          legend:
-                                          Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
+                                          legend: Legend(
+                                              isVisible: true,
+                                              overflowMode:
+                                                  LegendItemOverflowMode.wrap),
                                           tooltipBehavior: _tooltipBehavior,
                                           series: <CircularSeries>[
                                             RadialBarSeries<Analitic, String>(
                                                 dataSource: list,
-                                                xValueMapper: (Analitic data, _) => ("id : "+ data.getdatosex.getidpro.toString() + " -  Cantidad : " + data.getdatosex.getstock.toString()),
-                                                yValueMapper: (Analitic data, _) => data.getdatosex.getstock,
-                                                cornerStyle: CornerStyle.bothFlat,
+                                                xValueMapper: (Analitic data,
+                                                        _) =>
+                                                    ("id : " +
+                                                        data.getdatosex.getidpro
+                                                            .toString() +
+                                                        " -  Cantidad : " +
+                                                        data.getdatosex.getstock
+                                                            .toString()),
+                                                yValueMapper: (Analitic data,
+                                                        _) =>
+                                                    data.getdatosex.getstock,
+                                                cornerStyle:
+                                                    CornerStyle.bothFlat,
                                                 //dataLabelSettings: DataLabelSettings(isVisible: true),
                                                 enableTooltip: true,
                                                 maximumValue: 10)
                                           ],
                                         ),
-                                      ),);
+                                      ),
+                                    );
 
-                                      for(Analitic e in  list ){
-                                        producif.add(productanaliticview(e.getdatosex.getidpro, 200,  e.getdatosex.getname, e.getdatosex.getfoto,
-                                            e.getdatosex.getstock,e.getganan, (a){}));
-                                      }
+                                    for (Analitic e in list) {
+                                      producif.add(productanaliticview(
+                                          e.getdatosex.getidpro,
+                                          200,
+                                          e.getdatosex.getname,
+                                          e.getdatosex.getfoto,
+                                          e.getdatosex.getstock,
+                                          e.getganan,
+                                          (a) {}));
+                                    }
 
-                                      // inicializar las categorias
-                                      return Column(
-                                        children: producif,
-                                      );
-                                    },
-                                  ),
+                                    // inicializar las categorias
+                                    return Column(
+                                      children: producif,
+                                    );
+                                  },
+                                ),
                               ],
                             ),
                           ),
@@ -252,8 +280,7 @@ class analiticbody extends State<analiticview> {
                           color: Colors.grey.withOpacity(0.3),
                           spreadRadius: 5,
                           blurRadius: 7,
-                          offset:
-                          Offset(0, 3), // changes position of shadow
+                          offset: Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     ),
@@ -270,10 +297,12 @@ class analiticbody extends State<analiticview> {
                                 Container(
                                   child: Align(
                                     alignment: Alignment.center,
-                                    child: Text("Productos con mas ganacias", style: TextStyle(
+                                    child: Text(
+                                      "Productos con mas ganacias",
+                                      style: TextStyle(
                                         color: Color(0xff707070),
                                         fontSize: config.getsizeaproxhight(20),
-                                    ),
+                                      ),
                                     ),
                                   ),
                                   margin: EdgeInsets.fromLTRB(0, 15, 0, 10),
@@ -295,8 +324,8 @@ class analiticbody extends State<analiticview> {
                                     }
                                     if (snapshot.hasError) {
                                       return Center(
-                                        child: Text(
-                                            "Error: ${snapshot.error} "),
+                                        child:
+                                            Text("Error: ${snapshot.error} "),
                                       );
                                     }
                                     //------------------------------------------------
@@ -304,28 +333,48 @@ class analiticbody extends State<analiticview> {
                                     var list = snapshot.data as List<Analitic>;
                                     list = list.reversed.toList();
                                     List<Widget> producif = [];
-                                    producif.add(Container(
-                                      height: config.getsizeaproxhight(200),
-                                      child: SfCircularChart(
-                                        legend:
-                                        Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
-                                        tooltipBehavior: _tooltipBehavior,
-                                        series: <CircularSeries>[
-                                          RadialBarSeries<Analitic, String>(
-                                              dataSource: list,
-                                              xValueMapper: (Analitic data, _) => ("id : "+ data.getdatosex.getidpro.toString() + " -  ganacia : " + data.getganan.toString()),
-                                              yValueMapper: (Analitic data, _) => data.getganan,
-                                              cornerStyle: CornerStyle.bothFlat,
-                                              //dataLabelSettings: DataLabelSettings(isVisible: true),
-                                              //enableTooltip: true,
-                                              maximumValue: 10)
-                                        ],
+                                    producif.add(
+                                      Container(
+                                        height: config.getsizeaproxhight(200),
+                                        child: SfCircularChart(
+                                          legend: Legend(
+                                              isVisible: true,
+                                              overflowMode:
+                                                  LegendItemOverflowMode.wrap),
+                                          tooltipBehavior: _tooltipBehavior,
+                                          series: <CircularSeries>[
+                                            RadialBarSeries<Analitic, String>(
+                                                dataSource: list,
+                                                xValueMapper: (Analitic data,
+                                                        _) =>
+                                                    ("id : " +
+                                                        data.getdatosex.getidpro
+                                                            .toString() +
+                                                        " -  ganacia : " +
+                                                        data.getganan
+                                                            .toString()),
+                                                yValueMapper:
+                                                    (Analitic data, _) =>
+                                                        data.getganan,
+                                                cornerStyle:
+                                                    CornerStyle.bothFlat,
+                                                //dataLabelSettings: DataLabelSettings(isVisible: true),
+                                                //enableTooltip: true,
+                                                maximumValue: 10)
+                                          ],
+                                        ),
                                       ),
-                                    ),);
+                                    );
 
-                                    for(Analitic e in  list ){
-                                      producif.add(productanaliticview(e.getdatosex.getidpro, 200,  e.getdatosex.getname, e.getdatosex.getfoto,
-                                          e.getdatosex.getstock,e.getganan, (a){}));
+                                    for (Analitic e in list) {
+                                      producif.add(productanaliticview(
+                                          e.getdatosex.getidpro,
+                                          200,
+                                          e.getdatosex.getname,
+                                          e.getdatosex.getfoto,
+                                          e.getdatosex.getstock,
+                                          e.getganan,
+                                          (a) {}));
                                     }
 
                                     // inicializar las categorias
@@ -344,12 +393,9 @@ class analiticbody extends State<analiticview> {
                 ],
               )
             ],
-          )
-        )
-      ),
+          ))),
     );
   }
-
 }
 
 class SalesData {

@@ -16,6 +16,8 @@ class Carritocomp {
   double montot = 0.0;
   double montotal = 0.0;
   int cantiproduct = 0;
+  double montoigv = 0.0;
+  String destino = "";
   Cliente clien = Cliente();
 
   // ignore: non_constant_identifier_names
@@ -24,6 +26,8 @@ class Carritocomp {
   get getmontotal => this.montotal;
   get getcantiproduct => this.cantiproduct;
   get getclien => this.clien;
+  double get getmontoigv => montoigv;
+  String get getdestino => destino;
 
   Carritocomp();
 
@@ -38,6 +42,8 @@ class Carritocomp {
     montotal = (json.containsKey("montotal"))
         ? json['montotal'].toDouble() * 1.0
         : 0.0;
+    montoigv = (json.containsKey("montoigv")) ? json['montoigv'] * 1.0 : 0.0;
+    destino = (json.containsKey('destino')) ? json['destino'] : "";
     cantiproduct =
         (json.containsKey("cantiproduct")) ? json['cantiproduct'] : 0;
     clien = Cliente.fromJson({

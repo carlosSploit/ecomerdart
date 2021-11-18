@@ -40,9 +40,6 @@ class ProductoRepositorio implements Repository<Producto> {
   // presenta un error en el carrito de compra
   // value change servira para realizar una accion en caso que se requiera
   Future<int> update(Producto uss, ValueChanged<int> accs) async {
-    //     "nombre: ${uss.getnombre} , numero: ${uss.getcelula}, correo: ${uss.getcorreo}, direccion: ${uss.getdirecc}, direccion_alterna: ${uss.gedirec_a}, photo: ${uss.getfoto}");
-    // print("${uss.getidusua}");
-
     if (uss.getfoto != "") {
       http.StreamedResponse respo = await ftp.patchImage(uss.getfoto);
       String respode = await respo.stream.transform(utf8.decoder).last;
@@ -127,6 +124,13 @@ class ProductoRepositorio implements Repository<Producto> {
     print('status code:${respose.statusCode} -> calificar');
     accionres(0);
 
+    return respose.statusCode;
+  }
+
+  Future<int> delect(Map<String, dynamic> jsonAtri) async {
+    var url = Uri.parse('$dataUrl/prod/${jsonAtri['idproducto']}');
+    var respose = await http.delete(url, headers: {"Authorization": "$apikey"});
+    print('status code:${respose.statusCode} -> producto delect');
     return respose.statusCode;
   }
 }

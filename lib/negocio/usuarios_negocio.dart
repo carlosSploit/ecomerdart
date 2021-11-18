@@ -19,4 +19,11 @@ class UsuarioNegocio {
         : "%20";
     return respo.read(jsonAtri);
   }
+
+  Future<int> delect(Map<String, dynamic> jsonAtri) async {
+    jsonAtri['idusser'] = jsonAtri.containsKey('idusser')
+        ? int.parse(jsonAtri['idusser'].toString())
+        : 0;
+    return respo.delect(jsonAtri);
+  }
 }
