@@ -138,6 +138,7 @@ class loginbody extends State<loginView> {
                                   suffixIcon: IconButton(
                                     focusColor: Color(0xff707070),
                                     hoverColor: Color(0xff707070),
+                                    color: Color(0xff707070),
                                     onPressed: () {
                                       setState(() {
                                         widget.band = !widget.band;
