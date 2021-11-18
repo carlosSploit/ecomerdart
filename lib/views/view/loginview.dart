@@ -11,6 +11,7 @@ import '../../views/components/mensajealert.dart';
 
 // ignore: camel_case_types
 class loginView extends StatefulWidget {
+  bool band = true;
   loginView();
 
   @override
@@ -128,13 +129,24 @@ class loginbody extends State<loginView> {
                               style: TextStyle(
                                 fontSize: config.getsizeaproxhight(14),
                               ),
-                              obscureText: true,
+                              obscureText: widget.band,
                               enableSuggestions: false,
                               autocorrect: false,
                               decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Escribe tu password',
-                              ),
+                                  border: InputBorder.none,
+                                  hintText: 'Escribe tu password',
+                                  suffixIcon: IconButton(
+                                    focusColor: Color(0xff707070),
+                                    hoverColor: Color(0xff707070),
+                                    onPressed: () {
+                                      setState(() {
+                                        widget.band = !widget.band;
+                                      });
+                                    },
+                                    icon: Icon((widget.band)
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                  )),
                               onChanged: (value) {
                                 this.pass = value;
                               },
