@@ -782,13 +782,7 @@ class contentserview extends StatefulWidget {
       case 200:
         mensajealert().customShapeSnackBar(this._context as BuildContext,
             "Se a edito el cliente correctamente", "T");
-        this.pathmemori = this.path;
-        this.path = "";
-        stadimage = true;
-        if (this.idedittext != -1) {
-          listcontroler[this.idedittext] = "";
-        }
-        this.idedittext = -1;
+        eliminarvalstado();
         state(() {});
         break;
       default:
@@ -818,13 +812,7 @@ class contentserview extends StatefulWidget {
       case 200:
         mensajealert().customShapeSnackBar(this._context as BuildContext,
             "Se a edito el Trabajador correctamente", "T");
-        this.pathmemori = this.path;
-        this.path = "";
-        stadimage = true;
-        if (this.idedittext != -1) {
-          listcontroler[this.idedittext] = "";
-        }
-        this.idedittext = -1;
+        eliminarvalstado();
         state(() {});
         break;
       default:
@@ -868,6 +856,16 @@ class contentserview extends StatefulWidget {
     for (var i = 0; i < est.length; i++) {
       stadevalue = est[i];
     }
+  }
+
+  void eliminarvalstado() {
+    this.pathmemori = this.path;
+    this.path = "";
+    stadimage = false;
+    if (this.idedittext != -1) {
+      listcontroler[this.idedittext] = "";
+    }
+    this.idedittext = -1;
   }
 
   Widget iteninfo(IconData icon, String label, var info, int inx) {

@@ -1,9 +1,12 @@
+import 'package:ecomersbaic/config/validador.dart';
+
 import '../repository/cliente_repositorio.dart';
 import '../controllers/cliente.dart';
 import 'package:flutter/cupertino.dart';
 
 class ClienteNegocio {
   ClienteRepositorio respo = ClienteRepositorio();
+  validador val = validador();
 
   // se usa el objeto cliente para hacer la imprecion en usuario
   Future<List<Cliente>> getlist(Map<String, dynamic> jsonAtri) async {
@@ -23,15 +26,14 @@ class ClienteNegocio {
   }
 
   Future<int> insert(Cliente uss, ValueChanged<int> accionres) async {
-    if (uss.getusser != "" &&
-        uss.getpass != "" &&
-        (uss.getnombre != "" &&
-            uss.getnombre.toString().split(" ").length > 1) &&
-        uss.getcelula != 0 &&
-        uss.getcorreo != "" &&
-        uss.gedirec_a != "" &&
-        uss.getdirecc != "" &&
-        uss.getfoto != "") {
+    if (val.valvacio(uss.getusser) &&
+        val.valpassword(uss.getpass) &&
+        val.valName(uss.getnombre) &&
+        val.valCelular(uss.getcelula.toString()) &&
+        val.valCorreo(uss.getcorreo) &&
+        val.valvacio(uss.gedirec_a) &&
+        val.valvacio(uss.getdirecc) &&
+        val.valvacio(uss.getfoto)) {
       return await respo.insert(uss, accionres);
     } else {
       return 400;
@@ -39,30 +41,28 @@ class ClienteNegocio {
   }
 
   Future<List<Object>> update(Cliente uss, ValueChanged<int> accionres) async {
-    if (uss.getusser != "" ||
-        uss.getpass != "" ||
-        (uss.getnombre != "" ||
-            uss.getnombre.toString().split(" ").length > 1) ||
-        uss.getcelula != 0 ||
-        uss.getcorreo != "" ||
-        uss.gedirec_a != "" ||
-        uss.getdirecc != "" ||
-        uss.getfoto != "") {
+    if (val.valvacio(uss.getusser) ||
+        val.valpassword(uss.getpass) ||
+        val.valName(uss.getnombre) ||
+        val.valCelular(uss.getcelula.toString()) ||
+        val.valCorreo(uss.getcorreo) ||
+        val.valvacio(uss.gedirec_a) ||
+        val.valvacio(uss.getdirecc) ||
+        val.valvacio(uss.getfoto)) {
       int resul = await respo.update(uss, accionres);
       return [resul, []];
     } else {
       return [
         400,
         [
-          !(uss.getusser != "" ||
-              uss.getpass != "" ||
-              (uss.getnombre != "" ||
-                  uss.getnombre.toString().split(" ").length > 1) ||
-              uss.getcelula != 0 ||
-              uss.getcorreo != "" ||
-              uss.gedirec_a != "" ||
-              uss.getdirecc != "" ||
-              uss.getfoto != "")
+          !(val.valvacio(uss.getusser) ||
+              val.valpassword(uss.getpass) ||
+              val.valName(uss.getnombre) ||
+              val.valCelular(uss.getcelula.toString()) ||
+              val.valCorreo(uss.getcorreo) ||
+              val.valvacio(uss.gedirec_a) ||
+              val.valvacio(uss.getdirecc) ||
+              val.valvacio(uss.getfoto))
         ]
       ];
     }

@@ -28,6 +28,7 @@ class Producto {
   int love = 0;
   Categoria categ = Categoria(0, "");
 
+  //getters
   get getidpro => this.idproducto;
   get getname => this.nombre;
   get getdesc => this.descripccion;
@@ -39,6 +40,51 @@ class Producto {
   String get getfoto => this.foto;
   get getlove => this.love;
   Categoria get getcatego => this.categ;
+
+  // setters
+  set setidpro(int id) {
+    idproducto = id;
+  }
+
+  set setname(String name) {
+    nombre = name;
+  }
+
+  set setdesc(String desc) {
+    descripccion = desc;
+  }
+
+  set setstock(int stock) {
+    this.stock = stock;
+  }
+
+  set setprecV(double precv) {
+    this.precV = precv;
+  }
+
+  set setprecC(double precC) {
+    this.precC = precC;
+  }
+
+  set setcodig(int codig) {
+    this.codigo = codig;
+  }
+
+  set setlcalif(int calif) {
+    this.calificacion = calif;
+  }
+
+  set setfoto(String foto) {
+    this.foto = foto;
+  }
+
+  set setlove(int love) {
+    this.love = love;
+  }
+
+  set setcatego(Categoria catego) {
+    this.categ = catego;
+  }
 
   Producto(this.idproducto, this.nombre);
 

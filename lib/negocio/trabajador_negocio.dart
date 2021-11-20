@@ -1,9 +1,11 @@
 import '../repository/trabajador_repositorio.dart';
 import 'package:flutter/cupertino.dart';
 import '../controllers/trabajador.dart';
+import '../config/validador.dart';
 
 class TrabajadorNegocio {
   TrabajadorRepositorio respo = TrabajadorRepositorio();
+  validador val = validador();
 
   // se usa el objeto cliente para hacer la imprecion en usuario
   Future<List<Trabajador>> getlist(Map<String, dynamic> jsonAtri) async {
@@ -32,24 +34,22 @@ class TrabajadorNegocio {
     //     "nombre ${(uss.getnombre != "" && uss.getnombre.toString().split(" ").length > 1)} celular ${uss.getcelula != 0} correo ${uss.getcorreo != ""} idtrabaja ${uss.getidtrabaja != 0} foto ${uss.getfoto != ""}");
     // print(
     //     "nombre ${uss.getnombre} celular ${uss.getcelula} correo ${uss.getcorreo} idtrabaja ${uss.getidtrabaja} foto ${uss.getfoto}");
-    if ((uss.getnombre != "" &&
-            uss.getnombre.toString().split(" ").length > 1) ||
-        uss.getcelula != 0 ||
-        uss.getcorreo != "" ||
+    if (val.valName(uss.getnombre) ||
+        val.valCelular(uss.getcelula.toString()) ||
+        val.valCorreo(uss.getcorreo) ||
         uss.getidtrabaja != 0 ||
-        uss.getfoto != "") {
+        val.valvacio(uss.getfoto)) {
       int resul = await respo.update(uss, accionres);
       return [resul, []];
     } else {
       return [
         400,
         [
-          !((uss.getnombre != "" ||
-                  uss.getnombre.toString().split(" ").length > 1) ||
-              uss.getcelula != 0 ||
-              uss.getcorreo != "" ||
+          !(val.valName(uss.getnombre) ||
+              val.valCelular(uss.getcelula.toString()) ||
+              val.valCorreo(uss.getcorreo) ||
               uss.getidtrabaja != 0 ||
-              uss.getfoto != "")
+              val.valvacio(uss.getfoto))
         ]
       ];
     }
@@ -63,30 +63,35 @@ class TrabajadorNegocio {
   // "id_tiptraba": 1,
   // "photo": "http://localhost:9000/img/sticker.webp"
 
+  // print("nombre - ${val.valName("carlos arturo")}");
+  // print("password - ${val.valpassword("Aa123456")}");
+  // print("Correo - ${val.valCorreo("Arturo14212000@gmail.com")}");
+  // print("celular - ${val.valCelular("969280255")}");
+  // print("nulos - ${val.valvacio("969280255")}");
+  // print("coins - ${val.valCoins(10.0)}");
+
   Future<List<Object>> insert(
       Trabajador trap, ValueChanged<int> accionres) async {
-    if (trap.getusser != "" &&
-        trap.getpass != "" &&
-        (trap.getnombre != "" &&
-            trap.getnombre.toString().split(" ").length > 1) &&
-        trap.getcelula != 0 &&
-        trap.getcorreo != "" &&
+    if (val.valvacio(trap.getusser) &&
+        val.valpassword(trap.getpass) &&
+        val.valName(trap.getnombre) &&
+        val.valCelular(trap.getcelula.toString()) &&
+        val.valCorreo(trap.getcorreo) &&
         trap.gettiptranba.getidtrab != 0 &&
-        trap.getfoto != "") {
+        val.valvacio(trap.getfoto)) {
       int resultado = await respo.insert(trap, accionres);
       return [resultado, []];
     } else {
       return [
         400,
         [
-          !(trap.getnombre != "" &&
-              trap.getnombre.toString().split(" ").length > 1),
-          !(trap.getusser != ""),
-          !(trap.getpass != ""),
+          !(val.valName(trap.getnombre)),
+          !(val.valvacio(trap.getusser)),
+          !(val.valpassword(trap.getpass)),
           !(trap.gettiptranba.getidtrab != 0),
-          !(trap.getcelula != 0),
-          !(trap.getcorreo != ""),
-          !(trap.getfoto != "")
+          !(val.valCelular(trap.getcelula.toString())),
+          !(val.valCorreo(trap.getcorreo)),
+          !(val.valvacio(trap.getfoto))
         ]
       ];
     }

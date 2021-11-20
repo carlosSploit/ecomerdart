@@ -384,6 +384,7 @@ class insertrabajuserview extends StatefulWidget {
     listcontroler[4].text = "";
     listcontroler[5].text = "";
     this.path = "";
+    limpestade();
   }
 
   void limpestade() {
@@ -497,6 +498,7 @@ class insertrabajuserview extends StatefulWidget {
                                             hintText: 'Escribe $label',
                                             suffixIcon: (tipo == "P")
                                                 ? IconButton(
+                                                    color: Color(0xff707070),
                                                     onPressed: () {
                                                       state(() {
                                                         band = !band;

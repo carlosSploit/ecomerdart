@@ -104,30 +104,34 @@ class contentserview extends StatefulWidget {
                 ),
               ),
               contentPadding: EdgeInsets.only(top: 10.0),
-              content: FutureBuilder<Producto>(
-                future: pedres.read({"id_prod": this.idproducto, "id_clin": 0}),
-                builder: (context, snapshot) {
-                  //validadores del estado------------------------
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    // return (Productocache.getname == "")
-                    //     ?
-                    return Align(
-                        alignment: Alignment.center,
-                        child: CircularProgressIndicator());
-                    // : contenedorDate(size, context, Productocache);
-                  }
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: Text("Error al cargar las categorias"),
-                    );
-                  }
-                  //------------------------------------------------
-                  //capturar las categorias
-                  var list = snapshot.data ?? Producto.fromJson({});
-                  Productocache = list;
-                  return contenedorDate(size, context, list);
-                },
-              ),
+              content: (Productocache.getidpro == 0)
+                  ? FutureBuilder<Producto>(
+                      future: pedres
+                          .read({"id_prod": this.idproducto, "id_clin": 0}),
+                      builder: (context, snapshot) {
+                        //validadores del estado------------------------
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          // return (Productocache.getname == "")
+                          //     ?
+                          return Align(
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator());
+                          // : contenedorDate(size, context, Productocache);
+                        }
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text("Error al cargar las categorias"),
+                          );
+                        }
+                        //------------------------------------------------
+                        //capturar las categorias
+                        var list = snapshot.data ?? Producto.fromJson({});
+                        Productocache = list;
+                        return contenedorDate(size, context, list);
+                      },
+                    )
+                  : contenedorDate(size, context, Productocache),
             );
           },
         );
@@ -649,7 +653,10 @@ class contentserview extends StatefulWidget {
                                                     print(listcontroler[
                                                             this.idedittext]
                                                         .text);
+                                                    actualizarproduccache(
+                                                        this.idedittext);
                                                     actuproducto();
+
                                                     state(() {});
                                                   },
                                                 ),
@@ -685,6 +692,34 @@ class contentserview extends StatefulWidget {
               ),
       ],
     );
+  }
+
+  // actualiza la memoria o la clase que hace de memoria, evitando la sobre recarga
+  void actualizarproduccache(int index) {
+    switch (index) {
+      case 0:
+        Productocache.setname = listcontroler[index].text;
+        break;
+      case 1:
+        Productocache.setdesc = listcontroler[index].text;
+        break;
+      case 2:
+        Productocache.setstock = int.parse(listcontroler[index].text);
+        break;
+      case 3:
+        Productocache.setprecC = double.parse(listcontroler[index].text);
+        break;
+      case 4:
+        Productocache.setprecV = double.parse(listcontroler[index].text);
+        break;
+      case 5:
+        Productocache.setcodig = int.parse(listcontroler[index].text);
+        break;
+      case 6:
+        Productocache.setcatego = _tipotrab;
+        break;
+      default:
+    }
   }
 
   void actuproducto() async {

@@ -1,5 +1,6 @@
 //import 'package:ecomersbaic/Cache.dart';
 import 'dart:ui';
+import 'package:ecomersbaic/config/validador.dart';
 import 'package:flutter/services.dart';
 import '../../config/configinterface.dart';
 import '../../controllers/cliente.dart';
@@ -122,10 +123,10 @@ class registrarbody extends State<registrarview> {
                       thumbColor: Colors.transparent,
                       value: IndexInterRegis * 1.0,
                       min: 0,
-                      max: 3,
+                      max: 2,
                       activeColor: Color(0xff707070),
                       inactiveColor: Color(0xff707070).withOpacity(0.3),
-                      divisions: 3,
+                      divisions: 2,
                       onChanged: (double value) {},
                     ),
                   ),
@@ -278,6 +279,7 @@ class registrarbody extends State<registrarview> {
                               // mensaje de error
                               String mensaje =
                                   "Evitar que las casillas esten vacias";
+                              validador val = validador();
                               // antes de insertar los datos;
                               if (IndexInterRegis < 2) {
                                 test = true;
@@ -285,32 +287,68 @@ class registrarbody extends State<registrarview> {
                                 for (var i = validecontes[IndexInterRegis][0];
                                     i < validecontes[IndexInterRegis][1] + 1;
                                     i++) {
-                                  // si i es igual a dos o que i es igual al correo
-                                  if (i == 2) {
-                                    if (this._listcontroler[i].text == "") {
-                                      test = false;
-                                    } else if ((this
-                                                ._listcontroler[i]
-                                                .text
-                                                .indexOf("@") ==
-                                            -1 &&
-                                        this
-                                                ._listcontroler[i]
-                                                .text
-                                                .indexOf(".con") ==
-                                            -1)) {
-                                      test = false;
-                                      mensaje =
-                                          "Presenta un correo mal escrito";
-                                    }
-                                  } else {
-                                    if (this._listcontroler[i].text == "") {
-                                      test = false;
-                                    }
+                                  switch (i) {
+                                    case 0:
+                                      if (!(val.valName(
+                                          this._listcontroler[i].text))) {
+                                        test = false;
+                                        mensaje =
+                                            "Presenta un nombre mal escrito";
+                                      }
+                                      break;
+                                    case 1:
+                                      if (!(val.valCelular(
+                                          this._listcontroler[i].text))) {
+                                        test = false;
+                                        mensaje =
+                                            "Presenta un celular mal escrito";
+                                      }
+                                      break;
+                                    case 2:
+                                      if (!(val.valCorreo(
+                                          this._listcontroler[i].text))) {
+                                        test = false;
+                                        mensaje =
+                                            "Presenta un correo mal escrito";
+                                      }
+                                      break;
+                                    case 3:
+                                      if (!(val.valvacio(
+                                          this._listcontroler[i].text))) {
+                                        test = false;
+                                        mensaje = "Presenta un usuario vacio";
+                                      }
+                                      break;
+                                    case 4:
+                                      if (!(val.valpassword(
+                                          this._listcontroler[i].text))) {
+                                        test = false;
+                                        mensaje =
+                                            "Presenta una contraseña insegura";
+                                      }
+                                      break;
+                                    case 5:
+                                      if (!(val.valvacio(
+                                          this._listcontroler[i].text))) {
+                                        test = false;
+                                        mensaje =
+                                            "Presenta una direccion vacia";
+                                      }
+                                      break;
+                                    case 6:
+                                      if (!(val.valvacio(
+                                          this._listcontroler[i].text))) {
+                                        test = false;
+                                        mensaje =
+                                            "Presenta una direccion alterna vacia";
+                                      }
+                                      break;
+                                    default:
                                   }
                                 }
                                 if (test) {
                                   if (IndexInterRegis == 1) {
+                                    // comprueba si el usuario a registrar ya esiste
                                     Datosuser dat = await usres!.read({
                                       "usser": _listcontroler[
                                               validecontes[IndexInterRegis][0]]
@@ -321,7 +359,10 @@ class registrarbody extends State<registrarview> {
                                     });
                                     print("${dat.getiduser}");
                                     if (dat.getiduser != 0) {
-                                      print("El usuario ya existe");
+                                      mensajealert().customShapeSnackBar(
+                                          this._context as BuildContext,
+                                          "El usuario ya existe",
+                                          "R");
                                     } else {
                                       IndexInterRegis++;
                                     }
@@ -341,8 +382,24 @@ class registrarbody extends State<registrarview> {
                                 for (var i = validecontes[IndexInterRegis][0];
                                     i < validecontes[IndexInterRegis][1] + 1;
                                     i++) {
-                                  if (this._listcontroler[i].text == "") {
-                                    test = false;
+                                  switch (i) {
+                                    case 5:
+                                      if (!(val.valvacio(
+                                          this._listcontroler[i].text))) {
+                                        test = false;
+                                        mensaje =
+                                            "Presenta una direccion vacia";
+                                      }
+                                      break;
+                                    case 6:
+                                      if (!(val.valvacio(
+                                          this._listcontroler[i].text))) {
+                                        test = false;
+                                        mensaje =
+                                            "Presenta una direccion alterna vacia";
+                                      }
+                                      break;
+                                    default:
                                   }
                                 }
                                 if (test) {
@@ -363,6 +420,7 @@ class registrarbody extends State<registrarview> {
                                               "http://localhost:9000/img/sticker.webp",
                                         }),
                                         (a) {}) as int;
+                                    // comprueba si hay un error al realizar la insercion
                                     switch (stado) {
                                       case 200:
                                         mensajealert().customShapeSnackBar(
@@ -381,6 +439,7 @@ class registrarbody extends State<registrarview> {
                                       "usser": _listcontroler[3].text,
                                       "pass": _listcontroler[4].text
                                     });
+                                    // comprueba si hubo un error al insertar el usuario
                                     if (dat.getiduser != 0) {
                                       await bd.update(dat.toJson());
                                       print("inicio secion el usuario");
@@ -399,7 +458,7 @@ class registrarbody extends State<registrarview> {
                                 } else {
                                   mensajealert().customShapeSnackBar(
                                       this._context as BuildContext,
-                                      "Parece que las casillas estan vacias",
+                                      "${mensaje}",
                                       "R");
                                 }
                                 setState(() {});
@@ -561,6 +620,7 @@ class registrarbody extends State<registrarview> {
                                       hintText: 'Escribe $label',
                                       suffixIcon: (tipo == "P")
                                           ? IconButton(
+                                              color: Color(0xff707070),
                                               onPressed: () {
                                                 setState(() {
                                                   widget.band = !widget.band;
