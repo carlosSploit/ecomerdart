@@ -40,6 +40,7 @@ dependencies:
   palette_generator: ^0.3.1
   syncfusion_flutter_charts: ^19.3.44+1
   syncfusion_flutter_datagrid: ^19.3.44
+  scroll_to_index: ^2.1.0
   
 dev_dependencies:
   flutter_test:

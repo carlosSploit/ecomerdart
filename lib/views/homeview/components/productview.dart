@@ -104,18 +104,21 @@ class publicaitenbody extends State<publicaitenview> {
                                       children: [
                                         Row(
                                           children: [
-                                            Expanded(child: Text(
-                                              (widget.nombre.length > 20)
-                                                  ? widget.nombre
-                                                  .substring(0, 20)
-                                                  : widget.nombre,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                fontSize: config.getsizeaproxhight(16),
-                                                fontWeight: FontWeight.w800,
+                                            Expanded(
+                                              child: Text(
+                                                (widget.nombre.length > 20)
+                                                    ? widget.nombre
+                                                        .substring(0, 20)
+                                                    : widget.nombre,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                  fontSize: config
+                                                      .getsizeaproxhight(16),
+                                                  fontWeight: FontWeight.w800,
+                                                ),
                                               ),
-                                            ),)
+                                            )
                                           ],
                                         ),
                                         Row(
@@ -126,7 +129,8 @@ class publicaitenbody extends State<publicaitenview> {
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: TextStyle(
-                                                  fontSize: config.getsizeaproxhight(15),
+                                                  fontSize: config
+                                                      .getsizeaproxhight(15),
                                                 ),
                                               ),
                                             ),
@@ -142,22 +146,31 @@ class publicaitenbody extends State<publicaitenview> {
                                                   ? Expanded(
                                                       flex: 4,
                                                       child: Container(
-                                                        alignment: Alignment.centerLeft,
+                                                        alignment: Alignment
+                                                            .centerLeft,
                                                         margin:
                                                             EdgeInsets.fromLTRB(
                                                                 0, 0, 5, 0),
                                                         child: InkWell(
-                                                          child: Icon(Icons
-                                                              .chat_bubble_rounded,
-                                                            size: config.getsizeaproxhight(24),
-                                                            color: Color(0xff707070).withOpacity(0.5),
+                                                          child: Icon(
+                                                            Icons
+                                                                .chat_bubble_rounded,
+                                                            size: config
+                                                                .getsizeaproxhight(
+                                                                    24),
+                                                            color: Color(
+                                                                    0xff707070)
+                                                                .withOpacity(
+                                                                    0.5),
                                                           ),
                                                           onTap: () {
                                                             Navigator.push(
                                                               context,
                                                               MaterialPageRoute(
                                                                 builder: (context) =>
-                                                                    maincomentview(widget.idproducto),
+                                                                    maincomentview(
+                                                                        widget
+                                                                            .idproducto),
                                                               ),
                                                             );
                                                           },
@@ -181,7 +194,9 @@ class publicaitenbody extends State<publicaitenview> {
                                                         ? TextAlign.right
                                                         : TextAlign.left,
                                                     style: TextStyle(
-                                                      fontSize: config.getsizeaproxhight(18),
+                                                      fontSize: config
+                                                          .getsizeaproxhight(
+                                                              18),
                                                       fontWeight:
                                                           FontWeight.w800,
                                                     ),
@@ -191,25 +206,37 @@ class publicaitenbody extends State<publicaitenview> {
                                               (widget.controller?.gettiouse ==
                                                       "C")
                                                   ? Container(
-                                                margin:
-                                                EdgeInsets.fromLTRB(0, 0, 15, 0),
-                                                child: Row(
-                                                  children: [
-                                                    Container(
-                                                      margin: EdgeInsets.fromLTRB(
-                                                          0, 0, 8, 0),
-                                                      child: Icon(
-                                                          Icons.inventory_2,
-                                                      size: config.getsizeaproxhight(24),
-                                                      color: Color(0xff707070).withOpacity(0.5),),
-                                                    ),
-                                                    Text(
-                                                      "${widget.stock}",
-                                                      style: TextStyle(fontSize: config.getsizeaproxhight(18),),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
+                                                      margin:
+                                                          EdgeInsets.fromLTRB(
+                                                              0, 0, 15, 0),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            margin: EdgeInsets
+                                                                .fromLTRB(
+                                                                    0, 0, 8, 0),
+                                                            child: Icon(
+                                                              Icons.inventory_2,
+                                                              size: config
+                                                                  .getsizeaproxhight(
+                                                                      24),
+                                                              color: Color(
+                                                                      0xff707070)
+                                                                  .withOpacity(
+                                                                      0.5),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "${widget.stock}",
+                                                            style: TextStyle(
+                                                              fontSize: config
+                                                                  .getsizeaproxhight(
+                                                                      18),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
                                                   : Container(),
                                             ],
                                           ),
@@ -226,113 +253,120 @@ class publicaitenbody extends State<publicaitenview> {
                               height: widget.higth.toDouble(),
                               width: 200,
                               child: Align(
-                                alignment: Alignment.topRight,
-                                child: Container(
-                                  height: config.getsizeaproxhight(50),
-                                  margin:
-                                  EdgeInsets.fromLTRB(0, 5, 0, 0),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      (widget.controller?.gettiouse !=
-                                          "C")
-                                          ? Expanded(
-                                        child: Container(
-                                          alignment: Alignment.topRight,
-                                          margin:
-                                          EdgeInsets.fromLTRB(
-                                              0, 0, 5, 0),
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                width: 35.0 +
-                                                    (widget.califica
-                                                        .toString()
-                                                        .length *
-                                                        25.0),
-                                                height: config.getsizeaproxhight(35),
-                                                child: Align(
-                                                    alignment:
-                                                    Alignment
-                                                        .center,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Container(
-                                                          margin: EdgeInsets.fromLTRB(
-                                                              10,
-                                                              0,
-                                                              0,
-                                                              0),
-                                                          child:
-                                                          Icon(
-                                                            Icons
-                                                                .favorite,
-                                                            color:
-                                                            Colors.white,
-                                                            size: config.getsizeaproxhight(35) *
-                                                                0.51,
-                                                          ),
+                                  alignment: Alignment.topRight,
+                                  child: Container(
+                                    height: config.getsizeaproxhight(50),
+                                    margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        (widget.controller?.gettiouse != "C")
+                                            ? Expanded(
+                                                child: Container(
+                                                  alignment: Alignment.topRight,
+                                                  margin: EdgeInsets.fromLTRB(
+                                                      0, 0, 5, 0),
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Container(
+                                                        width: 35.0 +
+                                                            (widget.califica
+                                                                    .toString()
+                                                                    .length *
+                                                                25.0),
+                                                        height: config
+                                                            .getsizeaproxhight(
+                                                                35),
+                                                        child: Align(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Container(
+                                                                  margin: EdgeInsets
+                                                                      .fromLTRB(
+                                                                          10,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .favorite,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    size: config
+                                                                            .getsizeaproxhight(35) *
+                                                                        0.51,
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  margin: EdgeInsets
+                                                                      .fromLTRB(
+                                                                          10,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  child: Text(
+                                                                    "${widget.califica}",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          config
+                                                                              .getsizeaproxhight(15),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            )),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      35.0 / 2),
+                                                          color: Colors.grey
+                                                              .withOpacity(0.6),
                                                         ),
-                                                        Container(
-                                                          margin: EdgeInsets.fromLTRB(
-                                                              10,
-                                                              0,
-                                                              0,
-                                                              0),
-                                                          child:
-                                                          Text(
-                                                            "${widget.califica}",
-                                                            style:
-                                                            TextStyle(color: Colors.white,fontSize: config.getsizeaproxhight(15),),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )),
-                                                decoration:
-                                                BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(
-                                                      35.0 /
-                                                          2),
-                                                  color: Colors
-                                                      .grey
-                                                      .withOpacity(
-                                                      0.6),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
                                               )
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                          : Container(),
-                                      (widget.controller?.gettiouse ==
-                                          "C")
-                                          ? loverview(
-                                        config.getsizeaproxhight(35).toInt(),
-                                        widget.controller
-                                            ?.getidclient as int,
-                                        widget.idproducto,
-                                        widget.band,
-                                        funcction,
-                                      )
-                                          : Container(),
-                                    ],
-                                  ),
-                                )
-                              ),
+                                            : Container(),
+                                        (widget.controller?.gettiouse == "C")
+                                            ? loverview(
+                                                config
+                                                    .getsizeaproxhight(35)
+                                                    .toInt(),
+                                                widget.controller?.getidclient
+                                                    as int,
+                                                widget.idproducto,
+                                                widget.band,
+                                                funcction,
+                                              )
+                                            : Container(),
+                                      ],
+                                    ),
+                                  )),
                               //color: Colors.amber,
                             ),
-                            (widget.stock <= 0)
+                            (widget.stock <= 0 &&
+                                    widget.controller?.gettiouse != "T")
                                 ? Container(
                                     height: widget.higth.toDouble(),
                                     child: Align(

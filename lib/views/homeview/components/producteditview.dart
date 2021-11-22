@@ -803,6 +803,7 @@ class contentserview extends StatefulWidget {
     listcontroler[4].text = "";
     listcontroler[5].text = "";
     path = "";
+    this.idedittext = -1;
     stadevalue = false;
     stadimage = true; // actualiza el estado de la imagen
   }

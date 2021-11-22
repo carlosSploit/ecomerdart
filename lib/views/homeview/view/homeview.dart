@@ -9,9 +9,13 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../../views/homeview/components/productview.dart';
 import '../../../negocio/Categoria_negocio.dart';
 import '../../../negocio/producto_negocio.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 // ignore: camel_case_types
 class homeview extends StatefulWidget {
+  // variables globales
+  List<Categoria> listcategori = [];
+
   @override
   homebody createState() => homebody();
 }
@@ -21,6 +25,7 @@ class homebody extends State<homeview> {
   int _selexidcateg = 0;
   Datosuser? controller;
   late configinterface config;
+  //ScrollController controlscrol = ScrollController();
 
   void actualic(int index) {
     setState(() {});
@@ -73,7 +78,8 @@ class homebody extends State<homeview> {
                   alignment: Alignment.center,
                   child: Container(
                     margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    height: config.getsizeaproxhight(Size.fromHeight(105.0).height),
+                    height:
+                        config.getsizeaproxhight(Size.fromHeight(105.0).height),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,7 +111,8 @@ class homebody extends State<homeview> {
                                   controller: textEditingController,
                                   decoration: InputDecoration(
                                       isDense: true,
-                                      contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 0, vertical: 0),
                                       border: InputBorder.none,
                                       hintText: 'Escribe el producto a buscar'),
                                 ),
@@ -146,9 +153,8 @@ class homebody extends State<homeview> {
                                 child: Text(
                                   "Categorias",
                                   style: TextStyle(
-                                    color: Color(0xff707070),
-                                    fontSize: config.getsizeaproxhight(25)
-                                  ),
+                                      color: Color(0xff707070),
+                                      fontSize: config.getsizeaproxhight(25)),
                                 ),
                               ),
                             ),
@@ -160,46 +166,81 @@ class homebody extends State<homeview> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Expanded(
-                              child: FutureBuilder<List<Categoria>>(
-                                future: catres.getlist({}),
-                                builder: (context, snapshot) {
-                                  //validadores del estado------------------------
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Align(
-                                        alignment: Alignment.center,
-                                        child: CircularProgressIndicator());
-                                  }
-                                  if (snapshot.hasError) {
-                                    return Center(
-                                      child: Text(
-                                          "Error al cargar las categorias"),
-                                    );
-                                  }
-                                  //------------------------------------------------
-                                  //capturar las categorias
-                                  var list = snapshot.data?.length ?? 0;
-                                  List<Widget> cat = [];
-                                  // inicializar las categorias
-                                  cat.add(_buildChip(
-                                      0, "Todos", Color(0xff707070)));
-                                  for (var i = 0; i < list; i++) {
-                                    var catg = snapshot.data?[i];
-
-                                    cat.add(_buildChip(catg?.getidcar,
-                                        catg?.getname, Color(0xff707070)));
-                                  }
-                                  return Container(
-                                    height: config.getsizeaproxhight(60),
-                                    margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                                    child: ListView(
-                                      scrollDirection: Axis.horizontal,
-                                      children: cat,
-                                    ),
+                                child:
+                                    // (widget.listcategori.length == 0)
+                                    //     ?
+                                    FutureBuilder<List<Categoria>>(
+                              future: catres.getlist({}),
+                              builder: (context, snapshot) {
+                                //validadores del estado------------------------
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Align(
+                                      alignment: Alignment.center,
+                                      child: CircularProgressIndicator());
+                                }
+                                if (snapshot.hasError) {
+                                  return Center(
+                                    child:
+                                        Text("Error al cargar las categorias"),
                                   );
-                                },
-                              ),
-                            ),
+                                }
+                                //------------------------------------------------
+                                //capturar las categorias
+                                var list = snapshot.data?.length ?? 0;
+                                widget.listcategori =
+                                    snapshot.data as List<Categoria>;
+                                ScrollController sc = ScrollController();
+                                List<Widget> liscat = List.generate(
+                                  widget.listcategori.length + 1,
+                                  (index) {
+                                    if (index == 0) {
+                                      return _buildChip(
+                                          0, "Todos", Color(0xff707070));
+                                    }
+                                    return _buildChip(
+                                        widget.listcategori[index - 1].getidcar,
+                                        widget.listcategori[index - 1].getname,
+                                        Color(0xff707070));
+                                  },
+                                );
+                                //------------------------------------------
+
+                                //------------------------------------------
+                                return Container(
+                                  height: config.getsizeaproxhight(60),
+                                  margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
+                                  child: ListView(
+                                    //controller: controlscrol,
+                                    scrollDirection: Axis.horizontal,
+                                    children: liscat,
+                                  ),
+                                );
+                              },
+                            )
+                                // : Container(
+                                //     height: config.getsizeaproxhight(60),
+                                //     margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
+                                //     child: ListView(
+                                //       scrollDirection: Axis.horizontal,
+                                //       children: List.generate(
+                                //         widget.listcategori.length + 1,
+                                //         (index) {
+                                //           if (index == 0) {
+                                //             return _buildChip(0, "Todos",
+                                //                 Color(0xff707070));
+                                //           }
+                                //           return _buildChip(
+                                //               widget.listcategori[index - 1]
+                                //                   .getidcar,
+                                //               widget.listcategori[index - 1]
+                                //                   .getname,
+                                //               Color(0xff707070));
+                                //         },
+                                //       ),
+                                //     ),
+                                //   ),
+                                ),
                           ],
                         ),
                       ],
@@ -294,7 +335,8 @@ class homebody extends State<homeview> {
                                         "Productos",
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
-                                          fontSize: config.getsizeaproxhight(30),
+                                          fontSize:
+                                              config.getsizeaproxhight(30),
                                         ),
                                       ),
                                       Text(
@@ -302,7 +344,8 @@ class homebody extends State<homeview> {
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
                                         style: TextStyle(
-                                          fontSize: config.getsizeaproxhight(30),
+                                          fontSize:
+                                              config.getsizeaproxhight(30),
                                         ),
                                       ),
                                     ],

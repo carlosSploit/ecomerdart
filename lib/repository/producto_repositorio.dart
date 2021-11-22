@@ -92,6 +92,7 @@ class ProductoRepositorio implements Repository<Producto> {
           },
           body: body);
       print('status code:${respose.statusCode} -> update prodcuto');
+      accs(0);
       return respose.statusCode;
     }
   }
