@@ -8,7 +8,7 @@ class bd {
   bd();
 
   static Future<Database> _openDB() async {
-    return openDatabase(join(await getDatabasesPath(), "datosdb1.db"),
+    return openDatabase(join(await getDatabasesPath(), "datosdb2.db"),
         onCreate: (db, version) {
       return db.execute('''CREATE TABLE datosusuario (
             id INTEGER PRIMARY KEY, 
@@ -17,14 +17,15 @@ class bd {
             idcarrito INTEGER, 
             iduser INTEGER,
             idinterface INTEGER,  
-            tipouse TEXT)''');
-    }, version: 4);
+            tipouse TEXT,
+            foto TEXT)''');
+    }, version: 1);
   }
 
   static Future<int> insert(Datosuser jsonAtri) async {
     Database database = await _openDB();
     return database.rawInsert(
-        "INSERT INTO datosusuario (idclient,idtrabajador,idcarrito,iduser,idinterface,tipouse) VALUES('${jsonAtri.getidclient}','${jsonAtri.getidtrabajador}','${jsonAtri.getidcarrito}','${jsonAtri.getiduser}','${jsonAtri.getidinterface}',1);");
+        "INSERT INTO datosusuario (idclient,idtrabajador,idcarrito,iduser,idinterface,tipouse,foto) VALUES('${jsonAtri.getidclient}','${jsonAtri.getidtrabajador}','${jsonAtri.getidcarrito}','${jsonAtri.getiduser}','${jsonAtri.getidinterface}','${jsonAtri.gettiouse}','${jsonAtri.getfoto}');");
     // return database.insert("datosusuario", jsonAtri);
   }
 
@@ -67,7 +68,8 @@ class bd {
         "idcarrito": Datosusermap[index]['idcarrito'],
         "idinterface": Datosusermap[index]['idinterface'],
         "iduser": Datosusermap[index]['iduser'],
-        "tipouse": Datosusermap[index]['tipouse']
+        "tipouse": Datosusermap[index]['tipouse'],
+        "foto": Datosusermap[index]['foto']
       }),
     );
   }

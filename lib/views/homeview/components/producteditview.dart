@@ -767,7 +767,6 @@ class contentserview extends StatefulWidget {
     mensajealert()
         .customShapeSnackBar(this._context as BuildContext, "$messeg", "T");
     state(() {});
-    path = "";
   }
 
   void eliminarpro() async {
@@ -805,7 +804,6 @@ class contentserview extends StatefulWidget {
     _tipotrab = Categoria.fromJson({});
     listcontroler[4].text = "";
     listcontroler[5].text = "";
-    path = "";
     this.idedittext = -1;
     stadevalue = false;
     stadimage = true; // actualiza el estado de la imagen

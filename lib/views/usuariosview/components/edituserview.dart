@@ -861,7 +861,7 @@ class contentserview extends StatefulWidget {
   void eliminarvalstado() {
     this.pathmemori = this.path;
     this.path = "";
-    stadimage = false;
+    stadimage = true;
     if (this.idedittext != -1) {
       listcontroler[this.idedittext] = "";
     }

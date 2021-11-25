@@ -41,7 +41,8 @@ class cache extends GetxController {
         "idcarrito": lista[0].getidcarrito,
         "idinterface": lista[0].getidinterface,
         "iduser": lista[0].getiduser,
-        "tipouse": lista[0].gettiouse
+        "tipouse": lista[0].gettiouse,
+        "foto": lista[0].getfoto
       });
       print("resultado - - - - - - ${this.datosuser.iduser}");
     } else {
@@ -52,7 +53,9 @@ class cache extends GetxController {
         "idcarrito": 0,
         "idinterface": 0,
         "iduser": 0,
-        "tipouse": ""
+        "tipouse": "",
+        "foto":
+            "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg"
       }));
       print("$result -> resultado de la consulta de insercion");
 
@@ -64,7 +67,8 @@ class cache extends GetxController {
           "idcarrito": lista[0].getidcarrito,
           "idinterface": lista[0].getidinterface,
           "iduser": lista[0].getiduser,
-          "tipouse": lista[0].gettiouse
+          "tipouse": lista[0].gettiouse,
+          "foto": lista[0].getfoto
         });
       }
     }

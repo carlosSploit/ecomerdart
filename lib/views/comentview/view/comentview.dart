@@ -29,12 +29,14 @@ class comentbody extends State<comentview> {
   Future<List<ComentarioProd>>? comentarios;
   TextEditingController tec = TextEditingController(text: "");
   cache memori = cache();
+  Future<Datosuser>? _datoscontroller;
   BuildContext? _context;
   late configinterface config;
   comentbody();
 
   @override
   void initState() {
+    _datoscontroller = memori.extracvar();
     cargardatos();
     super.initState();
   }
@@ -136,84 +138,128 @@ class comentbody extends State<comentview> {
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("No hay comentarios en bandeja"),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.feedback_outlined,
+                                  size: 70,
+                                  color: Color(0xff707070),
+                                ),
+                                SizedBox(
+                                  height: 14,
+                                ),
+                                Text("No hay comentarios en bandeja"),
+                              ],
+                            ),
                           ),
                         ),
                       );
               },
             ),
-            Container(
-              height: config.getsizeaproxhight(60),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: Colors.grey,
-                      width: 0.5,
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    //imagen del usuario
-                    Align(
+            FutureBuilder<Datosuser>(
+              future: _datoscontroller, // envia parametros
+              builder: (context, snapshot) {
+                //validadores del estado------------------------
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Align(
                       alignment: Alignment.center,
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                        //height: double.maxFinite,
-                        child: Container(
-                          width: config.getsizeaproxhight(40),
-                          height: config.getsizeaproxhight(40),
-                          //image de contenido
-                          child: Center(
+                      child: CircularProgressIndicator());
+                }
+                if (snapshot.hasError) {
+                  return Container(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text("Error al listar los productos"),
+                    ),
+                  );
+                }
+                //------------------------------------------------
+                //capturar las categorias
+                var list = snapshot.data ?? Datosuser.fromJson({});
+                //control.update();
+                if (list.gettiouse == "T") return Container();
+                return Container(
+                  height: config.getsizeaproxhight(60),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          color: Colors.grey,
+                          width: 0.5,
+                        ),
+                      ),
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        //imagen del usuario
+                        Align(
+                          alignment: Alignment.center,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                            //height: double.maxFinite,
                             child: Container(
-                                width: config.getsizeaproxhight(37),
-                                height: config.getsizeaproxhight(37),
-                                decoration: new BoxDecoration(
+                              width: config.getsizeaproxhight(40),
+                              height: config.getsizeaproxhight(40),
+                              //image de contenido
+                              child: Center(
+                                child: Container(
+                                  width: config.getsizeaproxhight(37),
+                                  height: config.getsizeaproxhight(37),
+                                  decoration: new BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: new Border.all(
                                         color: Colors.white, width: 2),
                                     image: new DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: new NetworkImage(
-                                            "https://i.imgur.com/BoN9kdC.png")))),
+                                      fit: BoxFit.fill,
+                                      image: new NetworkImage(
+                                        "${list.getfoto}",
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                            ),
                           ),
-                          decoration: new BoxDecoration(
-                            shape: BoxShape.circle,
+                        ),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: TextField(
+                              controller: tec,
+                              style: TextStyle(
+                                  fontSize: config.getsizeaproxhight(14)),
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Please enter a search term'),
+                            ),
                           ),
                         ),
-                      ),
+                        InkWell(
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(10, 0, 20, 0),
+                            child: Text(
+                              "Publicar",
+                              style: TextStyle(
+                                  color: Color(0xff707070),
+                                  fontSize: config.getsizeaproxhight(14)),
+                            ),
+                          ),
+                          onTap: () {
+                            insercat();
+                          },
+                        )
+                      ],
                     ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: TextField(
-                          controller: tec,
-                          style:
-                              TextStyle(fontSize: config.getsizeaproxhight(14)),
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Please enter a search term'),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(10, 0, 20, 0),
-                        child: Text(
-                          "Publicar",
-                          style: TextStyle(
-                              color: Color(0xff707070),
-                              fontSize: config.getsizeaproxhight(14)),
-                        ),
-                      ),
-                      onTap: () {
-                        insercat();
-                      },
-                    )
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
           ],
         ),

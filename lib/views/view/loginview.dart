@@ -63,7 +63,7 @@ class loginbody extends State<loginView> {
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: Text(
-                      "Iniciar Secion",
+                      "Iniciar sesiòn",
                       style: TextStyle(
                         fontSize: config.getsizeaproxhight(30),
                         fontWeight: FontWeight.w800,
@@ -177,6 +177,7 @@ class loginbody extends State<loginView> {
                             if (dat.getiduser != 0) {
                               await bd.update(dat.toJson());
                               List<Datosuser> lista = await bd.list();
+                              print("${lista[0].getfoto}");
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -195,7 +196,7 @@ class loginbody extends State<loginView> {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                "Iniciar secion",
+                                "Iniciar sesiòn",
                                 style: TextStyle(
                                   fontSize: config.getsizeaproxhight(14),
                                   color: Colors.white,

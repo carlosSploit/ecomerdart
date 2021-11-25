@@ -50,7 +50,7 @@ class insidebody extends State<insideView> {
   ];
 
   static List<String> titlesinterface = <String>[
-    "Home",
+    "Inicio",
     "Lista de pedidos",
     "Lista de usuarios",
     "",
@@ -63,7 +63,7 @@ class insidebody extends State<insideView> {
   ];
 
   static List<String> titlesinterfaceCliente = <String>[
-    "Home",
+    "Inicio",
     "Lista de pedidos",
     "",
   ];
@@ -142,6 +142,7 @@ class insidebody extends State<insideView> {
           this.idusuer = controller.getiduser;
           this.tipotrab = controller.gettiouse;
           //####################################
+          print("${controller.getfoto}------------ pefil");
           widget.memoriwi = Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -194,7 +195,7 @@ class insidebody extends State<insideView> {
                                           .createDialog(this.context);
                                     },
                                     child: Container(
-                                      child: Text("Mantenimiento Categoria"),
+                                      child: Text("Mantenimiento Categorìa"),
                                     ),
                                   ),
                                 ],
@@ -271,7 +272,7 @@ class insidebody extends State<insideView> {
                                       );
                                     },
                                     child: Container(
-                                      child: Text("Analiticas"),
+                                      child: Text("Analìticas"),
                                     ),
                                   )
                                 ],
@@ -282,7 +283,7 @@ class insidebody extends State<insideView> {
                             onTap: () async {
                               Datosuser dat = Datosuser.fromJson({});
                               await bd.update(dat.toJson());
-                              print("CERRANDO SECION");
+                              print("CERRANDO SESIÒN");
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -300,7 +301,7 @@ class insidebody extends State<insideView> {
                                     ),
                                   ),
                                   Container(
-                                    child: Text("Cerrar seccion"),
+                                    child: Text("Cerrar sesiòn"),
                                   )
                                 ],
                               ),
@@ -321,7 +322,7 @@ class insidebody extends State<insideView> {
                                     ),
                                   ),
                                   Container(
-                                    child: Text("Cerrar aplicacion"),
+                                    child: Text("Cerrar aplicaciòn"),
                                   )
                                 ],
                               ),
@@ -359,7 +360,7 @@ class insidebody extends State<insideView> {
                                     ),
                                   ),
                                   Container(
-                                    child: Text("Cerrar seccion"),
+                                    child: Text("Cerrar sesiòn"),
                                   )
                                 ],
                               ),
@@ -380,7 +381,7 @@ class insidebody extends State<insideView> {
                                     ),
                                   ),
                                   Container(
-                                    child: Text("Cerrar aplicacion"),
+                                    child: Text("Cerrar aplicaciòn"),
                                   )
                                 ],
                               ),
@@ -511,7 +512,7 @@ class insidebody extends State<insideView> {
                                           config.getsizeaproxhight(20)),
                                       image: DecorationImage(
                                           image: Image.network(
-                                                  "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg")
+                                                  "${(controller.getfoto == "") ? "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg" : controller.getfoto}")
                                               .image)),
                                 ),
                                 label: "EL",
@@ -524,7 +525,7 @@ class insidebody extends State<insideView> {
                                         config.getsizeaproxhight(20)),
                                     image: DecorationImage(
                                         image: Image.network(
-                                                "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg")
+                                                "${(controller.getfoto == "") ? "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg" : controller.getfoto}")
                                             .image),
                                   ),
                                 ),
@@ -566,7 +567,7 @@ class insidebody extends State<insideView> {
                                       borderRadius: BorderRadius.circular(20),
                                       image: DecorationImage(
                                           image: Image.network(
-                                                  "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg")
+                                                  "${(controller.getfoto == "") ? "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg" : controller.getfoto}")
                                               .image)),
                                 ),
                                 label: "EL",
@@ -578,7 +579,7 @@ class insidebody extends State<insideView> {
                                     borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
                                         image: Image.network(
-                                                "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg")
+                                                "${(controller.getfoto == "") ? "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg" : controller.getfoto}")
                                             .image),
                                   ),
                                 ),

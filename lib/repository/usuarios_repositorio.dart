@@ -32,7 +32,8 @@ class UsuarioRepositorio implements Repository<Trabajador> {
         "idcarrito":
             (body[i].containsKey("idcarrito")) ? body[i]['idcarrito'] : 0,
         "iduser": (body[i].containsKey("iduser")) ? body[i]['iduser'] : 0,
-        "tipouse": (body[i].containsKey("tipouse")) ? body[i]['tipouse'] : ""
+        "tipouse": (body[i].containsKey("tipouse")) ? body[i]['tipouse'] : "",
+        "foto": (body[i].containsKey("foto")) ? body[i]['foto'] : ""
       });
     }
     return todolist;

@@ -5,6 +5,7 @@ class Datosuser {
   int iduser = 0;
   int idinterface = 0;
   String tipouse = "";
+  String foto = "";
 
   int get getidclient => this.idclient;
   int get getidtrabajador => this.idtrabajador;
@@ -12,6 +13,7 @@ class Datosuser {
   int get getiduser => this.iduser;
   int get getidinterface => this.idinterface;
   String get gettiouse => this.tipouse;
+  String get getfoto => this.foto;
 
   Datosuser();
 
@@ -24,6 +26,7 @@ class Datosuser {
     this.idinterface =
         (json.containsKey("idinterface")) ? json['idinterface'] : 0;
     this.tipouse = (json.containsKey("tipouse")) ? json['tipouse'] : "";
+    this.foto = (json.containsKey("foto")) ? json['foto'] : "";
     //cantidadp = json['cantidadp'];
   }
 
@@ -35,6 +38,7 @@ class Datosuser {
     data['idinterface'] = idinterface;
     data['iduser'] = iduser;
     data['tipouse'] = tipouse;
+    data['foto'] = foto;
     return data;
   }
 }
