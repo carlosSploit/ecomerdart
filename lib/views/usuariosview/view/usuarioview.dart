@@ -71,11 +71,11 @@ class usuariobody extends State<usuarioview> {
                           child: TextField(
                             controller: textEditingController,
                             style: TextStyle(
-                              fontSize: config.getsizeaproxhight(14)
-                            ),
+                                fontSize: config.getsizeaproxhight(14)),
                             decoration: InputDecoration(
                                 isDense: true,
-                                contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 0, vertical: 0),
                                 border: InputBorder.none,
                                 hintText: 'Escribe un mensaje'),
                           ),
@@ -141,21 +141,50 @@ class usuariobody extends State<usuarioview> {
             for (var i = 0; i < list; i++) {
               var catg = snapshot.data?[i];
               cat.add(
-                usuariositenview(catg?.getidusua, config.getsizeaproxhight(300).toInt(), catg?.getnombre,
-                    catg?.getfoto, _selexidestado, actualizar),
+                usuariositenview(
+                    catg?.getidusua,
+                    config.getsizeaproxhight(300).toInt(),
+                    catg?.getnombre,
+                    catg?.getfoto,
+                    _selexidestado,
+                    actualizar),
               );
             }
 
             conte = (list * (80 + 10));
 
-            return Container(
-              margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              height: conte.toDouble(),
-              color: Colors.white,
-              child: Column(
-                children: cat,
-              ),
-            );
+            return (list != 0)
+                ? Container(
+                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    height: conte.toDouble(),
+                    color: Colors.white,
+                    child: Column(
+                      children: cat,
+                    ),
+                  )
+                : Container(
+                    //color: Colors.amber,
+                    height: size.height - 300,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.person_off_outlined,
+                            size: 70,
+                            color: Color(0xff707070),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text("No hay clientes registrados"),
+                        ],
+                      ),
+                    ),
+                  );
           },
         ),
       ],

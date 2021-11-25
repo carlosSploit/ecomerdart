@@ -176,82 +176,88 @@ class categoriaeditview extends StatefulWidget {
                                                                     List<Categoria>
                                                                         cat =
                                                                         [];
-                                                                    for (var i =
-                                                                            0;
-                                                                        i < list;
-                                                                        i++) {
-                                                                      var prod =
-                                                                          snapshot
-                                                                              .data?[i];
 
-                                                                      ///inicializar el contador
-                                                                      if (_tipocat
-                                                                              .getidcar !=
-                                                                          0) {
-                                                                        if (_tipocat.getidcar ==
-                                                                            prod?.getidcar) {
+                                                                    if (list !=
+                                                                        0) {
+                                                                      for (var i =
+                                                                              0;
+                                                                          i < list;
+                                                                          i++) {
+                                                                        var prod =
+                                                                            snapshot.data?[i];
+
+                                                                        ///inicializar el contador
+                                                                        if (_tipocat.getidcar !=
+                                                                            0) {
+                                                                          if (_tipocat.getidcar ==
+                                                                              prod?.getidcar) {
+                                                                            index =
+                                                                                i;
+                                                                            this.tipotrab =
+                                                                                prod as Categoria;
+                                                                          }
+                                                                        } else {
                                                                           index =
-                                                                              i;
-                                                                          this.tipotrab =
-                                                                              prod as Categoria;
+                                                                              0;
                                                                         }
-                                                                      } else {
-                                                                        index =
-                                                                            0;
+
+                                                                        // -----------------------------
+                                                                        cat.add(
+                                                                            Categoria.fromJson({
+                                                                          "id_categ":
+                                                                              prod?.getidcar,
+                                                                          "nom_categ":
+                                                                              prod?.getname
+                                                                        }));
                                                                       }
 
-                                                                      // -----------------------------
-                                                                      cat.add(Categoria
-                                                                          .fromJson({
-                                                                        "id_categ":
-                                                                            prod?.getidcar,
-                                                                        "nom_categ":
-                                                                            prod?.getname
-                                                                      }));
+                                                                      // print(
+                                                                      //     "${_tipotrab.getidtrab} - ${_tipotrab.getnomtip} -> comprobante - result");
+
+                                                                      this.tipotrab =
+                                                                          buildDropdownMenuItems(cat)[index].value
+                                                                              as Categoria;
+
+                                                                      // print(
+                                                                      //     "${tipotrab.getidtrab} - ${tipotrab.getnomtip} -> comprobante");
+
+                                                                      memortiRecar =
+                                                                          cat;
+
+                                                                      return DropdownButton(
+                                                                        value: this
+                                                                            .tipotrab,
+                                                                        items: buildDropdownMenuItems(
+                                                                            cat),
+                                                                        isExpanded:
+                                                                            true,
+                                                                        isDense:
+                                                                            true,
+                                                                        onChanged:
+                                                                            (value) {
+                                                                          Categoria
+                                                                              aux =
+                                                                              value as Categoria;
+                                                                          // this.tipotrab =
+                                                                          //     aux;
+                                                                          listcontroler.text =
+                                                                              aux.getname;
+                                                                          toquenedit1 =
+                                                                              false;
+                                                                          _tipocat =
+                                                                              aux;
+                                                                          stadevalue =
+                                                                              false;
+                                                                          state(
+                                                                              () {});
+                                                                        },
+                                                                      );
+                                                                    } else {
+                                                                      return Container(
+                                                                        child: Text(
+                                                                            "No presenta categorias"),
+                                                                      );
                                                                     }
-
-                                                                    // print(
-                                                                    //     "${_tipotrab.getidtrab} - ${_tipotrab.getnomtip} -> comprobante - result");
-
-                                                                    this.tipotrab =
-                                                                        buildDropdownMenuItems(cat)[index].value
-                                                                            as Categoria;
-
-                                                                    // print(
-                                                                    //     "${tipotrab.getidtrab} - ${tipotrab.getnomtip} -> comprobante");
-
-                                                                    memortiRecar =
-                                                                        cat;
-
-                                                                    return DropdownButton(
-                                                                      value: this
-                                                                          .tipotrab,
-                                                                      items: buildDropdownMenuItems(
-                                                                          cat),
-                                                                      isExpanded:
-                                                                          true,
-                                                                      isDense:
-                                                                          true,
-                                                                      onChanged:
-                                                                          (value) {
-                                                                        Categoria
-                                                                            aux =
-                                                                            value
-                                                                                as Categoria;
-                                                                        // this.tipotrab =
-                                                                        //     aux;
-                                                                        listcontroler.text =
-                                                                            aux.getname;
-                                                                        toquenedit1 =
-                                                                            false;
-                                                                        _tipocat =
-                                                                            aux;
-                                                                        stadevalue =
-                                                                            false;
-                                                                        state(
-                                                                            () {});
-                                                                      },
-                                                                    );
                                                                   },
                                                                 ),
                                                               ),

@@ -533,74 +533,77 @@ class contentserview extends StatefulWidget {
                                                                       List<Categoria>
                                                                           cat =
                                                                           [];
-                                                                      for (var i =
-                                                                              0;
-                                                                          i < list;
-                                                                          i++) {
-                                                                        var prod =
-                                                                            snapshot.data?[i];
+                                                                      if (list !=
+                                                                          0) {
+                                                                        for (var i =
+                                                                                0;
+                                                                            i < list;
+                                                                            i++) {
+                                                                          var prod =
+                                                                              snapshot.data?[i];
 
-                                                                        ///inicializar el contador
-                                                                        if (_tipotrab.getidcar !=
-                                                                            0) {
-                                                                          if (_tipotrab.getidcar ==
-                                                                              prod?.getidcar) {
-                                                                            index =
-                                                                                i;
-                                                                            this.tipotrab =
-                                                                                prod as Categoria;
+                                                                          ///inicializar el contador
+                                                                          if (_tipotrab.getidcar !=
+                                                                              0) {
+                                                                            if (_tipotrab.getidcar ==
+                                                                                prod?.getidcar) {
+                                                                              index = i;
+                                                                              this.tipotrab = prod as Categoria;
+                                                                            }
+                                                                          } else {
+                                                                            if (pro.getcatego.getidcar ==
+                                                                                prod?.getidcar) {
+                                                                              index = i;
+                                                                              this.tipotrab = prod as Categoria;
+                                                                            }
                                                                           }
-                                                                        } else {
-                                                                          if (pro.getcatego.getidcar ==
-                                                                              prod?.getidcar) {
-                                                                            index =
-                                                                                i;
-                                                                            this.tipotrab =
-                                                                                prod as Categoria;
-                                                                          }
+
+                                                                          // -----------------------------
+                                                                          cat.add(
+                                                                              Categoria.fromJson({
+                                                                            "id_categ":
+                                                                                prod?.getidcar,
+                                                                            "nom_categ":
+                                                                                prod?.getname
+                                                                          }));
                                                                         }
 
-                                                                        // -----------------------------
-                                                                        cat.add(
-                                                                            Categoria.fromJson({
-                                                                          "id_categ":
-                                                                              prod?.getidcar,
-                                                                          "nom_categ":
-                                                                              prod?.getname
-                                                                        }));
+                                                                        // print(
+                                                                        //     "${_tipotrab.getidtrab} - ${_tipotrab.getnomtip} -> comprobante - result");
+
+                                                                        this.tipotrab =
+                                                                            buildDropdownMenuItems(cat)[index].value
+                                                                                as Categoria;
+
+                                                                        // print(
+                                                                        //     "${tipotrab.getidtrab} - ${tipotrab.getnomtip} -> comprobante");
+
+                                                                        memortiRecar =
+                                                                            cat;
+
+                                                                        return DropdownButton(
+                                                                          value:
+                                                                              this.tipotrab,
+                                                                          items:
+                                                                              buildDropdownMenuItems(cat),
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            Categoria
+                                                                                aux =
+                                                                                value as Categoria;
+                                                                            this.tipotrab =
+                                                                                aux;
+                                                                            _tipotrab =
+                                                                                aux;
+                                                                            state(() {});
+                                                                          },
+                                                                        );
+                                                                      } else {
+                                                                        return Container(
+                                                                          child:
+                                                                              Text("No presenta categorias"),
+                                                                        );
                                                                       }
-
-                                                                      // print(
-                                                                      //     "${_tipotrab.getidtrab} - ${_tipotrab.getnomtip} -> comprobante - result");
-
-                                                                      this.tipotrab =
-                                                                          buildDropdownMenuItems(cat)[index].value
-                                                                              as Categoria;
-
-                                                                      // print(
-                                                                      //     "${tipotrab.getidtrab} - ${tipotrab.getnomtip} -> comprobante");
-
-                                                                      memortiRecar =
-                                                                          cat;
-
-                                                                      return DropdownButton(
-                                                                        value: this
-                                                                            .tipotrab,
-                                                                        items: buildDropdownMenuItems(
-                                                                            cat),
-                                                                        onChanged:
-                                                                            (value) {
-                                                                          Categoria
-                                                                              aux =
-                                                                              value as Categoria;
-                                                                          this.tipotrab =
-                                                                              aux;
-                                                                          _tipotrab =
-                                                                              aux;
-                                                                          state(
-                                                                              () {});
-                                                                        },
-                                                                      );
                                                                     },
                                                                   ),
                                                           ),
@@ -739,7 +742,7 @@ class contentserview extends StatefulWidget {
           "codigo": int.parse(
               (listcontroler[5].text == "") ? "0" : listcontroler[5].text),
           "foto": path,
-          "id_categoria": _tipotrab.getidcar
+          "id_categoria": (_tipotrab.getidcar == 0) ? 1 : _tipotrab.getidcar
         }),
         accionrecarga);
     print("El nuevo estado considerado es ${stadimage}");

@@ -137,7 +137,39 @@ class analiticbody extends State<analiticview> {
                                         print("${e.getganan} - ${e.getfecha}");
                                       }
                                       // inicializar las categorias
-                                      return analiticlineview(list);
+                                      if (list.length != 0) {
+                                        return analiticlineview(list);
+                                      } else {
+                                        return Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height -
+                                              300,
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons
+                                                      .insert_chart_outlined_outlined,
+                                                  size: 70,
+                                                  color: Color(0xff707070),
+                                                ),
+                                                SizedBox(
+                                                  height: 14,
+                                                ),
+                                                Text(
+                                                    "No presenta ventas diarias"),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     },
                                   ),
                                 ),
@@ -211,55 +243,89 @@ class analiticbody extends State<analiticview> {
                                     //capturar las categorias
                                     var list = snapshot.data as List<Analitic>;
                                     list = list.reversed.toList();
-                                    List<Widget> producif = [];
-                                    producif.add(
-                                      Container(
-                                        height: config.getsizeaproxhight(200),
-                                        child: SfCircularChart(
-                                          legend: Legend(
-                                              isVisible: true,
-                                              overflowMode:
-                                                  LegendItemOverflowMode.wrap),
-                                          tooltipBehavior: _tooltipBehavior,
-                                          series: <CircularSeries>[
-                                            RadialBarSeries<Analitic, String>(
-                                                dataSource: list,
-                                                xValueMapper: (Analitic data,
-                                                        _) =>
-                                                    ("id : " +
-                                                        data.getdatosex.getidpro
-                                                            .toString() +
-                                                        " -  Cantidad : " +
-                                                        data.getdatosex.getstock
-                                                            .toString()),
-                                                yValueMapper: (Analitic data,
-                                                        _) =>
-                                                    data.getdatosex.getstock,
-                                                cornerStyle:
-                                                    CornerStyle.bothFlat,
-                                                //dataLabelSettings: DataLabelSettings(isVisible: true),
-                                                enableTooltip: true,
-                                                maximumValue: 10)
-                                          ],
+                                    if (list.length != 0) {
+                                      List<Widget> producif = [];
+                                      producif.add(
+                                        Container(
+                                          height: config.getsizeaproxhight(200),
+                                          child: SfCircularChart(
+                                            legend: Legend(
+                                                isVisible: true,
+                                                overflowMode:
+                                                    LegendItemOverflowMode
+                                                        .wrap),
+                                            tooltipBehavior: _tooltipBehavior,
+                                            series: <CircularSeries>[
+                                              RadialBarSeries<Analitic, String>(
+                                                  dataSource: list,
+                                                  xValueMapper: (Analitic data,
+                                                          _) =>
+                                                      ("id : " +
+                                                          data.getdatosex
+                                                              .getidpro
+                                                              .toString() +
+                                                          " -  Cantidad : " +
+                                                          data.getdatosex
+                                                              .getstock
+                                                              .toString()),
+                                                  yValueMapper: (Analitic data,
+                                                          _) =>
+                                                      data.getdatosex.getstock,
+                                                  cornerStyle:
+                                                      CornerStyle.bothFlat,
+                                                  //dataLabelSettings: DataLabelSettings(isVisible: true),
+                                                  enableTooltip: true,
+                                                  maximumValue: 10)
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    );
+                                      );
 
-                                    for (Analitic e in list) {
-                                      producif.add(productanaliticview(
-                                          e.getdatosex.getidpro,
-                                          200,
-                                          e.getdatosex.getname,
-                                          e.getdatosex.getfoto,
-                                          e.getdatosex.getstock,
-                                          e.getganan,
-                                          (a) {}));
+                                      for (Analitic e in list) {
+                                        producif.add(productanaliticview(
+                                            e.getdatosex.getidpro,
+                                            200,
+                                            e.getdatosex.getname,
+                                            e.getdatosex.getfoto,
+                                            e.getdatosex.getstock,
+                                            e.getganan,
+                                            (a) {}));
+                                      }
+
+                                      // inicializar las categorias
+                                      return Column(
+                                        children: producif,
+                                      );
+                                    } else {
+                                      return Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                450,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons
+                                                    .insert_chart_outlined_outlined,
+                                                size: 70,
+                                                color: Color(0xff707070),
+                                              ),
+                                              SizedBox(
+                                                height: 14,
+                                              ),
+                                              Text(
+                                                  "No presenta ventas diarias"),
+                                            ],
+                                          ),
+                                        ),
+                                      );
                                     }
-
-                                    // inicializar las categorias
-                                    return Column(
-                                      children: producif,
-                                    );
                                   },
                                 ),
                               ],
@@ -333,54 +399,87 @@ class analiticbody extends State<analiticview> {
                                     var list = snapshot.data as List<Analitic>;
                                     list = list.reversed.toList();
                                     List<Widget> producif = [];
-                                    producif.add(
-                                      Container(
-                                        height: config.getsizeaproxhight(200),
-                                        child: SfCircularChart(
-                                          legend: Legend(
-                                              isVisible: true,
-                                              overflowMode:
-                                                  LegendItemOverflowMode.wrap),
-                                          tooltipBehavior: _tooltipBehavior,
-                                          series: <CircularSeries>[
-                                            RadialBarSeries<Analitic, String>(
-                                                dataSource: list,
-                                                xValueMapper: (Analitic data,
-                                                        _) =>
-                                                    ("id : " +
-                                                        data.getdatosex.getidpro
-                                                            .toString() +
-                                                        " -  ganacia : " +
-                                                        data.getganan
-                                                            .toString()),
-                                                yValueMapper:
-                                                    (Analitic data, _) =>
-                                                        data.getganan,
-                                                cornerStyle:
-                                                    CornerStyle.bothFlat,
-                                                //dataLabelSettings: DataLabelSettings(isVisible: true),
-                                                //enableTooltip: true,
-                                                maximumValue: 10)
-                                          ],
+                                    if (list.length != 0) {
+                                      producif.add(
+                                        Container(
+                                          height: config.getsizeaproxhight(200),
+                                          child: SfCircularChart(
+                                            legend: Legend(
+                                                isVisible: true,
+                                                overflowMode:
+                                                    LegendItemOverflowMode
+                                                        .wrap),
+                                            tooltipBehavior: _tooltipBehavior,
+                                            series: <CircularSeries>[
+                                              RadialBarSeries<Analitic, String>(
+                                                  dataSource: list,
+                                                  xValueMapper:
+                                                      (Analitic data, _) =>
+                                                          ("id : " +
+                                                              data.getdatosex
+                                                                  .getidpro
+                                                                  .toString() +
+                                                              " -  ganacia : " +
+                                                              data.getganan
+                                                                  .toString()),
+                                                  yValueMapper:
+                                                      (Analitic data, _) =>
+                                                          data.getganan,
+                                                  cornerStyle:
+                                                      CornerStyle.bothFlat,
+                                                  //dataLabelSettings: DataLabelSettings(isVisible: true),
+                                                  //enableTooltip: true,
+                                                  maximumValue: 10)
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    );
+                                      );
 
-                                    for (Analitic e in list) {
-                                      producif.add(productanaliticview(
-                                          e.getdatosex.getidpro,
-                                          200,
-                                          e.getdatosex.getname,
-                                          e.getdatosex.getfoto,
-                                          e.getdatosex.getstock,
-                                          e.getganan,
-                                          (a) {}));
+                                      for (Analitic e in list) {
+                                        producif.add(productanaliticview(
+                                            e.getdatosex.getidpro,
+                                            200,
+                                            e.getdatosex.getname,
+                                            e.getdatosex.getfoto,
+                                            e.getdatosex.getstock,
+                                            e.getganan,
+                                            (a) {}));
+                                      }
+
+                                      // inicializar las categorias
+                                      return Column(
+                                        children: producif,
+                                      );
+                                    } else {
+                                      return Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                450,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons
+                                                    .insert_chart_outlined_outlined,
+                                                size: 70,
+                                                color: Color(0xff707070),
+                                              ),
+                                              SizedBox(
+                                                height: 14,
+                                              ),
+                                              Text(
+                                                  "No presenta ventas diarias"),
+                                            ],
+                                          ),
+                                        ),
+                                      );
                                     }
-
-                                    // inicializar las categorias
-                                    return Column(
-                                      children: producif,
-                                    );
                                   },
                                 ),
                               ],

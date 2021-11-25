@@ -1,3 +1,5 @@
+import 'package:ecomersbaic/views/components/inserproductoview.dart';
+
 import '../../../config/configinterface.dart';
 import '../../../config/Cache.dart';
 import '../../../controllers/Categoria.dart';
@@ -9,7 +11,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../../views/homeview/components/productview.dart';
 import '../../../negocio/Categoria_negocio.dart';
 import '../../../negocio/producto_negocio.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
+import '../../components/buttonstadedefauld.dart';
 
 // ignore: camel_case_types
 class homeview extends StatefulWidget {
@@ -48,128 +50,127 @@ class homebody extends State<homeview> {
     //####################################
 
     return FutureBuilder<Datosuser>(
-        future: control.extracvar(),
-        builder: (context, snapshot) {
-          //validadores del estado------------------------
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Align(
+      future: control.extracvar(),
+      builder: (context, snapshot) {
+        //validadores del estado------------------------
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Align(
+              alignment: Alignment.center, child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Center(
+            child: Text("Error al cargar las categorias"),
+          );
+        }
+        //------------------------------------------------
+        //capturar las categorias
+        var list = snapshot.data ?? Datosuser.fromJson({});
+        //####################################
+        this.controller = list; //inicializamos la cache
+        //####################################
+        return new Column(
+          //controller: _scrollController,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              width: size.width,
+              height: config.getsizeaproxhight(50),
+              child: Align(
                 alignment: Alignment.center,
-                child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Text("Error al cargar las categorias"),
-            );
-          }
-          //------------------------------------------------
-          //capturar las categorias
-          var list = snapshot.data ?? Datosuser.fromJson({});
-          //####################################
-          this.controller = list; //inicializamos la cache
-          //####################################
-          return new Column(
-            //controller: _scrollController,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                width: size.width,
-                height: config.getsizeaproxhight(50),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    height:
-                        config.getsizeaproxhight(Size.fromHeight(105.0).height),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: InkWell(
-                                child: Icon(
-                                  Icons.search,
-                                  size: config.getsizeaproxhight(25),
-                                  color: Colors.grey[600],
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  height:
+                      config.getsizeaproxhight(Size.fromHeight(105.0).height),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: InkWell(
+                              child: Icon(
+                                Icons.search,
+                                size: config.getsizeaproxhight(25),
+                                color: Colors.grey[600],
+                              ),
+                              onTap: () {
+                                setState(() {});
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                              child: TextField(
+                                style: TextStyle(
+                                  fontSize: config.getsizeaproxhight(15),
                                 ),
-                                onTap: () {
-                                  setState(() {});
-                                },
+                                controller: textEditingController,
+                                decoration: InputDecoration(
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 0, vertical: 0),
+                                    border: InputBorder.none,
+                                    hintText: 'Escribe el producto a buscar'),
                               ),
                             ),
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                child: TextField(
-                                  style: TextStyle(
-                                    fontSize: config.getsizeaproxhight(15),
-                                  ),
-                                  controller: textEditingController,
-                                  decoration: InputDecoration(
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 0, vertical: 0),
-                                      border: InputBorder.none,
-                                      hintText: 'Escribe el producto a buscar'),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Color(0xff707070).withOpacity(0.4),
+                          ),
+                        ],
                       ),
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: Colors.white,
+                    border: Border.all(
+                      color: Color(0xff707070).withOpacity(0.4),
                     ),
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                width: size.width,
-                //height: 100,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 5, 0),
-                    //height: Size.fromHeight(105.0).height,
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.fromLTRB(0, 5, 5, 5),
-                                child: Text(
-                                  "Categorias",
-                                  style: TextStyle(
-                                      color: Color(0xff707070),
-                                      fontSize: config.getsizeaproxhight(25)),
-                                ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              width: size.width,
+              //height: 100,
+              child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 5, 0),
+                  //height: Size.fromHeight(105.0).height,
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(0, 5, 5, 5),
+                              child: Text(
+                                "Categorias",
+                                style: TextStyle(
+                                    color: Color(0xff707070),
+                                    fontSize: config.getsizeaproxhight(25)),
                               ),
                             ),
-                          ],
-                        ),
-                        //contenedor de la categoritas
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                                child:
-                                    // (widget.listcategori.length == 0)
-                                    //     ?
-                                    FutureBuilder<List<Categoria>>(
+                          ),
+                        ],
+                      ),
+                      //contenedor de la categoritas
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child:
+                                // (widget.listcategori.length == 0)
+                                //     ?
+                                FutureBuilder<List<Categoria>>(
                               future: catres.getlist({}),
                               builder: (context, snapshot) {
                                 //validadores del estado------------------------
@@ -217,166 +218,164 @@ class homebody extends State<homeview> {
                                   ),
                                 );
                               },
-                            )
-                                // : Container(
-                                //     height: config.getsizeaproxhight(60),
-                                //     margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                                //     child: ListView(
-                                //       scrollDirection: Axis.horizontal,
-                                //       children: List.generate(
-                                //         widget.listcategori.length + 1,
-                                //         (index) {
-                                //           if (index == 0) {
-                                //             return _buildChip(0, "Todos",
-                                //                 Color(0xff707070));
-                                //           }
-                                //           return _buildChip(
-                                //               widget.listcategori[index - 1]
-                                //                   .getidcar,
-                                //               widget.listcategori[index - 1]
-                                //                   .getname,
-                                //               Color(0xff707070));
-                                //         },
-                                //       ),
-                                //     ),
-                                //   ),
-                                ),
-                          ],
-                        ),
-                      ],
-                    ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
-              //######################################################################
-              FutureBuilder<List<Producto>>(
-                future: prores.getlist({
-                  "idcate": _selexidcateg,
-                  "iduser": controller!.getidclient,
-                  "namepe": textEditingController.text
-                }), // envia parametros
-                builder: (context, snapshot) {
-                  //validadores del estado------------------------
+            ),
+            //######################################################################
+            FutureBuilder<List<Producto>>(
+              future: prores.getlist({
+                "idcate": _selexidcateg,
+                "iduser": controller!.getidclient,
+                "namepe": textEditingController.text
+              }), // envia parametros
+              builder: (context, snapshot) {
+                //validadores del estado------------------------
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Align(
-                        alignment: Alignment.center,
-                        child: CircularProgressIndicator());
-                  }
-                  if (snapshot.hasError) {
-                    print(snapshot.error);
-                    return Container(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text("Error al listar los productos"),
-                      ),
-                    );
-                  }
-                  //------------------------------------------------
-                  //capturar las categorias
-                  var list = snapshot.data?.length ?? 0;
-                  List<Widget> cat = [];
-                  for (var i = 0; i < list; i++) {
-                    var prod = snapshot.data?[i];
-                    print("${prod?.getlcalif}");
-                    cat.add(publicaitenview(
-                        prod?.getlove,
-                        config.getsizeaproxhight(300).toInt(),
-                        prod?.getname,
-                        prod?.getfoto.replaceAll(
-                                "localhost:9000", control.getdomain.toString())
-                            as String,
-                        prod?.getdesc,
-                        prod?.getprecV * 1.0,
-                        prod?.getidpro,
-                        prod?.getlcalif,
-                        prod?.getstock, (a) {
-                      setState(() {});
-                    }));
-                  }
-                  // Contenedor de los productos
-                  //conte = ((list / 2) * (300)).toInt() + 70;
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator());
+                }
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  return Container(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text("Error al listar los productos"),
+                    ),
+                  );
+                }
+                //------------------------------------------------
+                //capturar las categorias
+                var list = snapshot.data?.length ?? 0;
+                List<Widget> cat = [];
+                for (var i = 0; i < list; i++) {
+                  var prod = snapshot.data?[i];
+                  print("${prod?.getlcalif}");
+                  cat.add(publicaitenview(
+                      prod?.getlove,
+                      config.getsizeaproxhight(300).toInt(),
+                      prod?.getname,
+                      prod?.getfoto.replaceAll(
+                              "localhost:9000", control.getdomain.toString())
+                          as String,
+                      prod?.getdesc,
+                      prod?.getprecV * 1.0,
+                      prod?.getidpro,
+                      prod?.getlcalif,
+                      prod?.getstock, (a) {
+                    setState(() {});
+                  }));
+                }
+                // Contenedor de los productos
+                //conte = ((list / 2) * (300)).toInt() + 70;
 
-                  for (var i = 0; i < cat.length; i++) {
-                    if (i % 2 == 0) {
-                      conte += config.getsizeaproxhight(300).toInt() + 10;
-                    } else {
-                      conte2 += config.getsizeaproxhight(300).toInt() + 10;
-                    }
+                for (var i = 0; i < cat.length; i++) {
+                  if (i % 2 == 0) {
+                    conte += config.getsizeaproxhight(300).toInt() + 10;
+                  } else {
+                    conte2 += config.getsizeaproxhight(300).toInt() + 10;
                   }
+                }
 
-                  conte += 70;
+                conte += 70;
 
-                  if (!((conte) > conte2)) {
-                    conte = conte2;
-                    print("sap: " + conte.toString());
-                  }
+                if (!((conte) > conte2)) {
+                  conte = conte2;
+                  print("sap: " + conte.toString());
+                }
 
-                  return (cat.length > 0)
-                      ? Container(
-                          margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          height: conte * 1.0,
-                          color: Colors.white,
-                          child: new StaggeredGridView.countBuilder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            crossAxisCount: 2,
-                            itemCount: cat.length + 1,
-                            itemBuilder: (BuildContext context, int index) {
-                              if (index == 0) {
-                                //######### texto de informacion del cantidad del producto
-                                return Container(
-                                  width: 200,
-                                  height: config.getsizeaproxhight(70),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Productos",
-                                        overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                          fontSize:
-                                              config.getsizeaproxhight(30),
-                                        ),
+                return (cat.length > 0)
+                    ? Container(
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        height: conte * 1.0,
+                        color: Colors.white,
+                        child: new StaggeredGridView.countBuilder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          crossAxisCount: 2,
+                          itemCount: cat.length + 1,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (index == 0) {
+                              //######### texto de informacion del cantidad del producto
+                              return Container(
+                                width: 200,
+                                height: config.getsizeaproxhight(70),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Productos",
+                                      overflow: TextOverflow.clip,
+                                      style: TextStyle(
+                                        fontSize: config.getsizeaproxhight(30),
                                       ),
-                                      Text(
-                                        "${cat.length} resultados",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          fontSize:
-                                              config.getsizeaproxhight(30),
-                                        ),
+                                    ),
+                                    Text(
+                                      "${cat.length} resultados",
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        fontSize: config.getsizeaproxhight(30),
                                       ),
-                                    ],
-                                  ),
-                                );
-                                //#########################################################
-                              }
-                              //######### iten ingrsado
-                              //print('producto indes: $index');
-                              return cat[index - 1];
-                            },
-                            staggeredTileBuilder: (index) =>
-                                StaggeredTile.fit(1),
-                            mainAxisSpacing: 10.0,
-                            crossAxisSpacing: 12.0,
+                                    ),
+                                  ],
+                                ),
+                              );
+                              //#########################################################
+                            }
+                            //######### iten ingrsado
+                            //print('producto indes: $index');
+                            return cat[index - 1];
+                          },
+                          staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                          mainAxisSpacing: 10.0,
+                          crossAxisSpacing: 12.0,
+                        ),
+                      )
+                    : Container(
+                        //color: Colors.amber,
+                        height: size.height - 300,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.production_quantity_limits,
+                                size: 70,
+                                color: Color(0xff707070),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Buttonstade("Agregar Producto", stadechang),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text("No hay productos en stock"),
+                            ],
                           ),
-                        )
-                      : Container(
-                          //color: Colors.amber,
-                          height: size.height - 300,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("No hay productos we"),
-                          ),
-                        );
-                },
-              ),
-              //######################################################################
-            ],
-          );
-        });
+                        ),
+                      );
+              },
+            ),
+            //######################################################################
+          ],
+        );
+      },
+    );
+  }
+
+  void stadechang(int a) {
+    inserproductoview(actualic).createDialog(this.context);
   }
 
   // cart de cada categoria, el cual actualizara el estado

@@ -328,7 +328,7 @@ class inserproductoview extends StatefulWidget {
       "descripccion": listcontroler[1].text,
       "stock": int.parse(
           (listcontroler[2].text == "") ? "0" : listcontroler[2].text),
-      "id_categoria": CategoriaMe.getidcar,
+      "id_categoria": (CategoriaMe.getidcar == 0) ? 1 : CategoriaMe.getidcar,
       "precC": double.parse(
           (listcontroler[4].text == "") ? "0.0" : listcontroler[4].text),
       "precV": double.parse(
@@ -471,50 +471,60 @@ class inserproductoview extends StatefulWidget {
                                             //###################################################
                                             int index = 0;
                                             List<Categoria> cat = [];
-                                            for (var i = 0; i < list; i++) {
-                                              var prod = snapshot.data?[i];
-                                              // inicializar el contador
-                                              if (CategoriaMe.getidcar != 0) {
-                                                if (CategoriaMe.getidcar ==
-                                                    prod?.getidcar) {
-                                                  index = i;
-                                                  this.tipotrab =
-                                                      prod as Categoria;
+                                            if (list != 0) {
+                                              for (var i = 0; i < list; i++) {
+                                                var prod = snapshot.data?[i];
+                                                // inicializar el contador
+                                                if (CategoriaMe.getidcar != 0) {
+                                                  if (CategoriaMe.getidcar ==
+                                                      prod?.getidcar) {
+                                                    index = i;
+                                                    this.tipotrab =
+                                                        prod as Categoria;
+                                                  }
+                                                } else {
+                                                  index = 0;
                                                 }
-                                              } else {
-                                                index = 0;
-                                                // this.tipotrab =
-                                                //     prod as TipTrabajador;
+
+                                                // -----------------------------
+                                                // agrega la categoria a la lista
+                                                cat.add(Categoria.fromJson({
+                                                  "id_categ": prod?.getidcar,
+                                                  "nom_categ": prod?.getname
+                                                }));
                                               }
 
-                                              // -----------------------------
-                                              cat.add(Categoria.fromJson({
-                                                "id_categ": prod?.getidcar,
-                                                "nom_categ": prod?.getname
-                                              }));
+                                              print("${index} ------- index");
+                                              print(
+                                                  "${list} ------- cantidad lista");
+                                              // print(
+                                              //     "${_tipotrab.getidtrab} - ${_tipotrab.getnomtip} -> comprobante - result");
+
+                                              this.tipotrab =
+                                                  buildDropdownMenuItems(
+                                                          cat)[index]
+                                                      .value as Categoria;
+                                              //----- return widget
+                                              return DropdownButton(
+                                                isExpanded: true,
+                                                isDense: true,
+                                                value: this.tipotrab,
+                                                items:
+                                                    buildDropdownMenuItems(cat),
+                                                onChanged: (value) {
+                                                  Categoria aux =
+                                                      value as Categoria;
+                                                  this.tipotrab = aux;
+                                                  CategoriaMe = aux;
+                                                  state(() {});
+                                                },
+                                              );
+                                            } else {
+                                              return Container(
+                                                child: Text(
+                                                    "No presenta categorias"),
+                                              );
                                             }
-
-                                            // print(
-                                            //     "${_tipotrab.getidtrab} - ${_tipotrab.getnomtip} -> comprobante - result");
-
-                                            this.tipotrab =
-                                                buildDropdownMenuItems(
-                                                        cat)[index]
-                                                    .value as Categoria;
-                                            return DropdownButton(
-                                              isExpanded: true,
-                                              isDense: true,
-                                              value: this.tipotrab,
-                                              items:
-                                                  buildDropdownMenuItems(cat),
-                                              onChanged: (value) {
-                                                Categoria aux =
-                                                    value as Categoria;
-                                                this.tipotrab = aux;
-                                                CategoriaMe = aux;
-                                                state(() {});
-                                              },
-                                            );
                                           },
                                         ),
                                 ),
