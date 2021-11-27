@@ -301,6 +301,7 @@ class contentserview extends StatefulWidget {
                           child: Container(
                             child: Column(
                               children: <Widget>[
+                                //nombre
                                 iteninfo(
                                     Icons.person,
                                     this.list[0].toString(),
@@ -308,36 +309,41 @@ class contentserview extends StatefulWidget {
                                         ? list.getnombre
                                         : tbj.getnombre,
                                     0),
+                                // direccion
                                 (this.tipo == "C")
                                     ? iteninfo(
-                                        Icons.person,
+                                        Icons.place,
                                         this.list[1].toString(),
                                         list.getdirecc,
                                         1)
                                     : Container(),
+                                //direccion alt
                                 (this.tipo == "C")
                                     ? iteninfo(
-                                        Icons.person,
+                                        Icons.place,
                                         this.list[2].toString(),
                                         list.gedirec_a,
                                         2)
                                     : Container(),
+                                //tipo de trabajador
                                 (this.tipo == "T")
                                     ? iteninfo(
-                                        Icons.person,
+                                        Icons.home_repair_service,
                                         this.list[3].toString(),
                                         tbj.gettiptranba.getnomtip,
                                         3)
                                     : Container(),
+                                // telefono
                                 iteninfo(
-                                    Icons.person,
+                                    Icons.phone,
                                     this.list[4].toString(),
                                     (this.tipo == "C")
                                         ? list.getcelula
                                         : tbj.getcelula,
                                     4),
+                                //correo
                                 iteninfo(
-                                    Icons.person,
+                                    Icons.email,
                                     this.list[5].toString(),
                                     (this.tipo == "C")
                                         ? list.getcorreo

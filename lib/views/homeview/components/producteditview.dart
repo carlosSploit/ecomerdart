@@ -259,18 +259,25 @@ class contentserview extends StatefulWidget {
                         child: Container(
                           child: Column(
                             children: <Widget>[
-                              iteninfo(Icons.person, this.list[0].toString(),
-                                  pro.getname, 0),
-                              iteninfo(Icons.person, this.list[1].toString(),
-                                  pro.getdesc, 1),
+                              // nombre del prodcuto
+                              iteninfo(Icons.drive_file_rename_outline_rounded,
+                                  this.list[0].toString(), pro.getname, 0),
+                              // descripccion
+                              iteninfo(Icons.arrow_upward,
+                                  this.list[1].toString(), pro.getdesc, 1),
+                              // stock
                               iteninfo(Icons.person, this.list[2].toString(),
                                   pro.getstock, 2),
-                              iteninfo(Icons.person, this.list[3].toString(),
-                                  pro.getprecC, 3),
-                              iteninfo(Icons.person, this.list[4].toString(),
-                                  pro.getprecV, 4),
+                              //precio de compra
+                              iteninfo(Icons.request_quote_rounded,
+                                  this.list[3].toString(), pro.getprecC, 3),
+                              //precio de venta
+                              iteninfo(Icons.request_quote_rounded,
+                                  this.list[4].toString(), pro.getprecV, 4),
+                              // codigo
                               iteninfo(Icons.person, this.list[5].toString(),
                                   pro.getcodig, 5),
+                              // id_categoria
                               iteninfo(Icons.person, this.list[6].toString(),
                                   pro.getcatego.getname, 6)
                             ],

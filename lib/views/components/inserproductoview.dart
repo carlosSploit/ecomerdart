@@ -260,18 +260,25 @@ class inserproductoview extends StatefulWidget {
                         child: Container(
                           child: Column(
                             children: <Widget>[
+                              //nombre
                               iteninfo(context, Icons.person,
                                   this.list[0].toString(), "", 0),
-                              iteninfo(context, Icons.person,
+                              //descripccion
+                              iteninfo(context, Icons.arrow_upward,
                                   this.list[1].toString(), "", 1),
+                              //stock
                               iteninfo(context, Icons.person,
                                   this.list[2].toString(), "", 2),
+                              //tipo de trab
                               iteninfo(context, Icons.person,
                                   this.list[3].toString(), "", 3),
-                              iteninfo(context, Icons.person,
+                              //precio de combra
+                              iteninfo(context, Icons.request_quote_rounded,
                                   this.list[4].toString(), "", 4),
-                              iteninfo(context, Icons.person,
+                              //precio de venta
+                              iteninfo(context, Icons.request_quote_rounded,
                                   this.list[5].toString(), "", 5),
+                              //codigo
                               iteninfo(context, Icons.person,
                                   this.list[6].toString(), "", 6),
                             ],

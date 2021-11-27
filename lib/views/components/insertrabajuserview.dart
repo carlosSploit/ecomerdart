@@ -271,17 +271,17 @@ class insertrabajuserview extends StatefulWidget {
                                 iteninfo(context, Icons.person,
                                     this.list[0].toString(), "", 0, 100, "T"),
                                 //  ususario
-                                iteninfo(context, Icons.person,
+                                iteninfo(context, Icons.badge_rounded,
                                     this.list[1].toString(), "", 1, 100, "T"),
                                 //  password
-                                iteninfo(context, Icons.person,
+                                iteninfo(context, Icons.lock_open,
                                     this.list[2].toString(), "", 2, 8, "P"),
                                 // tipo de trabajador
-                                iteninfo(context, Icons.person,
+                                iteninfo(context, Icons.home_repair_service,
                                     this.list[3].toString(), "", 3, 0, ""),
-                                iteninfo(context, Icons.person,
+                                iteninfo(context, Icons.phone,
                                     this.list[4].toString(), "", 4, 100, "N"),
-                                iteninfo(context, Icons.person,
+                                iteninfo(context, Icons.email,
                                     this.list[5].toString(), "", 5, 100, "T")
                               ],
                             ),
