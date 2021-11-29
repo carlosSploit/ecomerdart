@@ -116,8 +116,7 @@ class comentbody extends State<comentview> {
                         catg.getclien.getnombre,
                         catg.getmeg,
                         catg.getfechmess,
-                        (catg.getclien.getfoto as String).replaceAll(
-                            "localhost:9000", memori.getdomain.toString())),
+                        (catg.getclien.getfoto as String)),
                   );
                 }
 

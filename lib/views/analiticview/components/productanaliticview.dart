@@ -54,8 +54,7 @@ class productanaliticbody extends State<productanaliticview> {
     String imageperfil = widget.urlfoto;
     imageperfil = (imageperfil == "")
         ? "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg"
-        : imageperfil.replaceAll(
-            "localhost:9000", widget.control.getdomain.toString());
+        : imageperfil;
     //************* Inten ***************/
     return InkWell(
       child: Container(
@@ -126,7 +125,8 @@ class productanaliticbody extends State<productanaliticview> {
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                       style: TextStyle(
-                                          fontSize: config.getsizeaproxhight(14),
+                                          fontSize:
+                                              config.getsizeaproxhight(14),
                                           color: Colors.black),
                                     ),
                                   ),
@@ -153,7 +153,8 @@ class productanaliticbody extends State<productanaliticview> {
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                       style: TextStyle(
-                                          fontSize: config.getsizeaproxhight(14),
+                                          fontSize:
+                                              config.getsizeaproxhight(14),
                                           color: Colors.black),
                                     ),
                                   ),
@@ -180,10 +181,12 @@ class productanaliticbody extends State<productanaliticview> {
                             Expanded(
                               child: Container(
                                 padding: EdgeInsets.all(5),
-                                child: Text("S/.${widget.ganacia}", style: TextStyle(
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: config.getsizeaproxhight(15),
-                                ),
+                                child: Text(
+                                  "S/.${widget.ganacia}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: config.getsizeaproxhight(15),
+                                  ),
                                 ),
                                 //color: Colors.amber,
                               ),
@@ -202,8 +205,7 @@ class productanaliticbody extends State<productanaliticview> {
           color: Colors.white,
         ),
       ),
-      onTap: () {
-      },
+      onTap: () {},
     );
     //***********************************************/;
   }

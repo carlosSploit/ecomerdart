@@ -1,3 +1,5 @@
+import 'package:ecomersbaic/config/validador.dart';
+
 class Datosuser {
   int idclient = 0;
   int idtrabajador = 0;
@@ -26,7 +28,8 @@ class Datosuser {
     this.idinterface =
         (json.containsKey("idinterface")) ? json['idinterface'] : 0;
     this.tipouse = (json.containsKey("tipouse")) ? json['tipouse'] : "";
-    this.foto = (json.containsKey("foto")) ? json['foto'] : "";
+    this.foto =
+        (json.containsKey("foto")) ? validador().geturlimage(json['foto']) : "";
     //cantidadp = json['cantidadp'];
   }
 

@@ -16,7 +16,6 @@ class usuariositenview extends StatefulWidget {
   ValueChanged<int> actulist = (a) {};
   cache control = cache();
 
-
   usuariositenview(this.idusuario, this.higth, this.nombre, this.urlfoto,
       this.tip, this.actulist);
 
@@ -55,8 +54,7 @@ class usuariositenbody extends State<usuariositenview> {
     String imageperfil = widget.urlfoto;
     imageperfil = (imageperfil == "")
         ? "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg"
-        : imageperfil.replaceAll(
-            "localhost:9000", widget.control.getdomain.toString());
+        : imageperfil;
     config = configinterface(context);
     //************* Inten ***************/
     return InkWell(
@@ -126,7 +124,8 @@ class usuariositenbody extends State<usuariositenview> {
                                     child: Text(
                                       "${widget.nombre}",
                                       style: TextStyle(
-                                          fontSize: config.getsizeaproxhight(15),
+                                          fontSize:
+                                              config.getsizeaproxhight(15),
                                           color: Colors.black),
                                     ),
                                   ),

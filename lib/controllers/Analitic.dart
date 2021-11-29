@@ -1,9 +1,10 @@
+import 'package:ecomersbaic/config/validador.dart';
 import 'package:ecomersbaic/controllers/Producto.dart';
 
 class Analitic {
   int id = 0;
   String fecha = "";
-  double ganacia  = 0.0;
+  double ganacia = 0.0;
   Producto datosExter = Producto.fromJson({});
 
   String get getfecha => this.fecha;
@@ -13,13 +14,17 @@ class Analitic {
   Analitic();
 
   Analitic.fromJson(Map<String, dynamic> json) {
-    fecha = (json.containsKey('fecha')) ? json['fecha'].toString().split("T")[0] : "0000/00/00";
+    fecha = (json.containsKey('fecha'))
+        ? json['fecha'].toString().split("T")[0]
+        : "0000/00/00";
     ganacia = (json.containsKey('ganacia')) ? json['ganacia'] * 1.0 : 0.0;
     datosExter = Producto.fromJson({
-      "id_producto" : (json.containsKey('id_produc')) ? json['id_produc'] : 0,
+      "id_producto": (json.containsKey('id_produc')) ? json['id_produc'] : 0,
       "nombre": (json.containsKey('nombre')) ? json['nombre'] : "",
       "stock": (json.containsKey('cant')) ? json['cant'] : 0,
-      "foto": (json.containsKey('foto')) ? json['foto'] : ""
+      "foto": (json.containsKey('foto'))
+          ? validador().geturlimage(json['foto'])
+          : ""
     });
   }
 

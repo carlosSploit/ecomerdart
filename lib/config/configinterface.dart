@@ -1,3 +1,4 @@
+import 'package:ecomersbaic/config/Cache.dart';
 import 'package:flutter/cupertino.dart';
 
 // se substrae un tamaño teniendo en cuenta un tamaño predeterminado
@@ -5,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 // ignore: camel_case_types
 class configinterface {
   BuildContext context;
-
+  cache memori = cache();
   double hightstandart = 683.4285714285714;
 
   configinterface(this.context);

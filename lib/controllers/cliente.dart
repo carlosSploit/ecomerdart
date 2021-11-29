@@ -1,3 +1,4 @@
+import 'package:ecomersbaic/config/validador.dart';
 import 'package:ecomersbaic/controllers/usuario.dart';
 
 class Cliente extends Usuario {
@@ -42,7 +43,8 @@ class Cliente extends Usuario {
     //------------------------------------------------------------
     celular = (json.containsKey('celular')) ? json['celular'] : 0;
     correo = (json.containsKey('correo')) ? json['correo'] : "";
-    foto = (json.containsKey('foto')) ? json['foto'] : "";
+    foto =
+        (json.containsKey('foto')) ? validador().geturlimage(json['foto']) : "";
     idusuario = (json.containsKey('id_usuario')) ? json['id_usuario'] : 0;
     usser = (json.containsKey('usser')) ? json['usser'] : "";
     pass = (json.containsKey('pass')) ? json['pass'] : "";

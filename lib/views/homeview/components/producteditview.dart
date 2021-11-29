@@ -144,7 +144,7 @@ class contentserview extends StatefulWidget {
     String imageperfil = pro.getfoto;
     imageperfil = (imageperfil == "")
         ? "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg"
-        : imageperfil.replaceAll("localhost:9000", memori.getdomain.toString());
+        : imageperfil;
     return Stack(
       children: [
         Container(
@@ -221,7 +221,14 @@ class contentserview extends StatefulWidget {
                                 image: new DecorationImage(
                                   fit: BoxFit.fill,
                                   image: (path == "")
-                                      ? Image.network(imageperfil).image
+                                      ? Image.network(
+                                          imageperfil,
+                                          // errorBuilder:
+                                          //     (context, exception, stackTrace) {
+                                          //   return Text(
+                                          //       "La imagen no se encuentra");
+                                          // },
+                                        ).image
                                       : Image.file(File(path)).image,
                                 ),
                               ),

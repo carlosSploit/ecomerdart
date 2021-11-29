@@ -181,8 +181,7 @@ class contentserview extends StatefulWidget {
     String imageperfil = (this.tipo == "C") ? list.getfoto : tbj.getfoto;
     imageperfil = (imageperfil == "")
         ? "https://i.pinimg.com/564x/2e/10/c3/2e10c3d36bf257b5f9cdf04d671f1e9f.jpg"
-        : imageperfil.replaceAll(
-            "localhost:9000", control.getdomain.toString());
+        : imageperfil;
     return Stack(
       children: [
         Container(

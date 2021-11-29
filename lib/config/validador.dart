@@ -1,4 +1,7 @@
+import 'package:ecomersbaic/config/Cache.dart';
+
 class validador {
+  cache memori = cache();
   // valida un nombre, que tenga mas de dos palabra que este vacio
   bool valName(String name) {
     return (name != "" && name.toString().split(" ").length > 1);
@@ -68,6 +71,13 @@ class validador {
   // validar precio de venta, eñ cual el precio de compra es menor que el de venta
   bool valCoinsVenta(double Compra, double Venta) {
     return (Compra <= Venta && Venta != 0);
+  }
+
+  // bora una nueva ruta de imege en caso que sea erronea el dominio.....
+  String geturlimage(String domain) {
+    return domain
+        .replaceAll("localhost:9000", memori.getdomain.toString())
+        .replaceAll("192.168.1.158:9000", memori.getdomain.toString());
   }
 }
 

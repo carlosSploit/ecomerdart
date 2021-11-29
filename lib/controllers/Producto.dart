@@ -1,3 +1,5 @@
+import 'package:ecomersbaic/config/validador.dart';
+
 import 'Categoria.dart';
 
 class Producto {
@@ -103,7 +105,8 @@ class Producto {
     codigo = (json.containsKey("codigo")) ? json['codigo'] : 0;
     calificacion =
         (json.containsKey("calificacion")) ? json['calificacion'] : 0;
-    foto = (json.containsKey("foto")) ? json['foto'] : "";
+    foto =
+        (json.containsKey("foto")) ? validador().geturlimage(json['foto']) : "";
     love = (json.containsKey("lover")) ? json['lover'] : 0;
 
     // ingresar datos de la categoria

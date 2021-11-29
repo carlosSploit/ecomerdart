@@ -1,3 +1,5 @@
+import 'package:ecomersbaic/config/validador.dart';
+
 import 'Producto.dart';
 
 class Dettallv {
@@ -37,7 +39,9 @@ class Dettallv {
       "nombre": (json.containsKey("nombre")) ? json['nombre'] : "",
       "descripccion":
           (json.containsKey("descripccion")) ? json['descripccion'] : "",
-      "foto": (json.containsKey("foto")) ? json['foto'] : "",
+      "foto": (json.containsKey("foto"))
+          ? validador().geturlimage(json['foto'])
+          : "",
       "love": (json.containsKey("lover")) ? json['lover'] : 0,
       "precV": (json.containsKey("precV")) ? json['precV'] : 0
     });
