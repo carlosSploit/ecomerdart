@@ -442,14 +442,19 @@ class registrarbody extends State<registrarview> {
                                     // comprueba si hubo un error al insertar el usuario
                                     if (dat.getiduser != 0) {
                                       await bd.update(dat.toJson());
-                                      print("inicio secion el usuario");
                                       List<Datosuser> lista = await bd.list();
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MyApp(lista[0].getidinterface)),
-                                      );
+                                      mensajealert().customShapeSnackBar(
+                                          this._context as BuildContext,
+                                          "Se creo la cuenta con exito",
+                                          "T");
+                                      Future.delayed(Duration(seconds: 6), () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MyApp(
+                                                  lista[0].getidinterface)),
+                                        );
+                                      });
                                     } else {
                                       print("no se a logrado iniciar secion");
                                     }

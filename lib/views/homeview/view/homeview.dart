@@ -294,7 +294,7 @@ class homebody extends State<homeview> {
                 return (cat.length > 0)
                     ? Container(
                         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        height: conte * 1.0,
+                        height: (conte * 1.0) + 100,
                         color: Colors.white,
                         child: new StaggeredGridView.countBuilder(
                           physics: const NeverScrollableScrollPhysics(),

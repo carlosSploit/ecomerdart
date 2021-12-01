@@ -291,14 +291,14 @@ class inserproductoview extends StatefulWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          insertartrabajador();
+                          insertarProducto();
                         },
                         child: Container(
                           height: config.getsizeaproxhight(50),
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Ingresar Trabajador",
+                              "Ingresar Producto",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700),
@@ -329,7 +329,7 @@ class inserproductoview extends StatefulWidget {
     );
   }
 
-  void insertartrabajador() async {
+  void insertarProducto() async {
     Producto tbj = Producto.fromJson({
       "nombre": listcontroler[0].text,
       "descripccion": listcontroler[1].text,
@@ -477,7 +477,12 @@ class inserproductoview extends StatefulWidget {
                                                 snapshot.data?.length ?? 0;
                                             //###################################################
                                             int index = 0;
-                                            List<Categoria> cat = [];
+                                            List<Categoria> cat = [
+                                              Categoria.fromJson({
+                                                "id_categ": 1,
+                                                "nom_categ": "Default"
+                                              })
+                                            ];
                                             if (list != 0) {
                                               for (var i = 0; i < list; i++) {
                                                 var prod = snapshot.data?[i];
