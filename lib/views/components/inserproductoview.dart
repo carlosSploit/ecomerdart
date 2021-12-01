@@ -488,9 +488,11 @@ class inserproductoview extends StatefulWidget {
                                                 var prod = snapshot.data?[i];
                                                 // inicializar el contador
                                                 if (CategoriaMe.getidcar != 0) {
+                                                  print(
+                                                      "${CategoriaMe.getidcar} == ${prod?.getidcar}");
                                                   if (CategoriaMe.getidcar ==
                                                       prod?.getidcar) {
-                                                    index = i;
+                                                    index = i + 1;
                                                     this.tipotrab =
                                                         prod as Categoria;
                                                   }
@@ -526,6 +528,7 @@ class inserproductoview extends StatefulWidget {
                                                 onChanged: (value) {
                                                   Categoria aux =
                                                       value as Categoria;
+                                                  print(aux.getidcar);
                                                   this.tipotrab = aux;
                                                   CategoriaMe = aux;
                                                   state(() {});
