@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:ecomersbaic/config/bdcache.dart';
-import 'package:ecomersbaic/controllers/datosuser.dart';
+import '../../../config/bdcache.dart';
+import '../../../controllers/datosuser.dart';
 
 import '../../../config/configinterface.dart';
 import '../../../controllers/Analitic.dart';

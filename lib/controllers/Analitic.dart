@@ -1,5 +1,5 @@
-import 'package:ecomersbaic/config/validador.dart';
-import 'package:ecomersbaic/controllers/Producto.dart';
+import '../config/validador.dart';
+import '../controllers/Producto.dart';
 
 class Analitic {
   int id = 0;

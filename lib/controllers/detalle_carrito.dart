@@ -1,4 +1,4 @@
-import 'package:ecomersbaic/config/validador.dart';
+import '../config/validador.dart';
 
 import 'Producto.dart';
 

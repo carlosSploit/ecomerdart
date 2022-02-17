@@ -1,4 +1,4 @@
-import 'package:ecomersbaic/config/validador.dart';
+//import './config/validador.dart';
 import '../../controllers/datosuser.dart';
 import 'package:flutter/material.dart';
 import '../../views/view/insideview.dart';

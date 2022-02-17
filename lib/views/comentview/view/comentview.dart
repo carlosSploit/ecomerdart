@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:ecomersbaic/config/bdcache.dart';
+import '../../../config/bdcache.dart';
 
 import '../../../config/configinterface.dart';
 import '../../../config/Cache.dart';

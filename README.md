@@ -2,15 +2,28 @@
 
 A new Flutter project.
 
-## Getting Started
+## Ejecutar Tdd
 
-This project is a starting point for a Flutter application.
+En caso que quieras ejecutar un tdd en la aplicacion, para luego hacerle mejoras o reusar dichos metodos. Tienes que crear un archivo dart, con el nombre que termine en \_test dentro de la carpeta test.
 
-A few resources to get you started if this is your first Flutter project:
+Por otro lado al realizar esto, se tendra que colocar codigo para ejecutar un tdd, como el metodo test, que es un metodo para aplicar un test unitario, por otro lado tambien se usa el metodo expect, o metodo de espera, que presenta dos paramtros, que son lo que se calcula o se comprueba, y lo esperado por esa comprobacion. Esto se ve reflejado en el siguiente ejemplo:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```
+import 'package:flutter_test/flutter_test.dart';
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+// ejecucion del metodo tedd
+void main() {
+  // entrada y saldia de datos de un mensaje
+  test("Probar una suma", () async {
+    int a = 1, b = 1;
+    // lo que se pasa es la suma y lo que se espera es que sea el resultado 2
+    expect((a + b), 2);
+  });
+}
+```
+
+Ya teniendo nuestro test hecho, solo nos quedaria ejecutar el archivo, por el cual se tendra que usarse un comando de ejecucion. Considerando que el archivo de ejecucion se llama suma_test.dart, el comando seria el siguiente:
+
+```
+flutter test test/suma_test.dart
+```

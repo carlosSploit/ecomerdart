@@ -1,8 +1,8 @@
 import 'package:ecomersbaic/config/validador.dart';
 import 'package:ecomersbaic/controllers/TipTrabajador.dart';
 import 'package:ecomersbaic/controllers/usuario.dart';
-import 'package:ecomersbaic/config/configinterface.dart';
-import 'package:flutter/cupertino.dart';
+//import '../config/configinterface.dart';
+//import 'package:flutter/cupertino.dart';
 
 class Trabajador extends Usuario {
   //

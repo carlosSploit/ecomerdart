@@ -1,5 +1,4 @@
-import 'package:ecomersbaic/config/validador.dart';
-
+import '../config/validador.dart';
 import '../repository/cliente_repositorio.dart';
 import '../controllers/cliente.dart';
 import 'package:flutter/cupertino.dart';

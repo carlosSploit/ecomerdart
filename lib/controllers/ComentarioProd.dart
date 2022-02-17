@@ -1,5 +1,5 @@
-import 'package:ecomersbaic/controllers/Producto.dart';
-import 'package:ecomersbaic/controllers/cliente.dart';
+import '../controllers/Producto.dart';
+import '../controllers/cliente.dart';
 
 class ComentarioProd {
   Producto pro = Producto.fromJson({});

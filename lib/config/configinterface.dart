@@ -1,4 +1,4 @@
-import 'package:ecomersbaic/config/Cache.dart';
+import '../config/Cache.dart';
 import 'package:flutter/cupertino.dart';
 
 // se substrae un tamaño teniendo en cuenta un tamaño predeterminado

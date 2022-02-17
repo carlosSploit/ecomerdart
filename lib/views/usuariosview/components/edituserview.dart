@@ -1,6 +1,6 @@
 import 'package:ecomersbaic/config/bdcache.dart';
 import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'package:ecomersbaic/controllers/usuario.dart';
+//import 'package:ecomersbaic/controllers/usuario.dart';
 import 'package:ecomersbaic/main.dart';
 import 'package:ecomersbaic/negocio/usuarios_negocio.dart';
 

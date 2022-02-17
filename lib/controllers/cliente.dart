@@ -1,5 +1,5 @@
-import 'package:ecomersbaic/config/validador.dart';
-import 'package:ecomersbaic/controllers/usuario.dart';
+import '../config/validador.dart';
+import '../controllers/usuario.dart';
 
 class Cliente extends Usuario {
   //

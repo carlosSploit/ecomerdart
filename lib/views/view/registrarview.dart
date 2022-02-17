@@ -11,7 +11,7 @@ import '../../views/components/mensajealert.dart';
 import 'package:flutter/material.dart';
 import '../../config/bdcache.dart';
 import '../../main.dart';
-import '../components/texfielddefault.dart';
+//import '../components/texfielddefault.dart';
 
 // ignore: camel_case_types
 class registrarview extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:ecomersbaic/config/Cache.dart';
+import '../config/Cache.dart';
 
 class validador {
   cache memori = cache();

@@ -1,4 +1,4 @@
-import 'package:ecomersbaic/controllers/datosuser.dart';
+import '../controllers/datosuser.dart';
 import 'package:get/get.dart';
 import 'bdcache.dart';
 

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../../../views/pedidosview/components/pedidoitenview.dart';
 import '../../../negocio/pedido_negocio.dart';
-import '../../components/buttonstadedefauld.dart';
+//import '../../components/buttonstadedefauld.dart';
 //import 'package:whatsappfrond/homeview/components/messegeview.dart';
 
 // ignore: camel_case_types

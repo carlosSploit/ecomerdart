@@ -1,5 +1,5 @@
-import 'package:ecomersbaic/controllers/datosuser.dart';
-import 'package:ecomersbaic/negocio/usuarios_negocio.dart';
+import '../../../controllers/datosuser.dart';
+import '../../../negocio/usuarios_negocio.dart';
 
 import '../../config/configinterface.dart';
 import '../../controllers/cliente.dart';
